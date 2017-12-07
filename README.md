@@ -5,6 +5,7 @@ With this project you can use a widget in [Adobe Experience Manager 6.3](https:/
 ## Usage
 
 ### in AEM
+#### Dialog
 Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) like this example:
 ```xml
     <genericmultifield
@@ -17,6 +18,11 @@ Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) l
         name="./items"/>
 ```
 
+Example dialog:
+
+![main dialog](docs/main.png)
+
+#### Item-Dialog
 The referenced item-dialog needs "namics/genericmultifield/item-dialog" as the sling:resourceType:
 ```xml
     <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
@@ -28,6 +34,15 @@ The referenced item-dialog needs "namics/genericmultifield/item-dialog" as the s
             <!-- normal Granite UI dialog definition comes here !-->
     </jcr:root>
 ``` 
+
+Example item dialog:
+
+![multifield dialog](docs/item.png)
+
+#### Storage
+In the reporsitory the content is stored like this:
+
+![content](docs/repo.png)
 
 ### Maven Dependency
 tbd
