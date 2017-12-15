@@ -4,6 +4,15 @@ With this project you can use a widget in [Adobe Experience Manager 6.3](https:/
 
 ## Usage
 
+### Maven Dependency
+```
+    <dependency>
+      <groupId>com.namics.oss.aem</groupId>
+      <artifactId>genericmultifield</artifactId>
+      <version>0.9.0</version>
+    </dependency>
+```
+
 ### in AEM
 #### Dialog
 Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) like this example:
@@ -45,8 +54,6 @@ In the reporsitory the content is stored like this:
 
 ![content](docs/repo.png)
 
-### Maven Dependency
-tbd
 
 ### Requirements
 * AEM 6.3 with Touch UI
