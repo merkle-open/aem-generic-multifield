@@ -20,6 +20,15 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Samuel Schaeublin</name>
+            <email>samuel.schaeublin@namics.com</email>
+            <organization>Namics AG</organization>
+            <organizationUrl>http://www.namics.com</organizationUrl>
+        </developer>
+    </developers>
+
     <repositories>
         <repository>
             <id>adobe-public-releases</id>
