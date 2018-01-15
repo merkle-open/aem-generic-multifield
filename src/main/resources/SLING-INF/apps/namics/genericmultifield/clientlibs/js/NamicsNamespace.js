@@ -1,2 +1,2 @@
 // Create the namespace
-Namics = {};
+var Namics = Namics || {};
