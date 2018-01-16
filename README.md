@@ -9,7 +9,7 @@ With this project you can use a widget in [Adobe Experience Manager 6.3](https:/
     <dependency>
       <groupId>com.namics.oss.aem</groupId>
       <artifactId>genericmultifield</artifactId>
-      <version>0.9.0</version>
+      <version>0.9.1</version>
     </dependency>
 ```
 
