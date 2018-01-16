@@ -64,7 +64,6 @@
         <input type="hidden" name="./jcr:lastModified"/>
         <input type="hidden" name="./jcr:lastModifiedBy"/>
         <coral-dialog-header class="cq-dialog-header u-coral-clearFix">
-            <%= outVar(xssAPI, i18n, title) %>
             <div class="cq-dialog-actions u-coral-pullRight">
                 <button <%= getHelpAttrs(slingRequest, cfg, xssAPI, i18n).build() %>>
                     <i class="coral-Icon coral-Icon--helpCircle"></i>
@@ -78,6 +77,7 @@
                     <i class="coral-Icon coral-Icon--check"></i>
                 </button>
             </div>
+            <%= outVar(xssAPI, i18n, title) %>
         </coral-dialog-header>
         <coral-dialog-content>
             <%
