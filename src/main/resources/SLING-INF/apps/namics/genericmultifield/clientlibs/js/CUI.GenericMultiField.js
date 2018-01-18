@@ -46,6 +46,7 @@
 			this.itemStorageNode = options.itemstoragenode || opt.getAttribute('data-itemstoragenode') || "items";
 			this.itemNameProperty = options.itemnameproperty || opt.getAttribute('data-itemnameproperty') || "jcr:title";
 			this.itemNameDisplayStrategy = options.itemnamedisplaystrategy || opt.getAttribute('data-itemnamedisplaystrategy');
+			this.minElements = options.minelements || opt.getAttribute('data-minelements');
 			this.maxElements = options.maxelements || opt.getAttribute('data-maxelements');
 			this.readOnly = options.renderreadonly || opt.getAttribute('data-renderreadonly');
 
@@ -59,14 +60,15 @@
 				this._addListeners();
 			}
 			// get list elements
-			this._updateList();
+			this._updateList(false);
 		},
 
 		/**
 		 * Performs an ajax call to the storage node and updates the list entries.
+		 * @param triggerEvent (Boolean) If "change" event should be triggered.
 		 * @private
 		 */
-		_updateList: function(){
+		_updateList: function(triggerEvent){
 			var that = this;
 			$.ajax({
 				type: "GET",
@@ -98,6 +100,10 @@
 
 					}
 				});
+				// trigger change event on update of items
+				if (triggerEvent === true) {
+					that._triggerChangeEvent();
+				}
 			});
 		},
 
@@ -127,15 +133,16 @@
 		 */
 		_createListEntry: function(key, label){
 			var escapedLabel = $("<div/>").text(label).html();
+			var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
 			var li = null;
 			if (!this.readOnly){
-				li = $("<li id=" + key + " title=" + escapedLabel + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + escapedLabel + "</div></li>");
+				li = $("<li id=" + key + " title=" + labelWithKeyAsFallback + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + labelWithKeyAsFallback + "</div></li>");
 				li.append($(removeButton));
 				li.append(editButton);
 				li.append(moveButton);
 			}
 			else{
-				li = $("<li class='coral-List-item' title=" + escapedLabel + ">" + escapedLabel + "</li>");
+				li = $("<li class='coral-List-item' title=" + labelWithKeyAsFallback + ">" + labelWithKeyAsFallback + "</li>");
 			}
 			return li;
 		},
@@ -157,8 +164,8 @@
 			});
 
 			this.$element.on("click", ".js-coral-GenericMultiField-edit", function (e) {
-				var currentItemId = $(this).closest("li").attr("id")
-				that._openEditDialog(currentItemId);
+				var currentItem = $(this).closest("li");
+				that._editItem(currentItem);
 			});
 
 
@@ -215,7 +222,7 @@
 					return {};
 				},
 				onSuccess: function () {
-					that._updateList();
+					that._updateList(true);
 					return $.Deferred().promise();
 				}
 			}
@@ -223,6 +230,14 @@
 			Namics.DialogFrame.openDialog(dialog);
 		},
 
+		/**
+		 * Edits an item by opening the item dialog.
+		 * @param item List item to be edited
+		 * @private
+		 */
+		_editItem: function(item) {
+			this._openEditDialog(item.attr("id"));
+		},
 
 		/**
 		 * Adds a new item by opening the empty item dialog if maxElements is not reached.
@@ -255,35 +270,52 @@
 		 * @param item the list item to be deleted
 		 */
 		_removeItem: function(item){
-			var that = this;
-			$(".genericmultifield-deleteitem-notice").modal({
-				type: "notice",
-				buttons: [{
-					label: Granite.I18n.get("Cancel"),
-					className: "coral-Button",
-					click: function(evt) {
-						this.hide();
-						$(".genericmultifield-deleteitem-notice").modal("hide");
-					}
-				},
-					{
-						label: Granite.I18n.get("Delete"),
-						className: "coral-Button coral-Button--warning",
+			var that = this,
+				currentElements = this.$element.find("li").length;
+
+			if (!this.minElements || (currentElements > this.minElements)){
+				$(".genericmultifield-deleteitem-notice").modal({
+					type: "notice",
+					buttons: [{
+						label: Granite.I18n.get("Cancel"),
+						className: "coral-Button",
 						click: function(evt) {
 							this.hide();
 							$(".genericmultifield-deleteitem-notice").modal("hide");
+						}
+					},
+						{
+							label: Granite.I18n.get("Delete"),
+							className: "coral-Button coral-Button--warning",
+							click: function(evt) {
+								this.hide();
+								$(".genericmultifield-deleteitem-notice").modal("hide");
 
-							$.ajax({
-								type: "POST",
-								data: ":operation=delete",
-								url: that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id")
-							}).done(function(data) {
-								item.remove();
-							});
+								$.ajax({
+									type: "POST",
+									data: ":operation=delete",
+									url: that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id")
+								}).done(function(data) {
+									item.remove();
+								});
 
+							}
+						}]
+				}).modal("show");
+			}
+			else{
+				$(".genericmultifield-minelements-notice").modal({
+					type: "notice",
+					buttons: [{
+						label: Granite.I18n.get("OK"),
+						className: "coral-Button",
+						click: function(evt) {
+							this.hide();
+							$(".genericmultifield-minelements-notice").modal("hide");
 						}
 					}]
-			}).modal("show");
+				}).modal("show");
+			}
 		},
 
 		/**
@@ -352,6 +384,14 @@
 				x: touch.pageX || e.pageX,
 				y: touch.pageY || e.pageY
 			};
+		},
+
+		/**
+		 * Triggers the change event with the DOM element as the source.
+		 * @private
+		 */
+		_triggerChangeEvent: function () {
+			this.$element.trigger("change");
 		}
 	});
 

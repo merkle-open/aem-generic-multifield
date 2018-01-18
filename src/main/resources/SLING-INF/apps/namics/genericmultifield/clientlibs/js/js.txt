@@ -1,3 +1,4 @@
 NamicsNamespace.js
 GenericMultiFieldDialogFrame.js
 CUI.GenericMultiField.js
+validations.js

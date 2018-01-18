@@ -114,3 +114,8 @@
 	margin-top: 0.2em;
 	margin-bottom: 0.2em;
 }
+
+.coral-GenericMultiField.is-invalid {
+	border-color: #e14132;
+	color: #e14132;
+}
