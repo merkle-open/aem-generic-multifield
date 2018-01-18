@@ -71,8 +71,8 @@ Build locally with Maven
 ``` 
 
 
-[travis-master]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=master
-[travis-develop]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=develop
+[travis-master]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=6.3%2Fmaster
+[travis-develop]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=6.3%2Fdevelop
 [travis-url]: https://travis-ci.org/namics/aem-generic-multifield
-[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss/aem-generic-multifield/badge.svg
-[maven-central]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss/aem-generic-multifield
+[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg
+[maven-central]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield
