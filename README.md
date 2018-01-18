@@ -25,6 +25,7 @@ Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) l
         itemStorageNode="items"
         itemNameProperty="title"
         name="./items"
+        minElements="3"
         maxElements="5"/>
 ```
 
