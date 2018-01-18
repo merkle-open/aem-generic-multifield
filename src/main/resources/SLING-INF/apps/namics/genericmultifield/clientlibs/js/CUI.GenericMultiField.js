@@ -133,15 +133,16 @@
 		 */
 		_createListEntry: function(key, label){
 			var escapedLabel = $("<div/>").text(label).html();
+			var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
 			var li = null;
 			if (!this.readOnly){
-				li = $("<li id=" + key + " title=" + escapedLabel + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + escapedLabel + "</div></li>");
+				li = $("<li id=" + key + " title=" + labelWithKeyAsFallback + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + labelWithKeyAsFallback + "</div></li>");
 				li.append($(removeButton));
 				li.append(editButton);
 				li.append(moveButton);
 			}
 			else{
-				li = $("<li class='coral-List-item' title=" + escapedLabel + ">" + escapedLabel + "</li>");
+				li = $("<li class='coral-List-item' title=" + labelWithKeyAsFallback + ">" + labelWithKeyAsFallback + "</li>");
 			}
 			return li;
 		},
