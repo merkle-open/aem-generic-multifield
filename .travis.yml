@@ -22,8 +22,8 @@ cache:
     - ~/.m2/repository
 branches:
   only:
-    - 6.3/master
-    - 6.3/develop                                                            
+    - /^\d+\.\d+(\.\d+)?\/master$/
+    - /^\d+\.\d+(\.\d+)?\/develop$/
 notifications:
   email:
     on_success: change

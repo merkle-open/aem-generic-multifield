@@ -1,5 +1,11 @@
 # Generic Multifield for AEM 6.3
 
+System        | Status
+--------------|------------------------------------------------        
+CI master     | [![Build Status][travis-master]][travis-url]
+CI develop    | [![Build Status][travis-develop]][travis-url]
+Dependency    | [![Maven Central][maven-central-version]][maven-central]
+
 With this project you can use a widget in [Adobe Experience Manager 6.3](https://helpx.adobe.com/experience-manager/6-3/release-notes.html) Touch UI which lets you create a generic multifield in a dialog.
 
 ## Usage
