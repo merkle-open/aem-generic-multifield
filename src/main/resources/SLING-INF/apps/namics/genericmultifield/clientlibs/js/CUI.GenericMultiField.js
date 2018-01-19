@@ -290,15 +290,12 @@
 							click: function(evt) {
 								this.hide();
 								$(".genericmultifield-deleteitem-notice").modal("hide");
-
-								$.ajax({
-									type: "POST",
-									data: ":operation=delete",
-									url: that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id")
-								}).done(function(data) {
-									item.remove();
-								});
-
+								if (currentElements == 1) {
+									// delete whole itemStorageNode if last item is being removed
+									_deleteNode(that.crxPath + "/" + that.itemStorageNode);
+								} else {
+									_deleteNode(that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id"));
+								}
 							}
 						}]
 				}).modal("show");
@@ -315,6 +312,16 @@
 						}
 					}]
 				}).modal("show");
+			}
+
+			function _deleteNode(path) {
+				$.ajax({
+					type: "POST",
+					data: ":operation=delete",
+					url: path
+				}).done(function(data) {
+					item.remove();
+				});
 			}
 		},
 
