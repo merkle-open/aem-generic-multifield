@@ -1,14 +1,3 @@
-
-.cq-dialog.item-dialog.cq-dialog-floating {
-	width: 35rem;
-	position: absolute;
-	top: 0;
-	left: 0;
-	z-index: 1030;
-	border: 0.5rem solid rgba(120, 120, 120, 0.8);
-	box-shadow: 0.0625rem 0.4375rem 1.5rem 0rem rgba(120, 120, 120, 0.8);
-}
-
 .coral-GenericMultiField {
 	display: inline-block;
 	-webkit-box-sizing: border-box;
@@ -118,4 +107,24 @@
 .coral-GenericMultiField.is-invalid {
 	border-color: #e14132;
 	color: #e14132;
+}
+
+/* show the genericmultifield backdrop only when original backdrop is not visible */
+.cq-dialog-backdrop[style*='display:none'],.cq-dialog-backdrop:not(.is-open) ~ .cq-dialog-backdrop-genericmultifield {
+	z-index: 920;
+	display: block;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	-webkit-transition: opacity 0.35s;
+	-moz-transition: opacity 0.35s;
+	-o-transition: opacity 0.35s;
+	-ms-transition: opacity 0.35s;
+	transition: opacity 0.35s;
+	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	filter: alpha(opacity = 0);
 }
