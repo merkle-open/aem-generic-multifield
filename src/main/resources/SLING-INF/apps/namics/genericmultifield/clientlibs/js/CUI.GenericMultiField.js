@@ -1,3 +1,7 @@
+/**
+ * The Namics.GenericMultiField class represents an editable list
+ * of form fields for editing multi value properties.
+ */
 (function($) {
 	"use strict";
 
@@ -204,15 +208,22 @@
 		/**
 		 * Opens the edit dialog for a given item id.
 		 * If the item id is not defined, a empty dialog for a new item is loaded.
-		 * @param id the id of the current element
+		 * @param itemPath the path of the current item
 		 * @private
 		 */
-		_openEditDialog: function(id){
-			var that = this;
+		_openEditDialog: function(itemPath, cancelCallback){
+			if (!itemPath) {
+				throw new Error("Parameter 'itemPath' must be defined");
+			}
+
+			var that = this,
+				path = this.itemDialog + ".html" + itemPath;
+
 			var dialog = {
 				getConfig: function () {
 					return {
-						src: that.itemDialog + ".html" + that.crxPath + "/" + that.itemStorageNode + "/" + (id ? id : "_newitem_"),
+						src: path,
+						itemPath: Namics.Helper.manglePath(itemPath),
 						loadingMode: "auto",
 						layout: "auto",
 						isGenericMultifield:true
@@ -224,10 +235,10 @@
 				onSuccess: function () {
 					that._updateList(true);
 					return $.Deferred().promise();
-				}
+				},
+				onCancel: cancelCallback
 			}
-			Namics.DialogFrame.currentDialog = Granite.author.currentDialog;
-			Namics.DialogFrame.openDialog(dialog);
+			Namics.GenericMultifieldDialogHandler.openDialog(dialog);
 		},
 
 		/**
@@ -236,7 +247,8 @@
 		 * @private
 		 */
 		_editItem: function(item) {
-			this._openEditDialog(item.attr("id"));
+			var path = this.crxPath + "/" + this.itemStorageNode + "/" + item.attr("id");
+			this._openEditDialog(path);
 		},
 
 		/**
@@ -245,9 +257,18 @@
 		 * @private
 		 */
 		_addNewItem: function(){
+			var that = this;
 			var currentElements = this.$element.find("li").length;
+
 			if (!this.maxElements || (currentElements < this.maxElements)){
-				this._openEditDialog();
+				this._createNode(this.crxPath + "/" + this.itemStorageNode + "/*", function(path) {
+					that._openEditDialog(path, function(event, dialog) {
+					  that._deleteNode(path, function() {
+					  	// call update list after successful deletion of node
+						  that._updateList(true);
+					  });
+					});
+				});
 			}
 			else{
 				$(".genericmultifield-maxelements-notice").modal({
@@ -292,9 +313,9 @@
 								$(".genericmultifield-deleteitem-notice").modal("hide");
 								if (currentElements == 1) {
 									// delete whole itemStorageNode if last item is being removed
-									_deleteNode(that.crxPath + "/" + that.itemStorageNode);
+									that._deleteNode(that.crxPath + "/" + that.itemStorageNode, deleteItemCallback);
 								} else {
-									_deleteNode(that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id"));
+									that._deleteNode(that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id"), deleteItemCallback);
 								}
 							}
 						}]
@@ -314,14 +335,9 @@
 				}).modal("show");
 			}
 
-			function _deleteNode(path) {
-				$.ajax({
-					type: "POST",
-					data: ":operation=delete",
-					url: path
-				}).done(function(data) {
-					item.remove();
-				});
+			// remove item from DOM on successful callback
+			function deleteItemCallback(path) {
+				item.remove();
 			}
 		},
 
@@ -391,6 +407,46 @@
 				x: touch.pageX || e.pageX,
 				y: touch.pageY || e.pageY
 			};
+		},
+
+		/**
+		 * Creates a new node at given path
+		 * @param (String) path Path of node to be deleted
+		 * @return (String) Path of node that has been created
+		 * @private
+		 */
+		_createNode: function (path, callback) {
+			$.ajax({
+				type: "POST",
+				headers: {          
+			    Accept: "application/json,**/**;q=0.9"   
+			  },
+				url: path
+			}).done(function(data) {
+				if ($.isFunction(callback)) {
+					if (data && data.path) {
+						callback(data.path);
+					}
+				}
+			});
+		},
+
+		/**
+		 * Deletes the node at given path
+		 * @param (String) path Path of node to be deleted
+		 * @return (String) Path of node that has been deleted
+		 * @private
+		 */
+		_deleteNode: function (path, callback) {
+			$.ajax({
+				type: "POST",
+				data: ":operation=delete",
+				url: path
+			}).done(function(data) {
+				if ($.isFunction(callback)) {
+					callback(path);
+				}
+			});
 		},
 
 		/**

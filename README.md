@@ -40,14 +40,13 @@ Example dialog:
 ![main dialog](docs/main.png)
 
 #### Item-Dialog
-The referenced item-dialog needs "namics/genericmultifield/item-dialog" as the sling:resourceType:
 ```xml
     <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
             xmlns:jcr="http://www.jcp.org/jcr/1.0"
             xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
             jcr:primaryType="nt:unstructured"
             jcr:title="Item Dialog"
-            sling:resourceType="namics/genericmultifield/item-dialog">
+            sling:resourceType="cq/gui/components/authoring/dialog">
             <!-- normal Granite UI dialog definition comes here !-->
     </jcr:root>
 ``` 
