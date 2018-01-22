@@ -1,15 +1,11 @@
 /**
- * This part creates a new DialogFrame for the Generic Multifield. All changes are marked with "// Differ from Original".
+ * Helpers for the Generic Multifield.
  */
 ;(function ($, ns, channel, window, document, undefined) {
     "use strict";
 
     /**
-     * This dialog frame represents the Granite UI Dialog Frame in the Generic MultiField (Namics) context.
-     * It is basically a copy of the DialogFrame.js with little extensions for the Generic MultiField.
-     *
-     * @namespace
-     * @alias Namics.DialogFrame
+	 * Helpers for the Generic Multifield in the ns namespace.
      */
     ns.Helper = {
 

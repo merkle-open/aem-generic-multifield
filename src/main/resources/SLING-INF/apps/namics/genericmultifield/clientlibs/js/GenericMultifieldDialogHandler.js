@@ -1,6 +1,5 @@
 /**
- * This part creates a new DialogFrame for the Generic Multifield. All changes
- * are marked with "// Differ from Original".
+ * This part creates a new DialogFrame for the Generic Multifield.
  */
 ;
 (function($, ns, channel, window, document, undefined) {

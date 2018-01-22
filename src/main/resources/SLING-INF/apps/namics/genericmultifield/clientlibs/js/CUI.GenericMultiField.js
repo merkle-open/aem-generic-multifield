@@ -1,3 +1,7 @@
+/**
+ * The Namics.GenericMultiField class represents an editable list
+ * of form fields for editing multi value properties.
+ */
 (function($) {
 	"use strict";
 
