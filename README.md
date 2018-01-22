@@ -20,6 +20,27 @@ With this project you can use a widget in [Adobe Experience Manager 6.3](https:/
 ```
 
 ### in AEM
+Since the Generic Multifield is built as an OSGi bundle, only the bundle has to be installed into your AEM instance. 
+With the common AEM archetype it can be added within the embedded configuration of the "content-package-maven-plugin" plugin.
+```xml
+    <plugin>
+        <groupId>com.day.jcr.vault</groupId>
+        <artifactId>content-package-maven-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+            ...
+            <embeddeds>
+                <embedded>
+                    <groupId>com.namics.oss.aem</groupId>
+                    <artifactId>genericmultifield</artifactId>
+                    <target>/apps/myProject/install</target>
+                </embedded>
+            </embeddeds>
+        </configuration>
+    </plugin>
+```
+
+ 
 #### Dialog
 Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) like this example:
 ```xml
