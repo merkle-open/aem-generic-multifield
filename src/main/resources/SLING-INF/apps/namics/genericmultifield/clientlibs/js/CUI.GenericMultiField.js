@@ -238,7 +238,11 @@
 				},
 				onCancel: cancelCallback
 			}
-			Namics.GenericMultifieldDialogHandler.openDialog(dialog);
+			try {
+				Namics.GenericMultifieldDialogHandler.openDialog(dialog);
+			} catch(error) {
+				cancelCallback();
+			}
 		},
 
 		/**

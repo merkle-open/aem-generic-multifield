@@ -34,7 +34,7 @@
 		 */
 		self.openDialog = function(dialog) {
 			if (!Granite.author.DialogFrame.currentDialog) {
-				return;
+				throw new Error("Parent dialog can't be null");
 			}
 
 			// push old dialog to parent
@@ -97,7 +97,8 @@
 		function _performCloseDialog() {
 			// execute function after fading effect has finished
 			setTimeout(function waitToClose() {
-				// make sure that Granite.author.DialogFrame.currentDialog has ben cleared
+				// make sure that Granite.author.DialogFrame.currentDialog has ben
+				// cleared
 				if (Granite.author.DialogFrame.currentDialog) {
 					setTimeout(waitToClose, 50);
 				}
@@ -107,7 +108,8 @@
 				// open parent dialog if it exists
 				if (parentDialog) {
 					Granite.author.DialogFrame.openDialog(parentDialog);
-					// remove custom backdrop on the last dialog after fading effect has finished
+					// remove custom backdrop on the last dialog after fading effect has
+					// finished
 					if (self.parentDialogs && self.parentDialogs.length == 0) {
 						setTimeout(function() {
 							_removeCustomBackdrop();
