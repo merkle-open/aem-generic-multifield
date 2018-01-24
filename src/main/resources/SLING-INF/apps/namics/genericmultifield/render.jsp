@@ -23,6 +23,9 @@
 %>
 <div <%= attrs.build() %>>
 	<ol class="coral-GenericMultiField-list js-coral-GenericMultiField-list"></ol>
+	<button type="button" class="js-coral-GenericMultiField-add coral-GenericMultiField-add coral-MinimalButton">
+		<i class="coral-Icon coral-Icon--sizeS coral-Icon--addCircle coral-MinimalButton-icon"></i>
+	</button>
 </div>
 
 <%-- markup for the item deletion warning dialog--%>
