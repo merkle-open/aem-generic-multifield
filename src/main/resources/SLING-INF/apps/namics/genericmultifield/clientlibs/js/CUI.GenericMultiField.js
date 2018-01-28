@@ -5,10 +5,6 @@
 (function($) {
 	"use strict";
 
-	var addButton =
-		"<button type=\"button\" class=\"js-coral-GenericMultiField-add coral-GenericMultiField-add coral-MinimalButton\">" +
-		"<i class=\"coral-Icon coral-Icon--sizeS coral-Icon--addCircle coral-MinimalButton-icon\"></i>" +
-		"</button>";
 	var removeButton =
 		"<button type=\"button\" class=\"js-coral-GenericMultiField-remove coral-GenericMultiField-remove coral-MinimalButton\">" +
 		"<i class=\"coral-Icon coral-Icon--sizeS coral-Icon--delete coral-MinimalButton-icon\"></i>" +
@@ -57,9 +53,11 @@
 			// get the crx path of the current component from action attribute of the current form.
 			this.crxPath = this.$element.parents("form").attr("action");
 
-			if (!this.readOnly){
+			if (this.readOnly){
+				this.$element.addClass("is-disabled");
 				// add the "+" button for adding new items
-				this.ol.after(addButton);
+				$(".coral-GenericMultiField-add", this.$element).attr("disabled", "disabled");
+			} else {
 				// add button listeners
 				this._addListeners();
 			}
@@ -139,14 +137,14 @@
 			var escapedLabel = $("<div/>").text(label).html();
 			var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
 			var li = null;
-			if (!this.readOnly){
-				li = $("<li id=" + key + " title=" + labelWithKeyAsFallback + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + labelWithKeyAsFallback + "</div></li>");
-				li.append($(removeButton));
-				li.append(editButton);
-				li.append(moveButton);
-			}
-			else{
-				li = $("<li class='coral-List-item' title=" + labelWithKeyAsFallback + ">" + labelWithKeyAsFallback + "</li>");
+			li = $("<li id=" + key + " title=" + labelWithKeyAsFallback + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + labelWithKeyAsFallback + "</div></li>");
+			li.append($(removeButton));
+			li.append(editButton);
+			li.append(moveButton);
+			if (this.readOnly) {
+				$(".coral-GenericMultiField-remove", li).attr("disabled", "disabled");
+				$(".coral-GenericMultiField-edit", li).attr("disabled", "disabled");
+				$(".coral-GenericMultiField-move", li).attr("disabled", "disabled");
 			}
 			return li;
 		},
@@ -241,7 +239,9 @@
 			try {
 				Namics.GenericMultifieldDialogHandler.openDialog(dialog);
 			} catch(error) {
-				cancelCallback();
+				if ($.isFunction(cancelCallback)) {
+					cancelCallback();
+				}
 			}
 		},
 
@@ -342,6 +342,7 @@
 			// remove item from DOM on successful callback
 			function deleteItemCallback(path) {
 				item.remove();
+				that._triggerChangeEvent();
 			}
 		},
 
@@ -467,8 +468,11 @@
 
 	// Data API
 	if (CUI.options.dataAPI) {
-		$(document).on("cui-contentloaded.data-api", function(e) {
+		$(document).on("cui-contentloaded.data-api", function(e, data) {
 			$(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).genericMultiField();
+			if (data && data.restored) {
+				$(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).trigger("change");
+			}
 		});
 	}
 }(window.jQuery));

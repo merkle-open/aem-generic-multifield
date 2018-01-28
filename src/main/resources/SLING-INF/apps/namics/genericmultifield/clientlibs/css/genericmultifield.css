@@ -109,8 +109,18 @@
 	color: #e14132;
 }
 
+.coral-GenericMultiField.is-disabled {
+	color: #bebebe;
+}
+
+.coral-GenericMultiField.is-disabled .coral-GenericMultiField-listEntry {
+	background-color: #f0f0f0;
+}
+
 /* show the genericmultifield backdrop only when original backdrop is not visible */
-.cq-dialog-backdrop[style*='display:none'],.cq-dialog-backdrop:not(.is-open) ~ .cq-dialog-backdrop-genericmultifield {
+.cq-dialog-backdrop[style*='display:none'] ~ .cq-dialog-backdrop-genericmultifield,
+.cq-dialog-backdrop[style*='display: none'] ~ .cq-dialog-backdrop-genericmultifield,
+.cq-dialog-backdrop:not(.is-open) ~ .cq-dialog-backdrop-genericmultifield {
 	z-index: 920;
 	display: block;
 	position: fixed;

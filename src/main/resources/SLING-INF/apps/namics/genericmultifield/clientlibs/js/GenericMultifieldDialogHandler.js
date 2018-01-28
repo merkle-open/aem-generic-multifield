@@ -23,6 +23,13 @@
 		 * gets opened (if existing).
 		 */
 		self.parentDialogs = [];
+		/**
+		 * Array of form data from parent dialogs.
+		 * 
+		 * Save form data of parent dialogs as a stack. Whenever a dialog gets
+		 * closed, the parent gets opened (if existing) and the data gets restored.
+		 */
+		self.parentDialogsData = [];
 
 		/**
 		 * Opens a new dialog.
@@ -38,7 +45,9 @@
 			}
 
 			// push old dialog to parent
-			this.parentDialogs.push(Granite.author.DialogFrame.currentDialog);
+			self.parentDialogs.push(Granite.author.DialogFrame.currentDialog);
+			// save data of parent dialog
+			_saveDialogData();
 
 			// create custom backdrop
 			_createCustomBackdrop();
@@ -68,20 +77,29 @@
 				if ($.isFunction(_onCloseOrig)) {
 					_onCloseOrig();
 				}
-				// perform closing of dialog
-				_performCloseDialog();
+
+				// execute function after fading effect has finished
+				setTimeout(function waitToClose() {
+					// make sure that currentDialog has been cleared
+					if (Granite.author.DialogFrame.currentDialog) {
+						setTimeout(waitToClose, 50);
+					}
+
+					// perform closing of dialog
+					_performCloseDialog();
+				}, 50);
 			}
 
 			// overwrite onReady function of dialog if "onCancel" callback has been
 			// configured
-			if ($.isFunction(dialog.onCancel)) {
-				dialog.onReady = function() {
-					// if original onReady callback was set, execute it first
-					if ($.isFunction(_onReadyOrig)) {
-						_onReadyOrig();
-					}
+			dialog.onReady = function() {
+				// if original onReady callback was set, execute it first
+				if ($.isFunction(_onReadyOrig)) {
+					_onReadyOrig();
+				}
 
-					// register callback function to dialog cancelled event
+				// register callback function to dialog cancelled event
+				if ($.isFunction(dialog.onCancel)) {
 					$("form.cq-dialog[action='" + dialog.getConfig().itemPath + "'] .cq-dialog-cancel").click(dialog.onCancel);
 				}
 			}
@@ -95,28 +113,45 @@
 		 * Closes the current dialog and opens it's parent.
 		 */
 		function _performCloseDialog() {
-			// execute function after fading effect has finished
-			setTimeout(function waitToClose() {
-				// make sure that Granite.author.DialogFrame.currentDialog has ben
-				// cleared
-				if (Granite.author.DialogFrame.currentDialog) {
-					setTimeout(waitToClose, 50);
-				}
-
-				// get parent dialog
-				var parentDialog = self.parentDialogs.pop();
-				// open parent dialog if it exists
-				if (parentDialog) {
-					Granite.author.DialogFrame.openDialog(parentDialog);
+			// get parent dialog
+			var parentDialog = self.parentDialogs.pop();
+			// open parent dialog if it exists
+			if (parentDialog) {
+				Granite.author.DialogFrame.openDialog(parentDialog);
+				setTimeout(function() {
+					// restore data
+					_restoreDialogData();
 					// remove custom backdrop on the last dialog after fading effect has
 					// finished
 					if (self.parentDialogs && self.parentDialogs.length == 0) {
-						setTimeout(function() {
-							_removeCustomBackdrop();
-						}, Coral.mixin.overlay.FADETIME);
+						_removeCustomBackdrop();
 					}
-				}
-			}, Coral.mixin.overlay.FADETIME);
+				}, Coral.mixin.overlay.FADETIME);
+			}
+		}
+
+		/**
+		 * @param (Object)
+		 *          dialog Saves the dialog and it's data
+		 */
+		function _saveDialogData(dialog) {
+			self.parentDialogsData.push($("form.cq-dialog coral-dialog-content.coral-Dialog-content"));
+		}
+
+		/**
+		 * Restores the dialog and it's data
+		 * 
+		 * @param (Object)
+		 *          dialog
+		 */
+		function _restoreDialogData(dialog) {
+      var $form = $("form.cq-dialog");
+
+      // replace content with previous
+      $("coral-dialog-content.coral-Dialog-content", $form).replaceWith(self.parentDialogsData.pop());
+
+      var $dialog = $form.closest("coral-dialog");
+      $dialog.trigger("cui-contentloaded", { restored : true });
 		}
 
 		/**
