@@ -42,7 +42,7 @@
 			// is needed for IE9 compatibility
 			var opt = this.$element.get()[0];
 			// get config properties
-			this.itemDialog = options.itemdialog || opt.getAttribute('data-itemdialog');
+			this.itemDialog = ( options.mergeroot || opt.getAttribute('data-mergeroot') || '' ) + ( options.itemdialog || opt.getAttribute('data-itemdialog') );
 			this.itemStorageNode = options.itemstoragenode || opt.getAttribute('data-itemstoragenode') || "items";
 			this.itemNameProperty = options.itemnameproperty || opt.getAttribute('data-itemnameproperty') || "jcr:title";
 			this.itemNameDisplayStrategy = options.itemnamedisplaystrategy || opt.getAttribute('data-itemnamedisplaystrategy');
