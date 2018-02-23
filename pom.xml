@@ -27,6 +27,12 @@
             <organization>Namics AG</organization>
             <organizationUrl>http://www.namics.com</organizationUrl>
         </developer>
+        <developer>
+            <name>Alexandru Suciu</name>
+            <email>alexandru.suciu@namics.com</email>
+            <organization>Namics AG</organization>
+            <organizationUrl>http://www.namics.com</organizationUrl>
+        </developer>
     </developers>
 
     <repositories>
