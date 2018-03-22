@@ -23,11 +23,9 @@
 	attrs.addRel(cfg.get("rel", String.class));
 	attrs.add("title", i18n.getVar(cfg.get("title", String.class)));
 	attrs.add("data-mergeroot", mergeRoot);
-	if (cfg.get("required", false)) {
-		attrs.add("aria-required", true);
-	}
 
-	attrs.addOthers(cfg.getProperties(), "id", "rel", "class", "title", "fieldLabel", "fieldDescription", "storageWarningText", "renderReadOnly", "required");
+	attrs.addOthers(cfg.getProperties(), "id", "rel", "class", "title", "fieldLabel", "fieldDescription", "storageWarningText", "renderReadOnly");
+
 
 %>
 <div <%= attrs.build() %>>
