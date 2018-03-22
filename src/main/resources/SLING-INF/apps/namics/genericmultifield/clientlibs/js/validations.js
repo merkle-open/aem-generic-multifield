@@ -85,7 +85,7 @@
             }
 
             // validate min and max elements
-            if ($field.adaptTo("foundation-field").isRequired() || items.length > 0) {
+            if ($field.adaptTo("foundation-field").isRequired()) {
                 // validate if minElements restriction is met
                 if (items && !isNaN(minElements) && items.length < minElements) {
                     return Granite.I18n.get('At least {0} items must be created', minElements);
