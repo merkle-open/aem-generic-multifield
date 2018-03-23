@@ -37,6 +37,7 @@
 		 * @param options object containing config properties
 		 */
 		construct: function(options) {
+			this.ui = $(window).adaptTo('foundation-ui');
 			this.ol = this.$element.children("ol");
 
 			// is needed for IE9 compatibility
@@ -275,17 +276,7 @@
 				});
 			}
 			else{
-				$(".genericmultifield-maxelements-notice").modal({
-					type: "notice",
-					buttons: [{
-						label: Granite.I18n.get("OK"),
-						className: "coral-Button",
-						click: function(evt) {
-							this.hide();
-							$(".genericmultifield-maxelements-notice").modal("hide");
-						}
-					}]
-				}).modal("show");
+				this.ui.alert(Granite.I18n.get("Maximum reached"), Granite.I18n.get("Maximum number of {0} item(s) reached, you cannot add any additional items.", this.maxElements), "warning");
 			}
 		},
 
@@ -299,44 +290,23 @@
 				currentElements = this.$element.find("li").length;
 
 			if (!this.minElements || (currentElements > this.minElements)){
-				$(".genericmultifield-deleteitem-notice").modal({
-					type: "notice",
-					buttons: [{
-						label: Granite.I18n.get("Cancel"),
-						className: "coral-Button",
-						click: function(evt) {
-							this.hide();
-							$(".genericmultifield-deleteitem-notice").modal("hide");
-						}
-					},
-						{
-							label: Granite.I18n.get("Delete"),
-							className: "coral-Button coral-Button--warning",
-							click: function(evt) {
-								this.hide();
-								$(".genericmultifield-deleteitem-notice").modal("hide");
-								if (currentElements == 1) {
-									// delete whole itemStorageNode if last item is being removed
-									that._deleteNode(that.crxPath + "/" + that.itemStorageNode, deleteItemCallback);
-								} else {
-									that._deleteNode(that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id"), deleteItemCallback);
-								}
-							}
-						}]
-				}).modal("show");
+                this.ui.prompt(Granite.I18n.get("Remove Item"), Granite.I18n.get("Are you sure you want to delete this item?", this.minElements), "warning",
+                    [{text: Granite.I18n.get("Cancel")},
+                        {
+                            text: Granite.I18n.get("Delete"),
+                            warning: true,
+                            handler: function () {
+                                if (currentElements == 1) {
+                                    // delete whole itemStorageNode if last item is being removed
+                                    that._deleteNode(that.crxPath + "/" + that.itemStorageNode, deleteItemCallback);
+                                } else {
+                                    that._deleteNode(that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id"), deleteItemCallback);
+                                }
+                            }
+                        }]);
 			}
 			else{
-				$(".genericmultifield-minelements-notice").modal({
-					type: "notice",
-					buttons: [{
-						label: Granite.I18n.get("OK"),
-						className: "coral-Button",
-						click: function(evt) {
-							this.hide();
-							$(".genericmultifield-minelements-notice").modal("hide");
-						}
-					}]
-				}).modal("show");
+                this.ui.alert(Granite.I18n.get("Minimum reached"), Granite.I18n.get("Minimum number of {0} item(s) reached, you cannot delete any additional items.", this.minElements), "warning");
 			}
 
 			// remove item from DOM on successful callback
