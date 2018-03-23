@@ -53,7 +53,8 @@ Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) l
         itemNameProperty="title"
         name="./items"
         minElements="3"
-        maxElements="5"/>
+        maxElements="5"
+        required="{Boolean}true" />
 ```
 
 Example dialog:
