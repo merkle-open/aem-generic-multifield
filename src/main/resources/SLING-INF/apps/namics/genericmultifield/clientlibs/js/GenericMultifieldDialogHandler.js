@@ -15,6 +15,8 @@
      */
     ns.GenericMultifieldDialogHandler = (function () {
         var self = {};
+        var DIALOG_SELECTOR = "coral-dialog.cq-Dialog";
+        var DIALOG_CONTENT_SELECTOR = DIALOG_SELECTOR + " coral-dialog-content.coral-Dialog-content";
 
         /**
          * Array of parent dialogs.
@@ -56,7 +58,7 @@
             Granite.author.DialogFrame.closeDialog();
 
             // open new dialog
-            Granite.author.DialogFrame.openDialog(extendDialog(dialog));
+            Granite.author.DialogFrame.openDialog(_extendDialog(dialog));
         }
 
         /**
@@ -67,7 +69,7 @@
          * @param (Object)
          *          dialog Dialog to be opened
          */
-        function extendDialog(dialog) {
+        function _extendDialog(dialog) {
             // save original onClose callback
             var _onCloseOrig = dialog.onClose, _onReadyOrig = dialog.onReady;
 
@@ -100,7 +102,7 @@
 
                 // register callback function to dialog cancelled event
                 if ($.isFunction(dialog.onCancel)) {
-                    $("form.cq-dialog[action='" + dialog.getConfig().itemPath + "'] .cq-dialog-cancel").click(dialog.onCancel);
+                    $("form.cq-dialog[action='" + dialog.getConfig().itemPath + "'] .cq-dialog-cancel", DIALOG_SELECTOR).click(dialog.onCancel);
                 }
             }
 
@@ -117,16 +119,25 @@
             var parentDialog = self.parentDialogs.pop();
             // open parent dialog if it exists
             if (parentDialog) {
-                Granite.author.DialogFrame.openDialog(parentDialog);
-                setTimeout(function () {
-                    // restore data
-                    _restoreDialogData();
-                    // remove custom backdrop on the last dialog after fading effect has
-                    // finished
+                var restoreDataHandler = function (e, data) {
+                    if (!data.restored) {
+                        // restore data
+                        _restoreDialogData();
+                    }
+
+                    // remove custom backdrop on the last dialog after fading effect has finished
                     if (self.parentDialogs && self.parentDialogs.length == 0) {
                         _removeCustomBackdrop();
                     }
-                }, Coral.mixin.overlay.FADETIME);
+
+                    // unregister handler
+                    $(document).off("foundation-contentloaded", restoreDataHandler);
+                };
+
+                // register handler to restore data after the content of the dialog has been loaded
+                $(document).on("foundation-contentloaded", restoreDataHandler);
+
+                Granite.author.DialogFrame.openDialog(parentDialog);
             }
         }
 
@@ -134,8 +145,8 @@
          * @param (Object)
          *          dialog Saves the dialog and it's data
          */
-        function _saveDialogData(dialog) {
-            self.parentDialogsData.push($("form.cq-dialog coral-dialog-content.coral-Dialog-content"));
+        function _saveDialogData() {
+            self.parentDialogsData.push($(DIALOG_CONTENT_SELECTOR));
         }
 
         /**
@@ -144,14 +155,11 @@
          * @param (Object)
          *          dialog
          */
-        function _restoreDialogData(dialog) {
-            var $form = $("form.cq-dialog");
-
+        function _restoreDialogData() {
             // replace content with previous
-            $("coral-dialog-content.coral-Dialog-content", $form).replaceWith(self.parentDialogsData.pop());
-
-            var $dialog = $form.closest("coral-dialog");
-            $dialog.trigger("cui-contentloaded", {restored: true});
+            $(DIALOG_CONTENT_SELECTOR).replaceWith(self.parentDialogsData.pop());
+            // trigger "foundation-contentloaded" event with data restored=true
+            $(DIALOG_SELECTOR).trigger("foundation-contentloaded", {restored: true});
         }
 
         /**
