@@ -42,12 +42,17 @@
          *          dialog Dialog to be opened
          */
         self.openDialog = function (dialog) {
-            if (!Granite.author.DialogFrame.currentDialog) {
+            var currentDialog = Granite.author.DialogFrame.currentDialog;
+            if (!currentDialog) {
                 throw new Error("Parent dialog can't be null");
             }
 
+            if (self.parentDialogs.length == 0) {
+                currentDialog = _extendOriginalDialog(currentDialog);
+            }
+
             // push old dialog to parent
-            self.parentDialogs.push(Granite.author.DialogFrame.currentDialog);
+            self.parentDialogs.push(currentDialog);
             // save data of parent dialog
             _saveDialogData();
 
@@ -58,18 +63,53 @@
             Granite.author.DialogFrame.closeDialog();
 
             // open new dialog
-            Granite.author.DialogFrame.openDialog(_extendDialog(dialog));
+            Granite.author.DialogFrame.openDialog(_extendGenericMultifieldDialog(dialog));
         }
 
         /**
-         * Extends a dialog.
+         * Extend original dialog.
          *
          * Extends the dialog object with necessary callback functions.
          *
          * @param (Object)
          *          dialog Dialog to be opened
          */
-        function _extendDialog(dialog) {
+        function _extendOriginalDialog(originalDialog) {
+            // save original onClose callback
+            var _onCloseOrig = originalDialog.onClose, _onReadyOrig = originalDialog.onReady;
+
+            // overwrite onClose function of dialog
+            originalDialog.onClose = function () {
+                // if original onClose callback was set, execute it first
+                if ($.isFunction(_onCloseOrig)) {
+                    _onCloseOrig();
+                }
+
+                _removeCustomBackdrop();
+            }
+
+            // overwrite onReady function of dialog if "onCancel" callback has been
+            // configured
+            originalDialog.onReady = function () {
+                _createCustomBackdrop();
+
+                // if original onReady callback was set, execute it first
+                if ($.isFunction(_onReadyOrig)) {
+                    _onReadyOrig();
+                }
+            }
+
+            return originalDialog;
+        }
+        /**
+         * Extend dialogs created by generic multifield.
+         *
+         * Extends the dialog object with necessary callback functions.
+         *
+         * @param (Object)
+         *          dialog Dialog to be opened
+         */
+        function _extendGenericMultifieldDialog(dialog) {
             // save original onClose callback
             var _onCloseOrig = dialog.onClose, _onReadyOrig = dialog.onReady;
 
@@ -80,10 +120,12 @@
                     _onCloseOrig();
                 }
 
+                Granite.author.DialogFrame.closeDialog();
+
                 // execute function after fading effect has finished
                 setTimeout(function waitToClose() {
                     // make sure that currentDialog has been cleared
-                    if (Granite.author.DialogFrame.currentDialog) {
+                    if (Granite.author.DialogFrame.isOpened()) {
                         setTimeout(waitToClose, 50);
                     }
 
@@ -119,23 +161,21 @@
             var parentDialog = self.parentDialogs.pop();
             // open parent dialog if it exists
             if (parentDialog) {
-                var restoreDataHandler = function (e, data) {
+                // register handler to restore data after the content of the dialog has been loaded
+                $(document).on("foundation-contentloaded", function restoreDataHandler(e, data) {
                     if (!data.restored) {
                         // restore data
                         _restoreDialogData();
                     }
 
                     // remove custom backdrop on the last dialog after fading effect has finished
-                    if (self.parentDialogs && self.parentDialogs.length == 0) {
+                    if (self.parentDialogs.length == 0) {
                         _removeCustomBackdrop();
                     }
 
                     // unregister handler
                     $(document).off("foundation-contentloaded", restoreDataHandler);
-                };
-
-                // register handler to restore data after the content of the dialog has been loaded
-                $(document).on("foundation-contentloaded", restoreDataHandler);
+                });
 
                 Granite.author.DialogFrame.openDialog(parentDialog);
             }
