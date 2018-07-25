@@ -117,10 +117,7 @@
     background-color: #f0f0f0;
 }
 
-/* show the genericmultifield backdrop only when original backdrop is not visible */
-.cq-dialog-backdrop[style*='display:none'] ~ .cq-dialog-backdrop-genericmultifield,
-.cq-dialog-backdrop[style*='display: none'] ~ .cq-dialog-backdrop-genericmultifield,
-.cq-dialog-backdrop:not(.is-open) ~ .cq-dialog-backdrop-genericmultifield {
+.cq-dialog-backdrop-genericmultifield {
     z-index: 920;
     display: block;
     position: fixed;
@@ -137,4 +134,9 @@
     opacity: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     filter: alpha(opacity=0);
+}
+
+/* hide the genericmultifield backdrop if original backdrop is visible */
+.cq-dialog-backdrop:not([style*='display:none']):not([style*='display: none']) ~ .cq-dialog-backdrop-genericmultifield {
+    display: none;
 }

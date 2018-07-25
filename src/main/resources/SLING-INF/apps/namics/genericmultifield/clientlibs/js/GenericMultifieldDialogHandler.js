@@ -17,6 +17,10 @@
         var self = {};
         var DIALOG_SELECTOR = "coral-dialog";
         var DIALOG_CONTENT_SELECTOR = DIALOG_SELECTOR + " coral-dialog-content";
+        var DIALOG_MODE = {
+            COMPONENT: "COMPONENT",
+            PAGE: "PAGE"
+        };
 
         /**
          * Array of parent dialogs.
@@ -32,6 +36,13 @@
          * closed, the parent gets opened (if existing) and the data gets restored.
          */
         self.parentDialogsData = [];
+        /**
+         * Mode of dialog.
+         * 
+         * Specifies if dialog was loaded by a component's dialog or by a page
+         * properties dialog.
+         */
+        self.dialogMode;
 
         /**
          * Opens a new dialog.
@@ -43,24 +54,26 @@
          */
         self.openDialog = function (dialog) {
             var currentDialog = Granite.author.DialogFrame.currentDialog;
-            if (!currentDialog) {
-                throw new Error("Parent dialog can't be null");
-            }
+            if (currentDialog) {
+                self.dialogMode = DIALOG_MODE.COMPONENT;
 
-            if (self.parentDialogs.length == 0) {
-                currentDialog = _extendOriginalDialog(currentDialog);
-            }
+                if (self.parentDialogs.length == 0) {
+                    currentDialog = _extendOriginalDialog(currentDialog);
+                }
 
-            // push old dialog to parent
-            self.parentDialogs.push(currentDialog);
-            // save data of parent dialog
-            _saveDialogData();
+                // push old dialog to parent
+                self.parentDialogs.push(currentDialog);
+                // save data of parent dialog
+                _saveDialogData();
+
+                // close current dialog
+                Granite.author.DialogFrame.closeDialog();
+            } else {
+                self.dialogMode = DIALOG_MODE.PAGE;
+            }
 
             // create custom backdrop
-            _createCustomBackdrop();
-
-            // close current dialog
-            Granite.author.DialogFrame.closeDialog();
+            ns.Helper.createCustomBackdrop();
 
             // open new dialog
             Granite.author.DialogFrame.openDialog(_extendGenericMultifieldDialog(dialog));
@@ -85,13 +98,13 @@
                     _onCloseOrig();
                 }
 
-                _removeCustomBackdrop();
+                ns.Helper.removeCustomBackdrop();
             }
 
             // overwrite onReady function of dialog if "onCancel" callback has been
             // configured
             originalDialog.onReady = function () {
-                _createCustomBackdrop();
+                ns.Helper.createCustomBackdrop();
 
                 // if original onReady callback was set, execute it first
                 if ($.isFunction(_onReadyOrig)) {
@@ -101,6 +114,7 @@
 
             return originalDialog;
         }
+
         /**
          * Extend dialogs created by generic multifield.
          *
@@ -168,16 +182,16 @@
                         _restoreDialogData();
                     }
 
-                    // remove custom backdrop on the last dialog after fading effect has finished
-                    if (self.parentDialogs.length == 0) {
-                        _removeCustomBackdrop();
-                    }
-
                     // unregister handler
                     $(document).off("foundation-contentloaded", restoreDataHandler);
                 });
 
                 Granite.author.DialogFrame.openDialog(parentDialog);
+            }
+
+            // remove custom backdrop on the last dialog after fading effect has finished
+            if (self.dialogMode == DIALOG_MODE.PAGE && self.parentDialogs.length == 0) {
+                ns.Helper.removeCustomBackdrop();
             }
         }
 
@@ -199,26 +213,7 @@
             // replace content with previous
             $(DIALOG_CONTENT_SELECTOR).replaceWith(self.parentDialogsData.pop());
             // trigger "foundation-contentloaded" event with data restored=true
-            $(DIALOG_SELECTOR).trigger("foundation-contentloaded", {restored: true});
-        }
-
-        /**
-         * Helper function to create custom backdrop
-         */
-        function _createCustomBackdrop() {
-            var $backdrop = $(".cq-dialog-backdrop");
-            if (!$(".cq-dialog-backdrop-genericmultifield").length) {
-                var $backdropCopy = $backdrop.clone();
-                $backdropCopy.removeClass().addClass("cq-dialog-backdrop-genericmultifield");
-                $backdropCopy.insertAfter($backdrop);
-            }
-        }
-
-        /**
-         * Helper function to remove custom backdrop
-         */
-        function _removeCustomBackdrop() {
-            $(".cq-dialog-backdrop-genericmultifield").remove();
+            $(DIALOG_SELECTOR).trigger("foundation-contentloaded", { restored: true });
         }
 
         return self;
