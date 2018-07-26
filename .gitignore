@@ -46,7 +46,7 @@ dependency-reduced-pom.xml
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# IntlliJ #
+# IntelliJ #
 ###########
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
@@ -55,6 +55,7 @@ hs_err_pid*
 ## Directory-based project format:
 .idea/
 .vscode/
+.history/
 .settings/
 .classpath
 .project
