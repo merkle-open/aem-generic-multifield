@@ -240,6 +240,7 @@
             try {
                 Namics.GenericMultifieldDialogHandler.openDialog(dialog);
             } catch (error) {
+                console.error(error);
                 if ($.isFunction(cancelCallback)) {
                     cancelCallback();
                 }
