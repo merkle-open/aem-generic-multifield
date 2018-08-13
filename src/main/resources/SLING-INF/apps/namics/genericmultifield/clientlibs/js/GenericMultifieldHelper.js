@@ -56,6 +56,14 @@
                 $customBackdrop.remove();
             });
             $customBackdrop.css("opacity", "0");
+
+            // remove backdrop after a maximum of 1s if no transition event was fired
+            setTimeout(function waitToClose() {
+                // remove backdrop
+                if ($customBackdrop.length) {
+                    $customBackdrop.remove();
+                }
+            }, 1000);
         }
 
     }
