@@ -16,7 +16,7 @@
     ns.GenericMultifieldDialogHandler = (function () {
         var self = {};
         var DIALOG_SELECTOR = "coral-dialog";
-        var DIALOG_CONTENT_SELECTOR = DIALOG_SELECTOR + " coral-dialog-content";
+        var DIALOG_CONTENT_SELECTOR = "coral-dialog-content";
         var DIALOG_MODE = {
             COMPONENT: "COMPONENT",
             PAGE: "PAGE"
@@ -64,7 +64,7 @@
                 // push old dialog to parent
                 self.parentDialogs.push(currentDialog);
                 // save data of parent dialog
-                _saveDialogData();
+                _saveDialogData(currentDialog);
 
                 // close current dialog
                 Granite.author.DialogFrame.closeDialog();
@@ -179,7 +179,7 @@
                 $(document).on("foundation-contentloaded", function restoreDataHandler(e, data) {
                     if (!data.restored) {
                         // restore data
-                        _restoreDialogData();
+                        _restoreDialogData(parentDialog);
                     }
 
                     // unregister handler
@@ -199,8 +199,12 @@
          * @param (Object)
          *          dialog Saves the dialog and it's data
          */
-        function _saveDialogData() {
-            self.parentDialogsData.push($(DIALOG_CONTENT_SELECTOR));
+        function _saveDialogData(dialog) {
+            var dialogContainer = _getDomElementForDialog(dialog);
+            if (dialogContainer) {
+                // push content of current dialog
+                self.parentDialogsData.push($(DIALOG_CONTENT_SELECTOR, dialogContainer));
+            }
         }
 
         /**
@@ -209,11 +213,25 @@
          * @param (Object)
          *          dialog
          */
-        function _restoreDialogData() {
-            // replace content with previous
-            $(DIALOG_CONTENT_SELECTOR).replaceWith(self.parentDialogsData.pop());
-            // trigger "foundation-contentloaded" event with data restored=true
-            $(DIALOG_SELECTOR).trigger("foundation-contentloaded", { restored: true });
+        function _restoreDialogData(dialog) {
+            var dialogContainer = _getDomElementForDialog(dialog);
+            if (dialogContainer) {
+                // replace content with previous
+                $(DIALOG_CONTENT_SELECTOR, dialogContainer).replaceWith(self.parentDialogsData.pop());
+                // trigger "foundation-contentloaded" event with data restored=true
+                dialogContainer.trigger("foundation-contentloaded", { restored: true });
+            }
+        }
+
+        /**
+         * Returns DOM element for dialog
+         *
+         * @param (Object)
+         *          dialog
+         */
+        function _getDomElementForDialog(dialog) {
+            var actionPath = ns.Helper.manglePath(dialog.getConfig().itemPath ? dialog.getConfig().itemPath : dialog.editable.path);
+            return $("form.cq-dialog[action='" + actionPath + "']", DIALOG_SELECTOR).closest(DIALOG_SELECTOR);
         }
 
         return self;
