@@ -15,7 +15,7 @@ With this project you can use a widget in [Adobe Experience Manager 6.3](https:/
     <dependency>
       <groupId>com.namics.oss.aem</groupId>
       <artifactId>genericmultifield</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
     </dependency>
 ```
 
@@ -53,7 +53,8 @@ Use the Generic Multifield in your _cq_dialog.xml of a AEM 6.3 (with Touch UI) l
         itemNameProperty="title"
         name="./items"
         minElements="3"
-        maxElements="5"/>
+        maxElements="5"
+        required="{Boolean}true" />
 ```
 
 Example dialog:
