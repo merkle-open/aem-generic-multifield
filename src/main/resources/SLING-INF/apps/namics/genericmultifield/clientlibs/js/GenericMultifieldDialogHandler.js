@@ -15,8 +15,8 @@
      */
     ns.GenericMultifieldDialogHandler = (function () {
         var self = {};
-        var DIALOG_SELECTOR = "coral-dialog.cq-Dialog";
-        var DIALOG_CONTENT_SELECTOR = DIALOG_SELECTOR + " coral-dialog-content.coral-Dialog-content";
+        var DIALOG_SELECTOR = "coral-dialog";
+        var DIALOG_CONTENT_SELECTOR = DIALOG_SELECTOR + " coral-dialog-content";
 
         /**
          * Array of parent dialogs.
