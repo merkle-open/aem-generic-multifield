@@ -93,7 +93,13 @@
                                 for (var i = 0; i < propertyValue.length - 1; i += 1) {
                                     parent = parent[propertyValue[i]];
                                 }
-                                propertyValue = parent[propertyValue[propertyValue.length - 1]];
+
+                                if (parent !== undefined){
+                                    propertyValue = parent[propertyValue[propertyValue.length - 1]];
+                                } else {
+                                    propertyValue = key;
+                                }
+
                             } else {
                                 propertyValue = data[key][that.itemNameProperty];
                             }
