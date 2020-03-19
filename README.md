@@ -15,7 +15,7 @@ With this project you can use a widget in [Adobe Experience Manager 6.5](https:/
     <dependency>
       <groupId>com.namics.oss.aem</groupId>
       <artifactId>genericmultifield</artifactId>
-      <version>2.0.4</version>
+      <version>3.0.0</version>
     </dependency>
 ```
 
