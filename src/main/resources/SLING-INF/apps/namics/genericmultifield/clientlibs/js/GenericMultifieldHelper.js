@@ -45,10 +45,10 @@
             $customBackdrop.css("opacity", "1");
         },
 
-        findDialog: function (path){
-            var cqDialogForm = $("form.cq-dialog[action='" + path + "']");
+        findDialog: function (path, optionalSelector=""){
+            var cqDialogForm = $("form.cq-dialog[action='" + path + "'] " + optionalSelector);
             if(cqDialogForm === undefined || !cqDialogForm.length){
-                cqDialogForm = $("form.cq-dialog[action='" + this.manglePath(path) + "'] ");
+                cqDialogForm = $("form.cq-dialog[action='" + this.manglePath(path) + "'] " + optionalSelector);
             }
             return cqDialogForm;
         },
