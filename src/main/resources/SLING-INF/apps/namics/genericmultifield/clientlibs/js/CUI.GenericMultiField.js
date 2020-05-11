@@ -228,7 +228,7 @@
                 getConfig: function () {
                     return {
                         src: path,
-                        itemPath: Namics.Helper.manglePath(itemPath),
+                        itemPath: itemPath,
                         loadingMode: "auto",
                         layout: "auto",
                         isGenericMultifield: true

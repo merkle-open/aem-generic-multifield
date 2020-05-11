@@ -158,7 +158,8 @@
 
                 // register callback function to dialog cancelled event
                 if ($.isFunction(dialog.onCancel)) {
-                    $("form.cq-dialog[action='" + dialog.getConfig().itemPath + "'] .cq-dialog-cancel", DIALOG_SELECTOR).click(dialog.onCancel);
+                    var cqDialogForm = ns.Helper.findDialog(dialog.getConfig().itemPath);
+                    $(cqDialogForm, ".cq-dialog-cancel", DIALOG_SELECTOR).click(dialog.onCancel);
                 }
             }
 
@@ -230,8 +231,15 @@
          *          dialog
          */
         function _getDomElementForDialog(dialog) {
-            var actionPath = ns.Helper.manglePath(dialog.getConfig().itemPath ? dialog.getConfig().itemPath : dialog.editable.path);
-            return $("form.cq-dialog[action='" + actionPath + "']", DIALOG_SELECTOR).closest(DIALOG_SELECTOR);
+            
+            var cqDialogForm;
+            if(dialog.getConfig().itemPath){
+                cqDialogForm = ns.Helper.findDialog(dialog.getConfig().itemPath);
+            } else {
+                cqDialogForm = ns.Helper.findDialog(dialog.editable.path);
+            }
+
+            return $(cqDialogForm, DIALOG_SELECTOR).closest(DIALOG_SELECTOR);
         }
 
         return self;
