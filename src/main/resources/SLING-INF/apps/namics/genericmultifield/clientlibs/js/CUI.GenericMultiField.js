@@ -94,7 +94,7 @@
                                     parent = parent[propertyValue[i]];
                                 }
 
-                                if (parent !== undefined){
+                                if (parent !== undefined) {
                                     propertyValue = parent[propertyValue[propertyValue.length - 1]];
                                 } else {
                                     propertyValue = key;
@@ -228,7 +228,7 @@
                 getConfig: function () {
                     return {
                         src: path,
-                        itemPath: Namics.Helper.manglePath(itemPath),
+                        itemPath: itemPath,
                         loadingMode: "auto",
                         layout: "auto",
                         isGenericMultifield: true
@@ -281,8 +281,7 @@
                         });
                     });
                 });
-            }
-            else {
+            } else {
                 this.ui.alert(Granite.I18n.get("Maximum reached"), Granite.I18n.get("Maximum number of {0} item(s) reached, you cannot add any additional items.", this.maxElements), "warning");
             }
         },
@@ -311,8 +310,7 @@
                                 }
                             }
                         }]);
-            }
-            else {
+            } else {
                 this.ui.alert(Granite.I18n.get("Minimum reached"), Granite.I18n.get("Minimum number of {0} item(s) reached, you cannot delete any additional items.", this.minElements), "warning");
             }
 
@@ -340,8 +338,7 @@
                     data: ":order=before " + before.attr("id"),
                     url: this.crxPath + "/" + this.itemStorageNode + "/" + item.attr("id")
                 });
-            }
-            else if (after.length > 0) {
+            } else if (after.length > 0) {
                 item.insertAfter(after);
                 $.ajax({
                     type: "POST",

@@ -7,7 +7,7 @@
     <groupId>com.namics.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
     <packaging>bundle</packaging>
-    <version>3.0.0</version>
+    <version>3.1.0</version>
     <name>Generic Multifield for AEM 6.5</name>
     <description>com.namics.oss.aem - Generic Multifield for AEM 6.5</description>
     <url>https://github.com/namics/aem-generic-multifield</url>
