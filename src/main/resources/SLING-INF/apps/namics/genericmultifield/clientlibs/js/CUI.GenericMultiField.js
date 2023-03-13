@@ -80,7 +80,8 @@
             }).done(function (data) {
                 that.ol.empty();
                 $.each(data, function (key) {
-                    if (typeof data[key] === 'object' && !Array.isArray(data[key]) && data[key] !== undefined && data[key]["jcr:primaryType"] !== undefined) {
+                    if (typeof data[key] === 'object' && !Array.isArray(data[key]) && data[key] !== undefined && data[key]["jcr:primaryType"] !== undefined
+                        && data[key]["sling:resourceType"] !== "wcm/msm/components/ghost") {
 
                         if (that.itemNameDisplayStrategy === "pageTitle") {
                             //use the jcr:title from a page
