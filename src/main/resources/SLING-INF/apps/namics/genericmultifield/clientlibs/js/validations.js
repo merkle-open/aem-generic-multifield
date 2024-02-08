@@ -76,18 +76,18 @@
 
             // validate required attribute
             if ($field.adaptTo("foundation-field").isRequired() && items.length === 0) {
-                return Granite.I18n.get("Please fill out this field.");
+                return Granite.I18n.get("Error: Please fill out this field.");
             }
 
             // validate min and max elements (only if field is required)
             if ($field.adaptTo("foundation-field").isRequired()) {
                 // validate if minElements restriction is met
                 if (items && !isNaN(minElements) && items.length < minElements) {
-                    return Granite.I18n.get('At least {0} items must be created', minElements);
+                    return Granite.I18n.get('Error: At least {0} items must be created', minElements);
                 }
                 // validate if maxElements restriction is met
                 if (items && !isNaN(maxElements) && items.length > maxElements) {
-                    return Granite.I18n.get('At most {0} items can be created', maxElements);
+                    return Granite.I18n.get('Error: At most {0} items can be created', maxElements);
                 }
             }
 

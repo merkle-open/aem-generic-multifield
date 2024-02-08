@@ -106,6 +106,12 @@
 .coral-GenericMultiField.is-invalid {
     border-color: #e14132;
     color: #e14132;
+    border-width: 2px
+}
+
+.coral-GenericMultiField.is-invalid + coral-icon.coral-Form-fielderror._coral-Icon._coral-Icon--sizeS {
+    height: 14px;
+    width: 14px;
 }
 
 .coral-GenericMultiField.is-disabled {
@@ -141,5 +147,5 @@
 }
 
 ._coral-Dialog-content {
-    overflow: visible !important;
+    overflow-x: visible !important;
 }
