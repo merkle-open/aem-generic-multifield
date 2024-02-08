@@ -1,28 +1,19 @@
 /**
- * Helpers for the Generic Multifield.
+ * Helpers for the Generic Multi-field.
  */
 (function ($, ns, channel, window, document, undefined) {
     "use strict";
 
     /**
-     * Helpers for the Generic Multifield in the ns namespace.
+     * Helpers for the Generic Multi-field in the ns namespace.
      */
     ns.Helper = {
 
-        CUSTOM_BACKDROP_CLASS: "cq-dialog-backdrop-genericmultifield",
-        CUSTOM_BACKDROP_SELECTOR: ".cq-dialog-backdrop-genericmultifield",
-
-        manglePath: function (path) {
-            if (!path) {
-                return;
-            }
-            return path.replace(/\/(\w+):(\w+)/g, "/_$1_$2");
-        },
+        CUSTOM_BACKDROP_CLASS: "cq-dialog-backdrop-GenericMultiField",
+        CUSTOM_BACKDROP_SELECTOR: ".cq-dialog-backdrop-GenericMultiField",
 
         /**
-         * Displays the dialog backdrop over the content
-         *
-         * @private
+         * Displays the dialog backdrop over the content.
          */
         createCustomBackdrop: function () {
             var $customBackdrop = $(ns.Helper.CUSTOM_BACKDROP_SELECTOR),
@@ -45,18 +36,37 @@
             $customBackdrop.css("opacity", "1");
         },
 
+        /**
+         * Retrieves dialog object.
+         *
+         * @param path of dialog to fetch.
+         * @param optionalSelector to specific dialog selection.
+         * @returns {Object} found dialog.
+         */
         findDialog: function (path, optionalSelector = "") {
             var cqDialogForm = $("form.cq-dialog[action='" + path + "'] " + optionalSelector);
             if (cqDialogForm === undefined || !cqDialogForm.length) {
-                cqDialogForm = $("form.cq-dialog[action='" + this.manglePath(path) + "'] " + optionalSelector);
+                cqDialogForm = $("form.cq-dialog[action='" + this._manglePath(path) + "'] " + optionalSelector);
             }
             return cqDialogForm;
         },
 
         /**
-         * Hides the dialog backdrop over the content
+         * Mangle string value.
          *
+         * @param path to mangle.
+         * @returns {String} adjusted path value.
          * @private
+         */
+        _manglePath: function (path) {
+            if (!path) {
+                return;
+            }
+            return path.replace(/\/(\w+):(\w+)/g, "/_$1_$2");
+        },
+
+        /**
+         * Hides the dialog backdrop over the content.
          */
         removeCustomBackdrop: function () {
             var $customBackdrop = $(ns.Helper.CUSTOM_BACKDROP_SELECTOR);
@@ -76,4 +86,4 @@
 
     }
 
-}(jQuery, Namics, jQuery(document), this, document));
+}(jQuery, Merkle, jQuery(document), this, document));
