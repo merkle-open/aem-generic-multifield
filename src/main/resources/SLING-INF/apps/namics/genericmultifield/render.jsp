@@ -5,10 +5,10 @@
 %>
 <%@page session="false"
         import="com.adobe.granite.ui.components.AttrBuilder,
-        		com.adobe.granite.ui.components.Config,
-        		com.adobe.granite.ui.components.Tag,
-        		org.osgi.service.cm.ConfigurationAdmin,
-        		org.osgi.service.cm.Configuration" %>
+                com.adobe.granite.ui.components.Config,
+                com.adobe.granite.ui.components.Tag,
+                org.osgi.service.cm.Configuration,
+                org.osgi.service.cm.ConfigurationAdmin" %>
 <%
     ConfigurationAdmin cfgAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
     Configuration mergePickerConfig = cfgAdmin.getConfiguration("org.apache.sling.resourcemerger.picker.overriding", null);
@@ -35,9 +35,7 @@
 
 <div <%= attrs.build() %>>
     <ol class="coral-GenericMultiField-list js-coral-GenericMultiField-list"></ol>
-    <button type="button" class="js-coral-GenericMultiField-add coral-GenericMultiField-add coral-MinimalButton">
-        <i class="coral-Icon coral-Icon--sizeS coral-Icon--addCircle coral-MinimalButton-icon"></i>
-    </button>
+    <button is="coral-button" aria-label="add" icon="add" class="js-coral-GenericMultiField-add coral-GenericMultiField-add"></button>
 </div>
 
 <ui:includeClientLib categories="cq.authoring.editor.hook"/>
