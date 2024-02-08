@@ -7,9 +7,9 @@
     <groupId>com.namics.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
     <packaging>bundle</packaging>
-    <version>3.1.0</version>
-    <name>Generic Multifield for AEM 6.5</name>
-    <description>com.namics.oss.aem - Generic Multifield for AEM 6.5</description>
+    <version>4.0.2-SNAPSHOT</version>
+    <name>Generic Multi-field for AEMaaCS</name>
+    <description>com.namics.oss.aem - Generic Multi-field for AEMaaCS</description>
     <url>https://github.com/namics/aem-generic-multifield</url>
 
     <licenses>
@@ -19,21 +19,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
-    <developers>
-        <developer>
-            <name>Samuel Schaeublin</name>
-            <email>samuel.schaeublin@namics.com</email>
-            <organization>Namics AG</organization>
-            <organizationUrl>http://www.namics.com</organizationUrl>
-        </developer>
-        <developer>
-            <name>Alexandru Suciu</name>
-            <email>alexandru.suciu@namics.com</email>
-            <organization>Namics AG</organization>
-            <organizationUrl>http://www.namics.com</organizationUrl>
-        </developer>
-    </developers>
 
     <repositories>
         <repository>
@@ -53,9 +38,8 @@
     <dependencies>
         <dependency>
             <groupId>com.adobe.aem</groupId>
-            <artifactId>uber-jar</artifactId>
-            <version>6.5.0</version>
-            <classifier>apis</classifier>
+            <artifactId>aem-sdk-api</artifactId>
+            <version>2023.12.14697.20231215T125030Z-231200</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -101,9 +85,9 @@
     </distributionManagement>
 
     <scm>
-        <url>https://github.com/namics/aem-generic-multifield</url>
-        <connection>scm:git:git@github.com:namics/aem-generic-multifield</connection>
-        <developerConnection>scm:git:git@github.com:namics/aem-generic-multifield.git</developerConnection>
+        <url>https://github.com/merkle-open/aem-generic-multifield</url>
+        <connection>scm:git:git@github.com:merkle-open/aem-generic-multifield</connection>
+        <developerConnection>scm:git:git@github.com:merkle-open/aem-generic-multifield.git</developerConnection>
     </scm>
 
 
