@@ -1,5 +1,5 @@
 /**
- * This part creates a new DialogFrame for the Generic Multifield.
+ * This part creates a new DialogFrame for the Generic Multi-field.
  */
 ;
 (function ($, ns, channel, window, document, undefined) {
@@ -7,11 +7,11 @@
 
     /**
      * This dialog frame represents the Granite UI Dialog Frame in the Generic
-     * MultiField (Namics) context. It is basically a copy of the DialogFrame.js
+     * MultiField (Merkle) context. It is basically a copy of the DialogFrame.js
      * with little extensions for the Generic MultiField.
      *
      * @namespace
-     * @alias Namics.DialogFrame
+     * @alias Merkle.DialogFrame
      */
     ns.GenericMultifieldDialogHandler = (function () {
         var self = {};
@@ -46,18 +46,16 @@
 
         /**
          * Opens a new dialog.
-         *
          * Closes the current dialog and opens the new one.
          *
-         * @param (Object)
-         *          dialog Dialog to be opened
+         * @param {Object} dialog dialog to be opened.
          */
         self.openDialog = function (dialog) {
             var currentDialog = Granite.author.DialogFrame.currentDialog;
             if (currentDialog) {
                 self.dialogMode = DIALOG_MODE.COMPONENT;
 
-                if (self.parentDialogs.length == 0) {
+                if (self.parentDialogs.length === 0) {
                     currentDialog = _extendOriginalDialog(currentDialog);
                 }
 
@@ -76,16 +74,16 @@
             ns.Helper.createCustomBackdrop();
 
             // open new dialog
-            Granite.author.DialogFrame.openDialog(_extendGenericMultifieldDialog(dialog));
+            Granite.author.DialogFrame.openDialog(_extendGenericMultiFieldDialog(dialog));
         }
 
         /**
          * Extend original dialog.
-         *
          * Extends the dialog object with necessary callback functions.
          *
-         * @param (Object)
-         *          dialog Dialog to be opened
+         * @param {Object} originalDialog dialog to be extended.
+         * @returns {Object} extended dialog.
+         * @private
          */
         function _extendOriginalDialog(originalDialog) {
             // save original onClose callback
@@ -116,14 +114,14 @@
         }
 
         /**
-         * Extend dialogs created by generic multifield.
-         *
+         * Extend dialogs created by generic multi-field.
          * Extends the dialog object with necessary callback functions.
          *
-         * @param (Object)
-         *          dialog Dialog to be opened
+         * @param {Object} dialog dialog to be extended.
+         * @returns {Object} extended dialog.
+         * @private
          */
-        function _extendGenericMultifieldDialog(dialog) {
+        function _extendGenericMultiFieldDialog(dialog) {
             // save original onClose callback
             var _onCloseOrig = dialog.onClose, _onReadyOrig = dialog.onReady;
 
@@ -168,8 +166,7 @@
 
         /**
          * Performs closing of current dialog.
-         *
-         * Closes the current dialog and opens it's parent.
+         * Closes the current dialog and opens its parent.
          */
         function _performCloseDialog() {
             // get parent dialog
@@ -191,14 +188,16 @@
             }
 
             // remove custom backdrop on the last dialog after fading effect has finished
-            if (self.dialogMode == DIALOG_MODE.PAGE && self.parentDialogs.length == 0) {
+            if (self.dialogMode === DIALOG_MODE.PAGE && self.parentDialogs.length === 0) {
                 ns.Helper.removeCustomBackdrop();
             }
         }
 
         /**
-         * @param (Object)
-         *          dialog Saves the dialog and it's data
+         * Saves the dialog and it's data
+         *
+         * @param {Object} dialog from which to retrieve the data from.
+         * @private
          */
         function _saveDialogData(dialog) {
             var dialogContainer = _getDomElementForDialog(dialog);
@@ -209,10 +208,10 @@
         }
 
         /**
-         * Restores the dialog and it's data
+         * Restores the dialog and it's data.
          *
-         * @param (Object)
-         *          dialog
+         * @param {Object} dialog to be restored.
+         * @private
          */
         function _restoreDialogData(dialog) {
             var dialogContainer = _getDomElementForDialog(dialog);
@@ -227,8 +226,9 @@
         /**
          * Returns DOM element for dialog
          *
-         * @param (Object)
-         *          dialog
+         * @param {Object} dialog to retrieve.
+         * @returns {Object} self jQuery object.
+         * @private
          */
         function _getDomElementForDialog(dialog) {
 
@@ -244,4 +244,4 @@
         return self;
     }());
 
-}(jQuery, Namics, jQuery(document), this, document));
+}(jQuery, Merkle, jQuery(document), this, document));

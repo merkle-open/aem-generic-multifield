@@ -4,12 +4,10 @@
 <%
 %>
 <%@page session="false"
-        import="java.lang.reflect.Array,
-                java.util.HashMap,
+        import="com.adobe.granite.ui.components.Field,
                 org.apache.sling.api.resource.ValueMap,
                 org.apache.sling.api.wrappers.ValueMapDecorator,
-                com.adobe.granite.ui.components.Config,
-                com.adobe.granite.ui.components.Field" %>
+                java.util.HashMap" %>
 <%
     ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
 

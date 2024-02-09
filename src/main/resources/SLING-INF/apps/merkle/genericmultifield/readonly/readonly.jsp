@@ -26,8 +26,6 @@
 %>
 
 <div <%= attrs.build() %>>
-    <label class="coral-Form-fieldlabel"><%= outVar(xssAPI, i18n, fieldLabel) %>
-    </label>
-
+    <label class="coral-Form-fieldlabel"><%= outVar(xssAPI, i18n, fieldLabel) %></label>
     <ol class="coral-GenericMultiField-list js-coral-GenericMultiField-list coral-List--minimal"></ol>
 </div>
