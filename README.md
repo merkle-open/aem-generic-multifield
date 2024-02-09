@@ -11,10 +11,9 @@ With this project you can use a widget in [AEM as a Cloud Service](https://exper
 ### Maven Dependency
 ```
     <dependency>
-                   TODO!!!
       <groupId>com.namics.oss.aem</groupId>
       <artifactId>genericmultifield</artifactId>
-      <version>TODO!!!</version>
+      <version>4.0.0-SNAPSHOT</version>
     </dependency>
 ```
 
@@ -30,7 +29,6 @@ With the common AEM archetype it can be added within the embedded configuration 
             ...
             <embeddeds>
                 <embedded>
-                    TODO!!!
                     <groupId>com.namics.oss.aem</groupId>
                     <artifactId>genericmultifield</artifactId>
                     <target>/apps/myProject/install</target>
