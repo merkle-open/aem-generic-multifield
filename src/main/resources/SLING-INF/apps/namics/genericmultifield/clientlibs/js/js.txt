@@ -1,4 +1,4 @@
-namespace.js
+Namespace.js
 GenericMultifieldHelper.js
 GenericMultifieldDialogHandler.js
 CUI.GenericMultiField.js
