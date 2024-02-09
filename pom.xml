@@ -54,7 +54,7 @@
                 <configuration>
                     <instructions>
                         <Sling-Initial-Content>
-                            SLING-INF/apps/namics;overwrite:=true;uninstall:=true;ignoreImportProviders:=xml;path:=/apps/namics,
+                            SLING-INF/apps/merkle;overwrite:=true;uninstall:=true;ignoreImportProviders:=xml;path:=/apps/merkle,
                         </Sling-Initial-Content>
                     </instructions>
                 </configuration>
