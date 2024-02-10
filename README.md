@@ -43,22 +43,26 @@ With the common AEM archetype it can be added within the embedded configuration 
 Example usage of the Generic Multifield in your component _cq_dialog.xml definition within AEM (Touch UI):
 ```xml
 <!-- Within the component dialog definition -->
-<title
-       jcr:primaryType="nt:unstructured"
-       sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-       fieldLabel="Title"
-       name="./title"/>
-<genericmultifield
-       jcr:primaryType="nt:unstructured"
-       sling:resourceType="namics/genericmultifield"
-       fieldLabel="Generic Multifield"
-       fieldDescription="A list of generic multfield items"
-       itemDialog="/your/project/path/component/item-dialog.xml"
-       itemNameProperty="itemTitle"
-       minElements="2"
-       maxElements="5"
-       required="{Boolean}true"
-       itemStorageNode="./items"/>
+<jcr:root
+    ...
+        <title
+               jcr:primaryType="nt:unstructured"
+               sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+               fieldLabel="Title"
+               name="./title"/>
+        <genericmultifield
+               jcr:primaryType="nt:unstructured"
+               sling:resourceType="merkle/genericmultifield"
+               itemDialog="/your/project/path/component/item-dialog.xml"
+               fieldLabel="Generic Multifield"
+               fieldDescription="A list of generic multfield items"
+               itemNameProperty="itemTitle"
+               minElements="2"
+               maxElements="5"
+               required="{Boolean}true"
+               itemStorageNode="./items"/>
+    ...
+</jcr:root>
 ```
 ##### Properties
 **itemDialog**: path reference to the dialog definition of a generic multifield item.<br />
@@ -78,23 +82,24 @@ Example usage of the Generic Multifield in your component _cq_dialog.xml definit
           xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
           jcr:primaryType="nt:unstructured"
           sling:resourceType="cq/gui/components/authoring/dialog"
-          jcr:title="Item Dialog">
+          jcr:title="Generic Multifield Item">
     <content
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/coral/foundation/tabs">
         <items
                 jcr:primaryType="nt:unstructured">
-            <basicTab
+            <tabOne
                     jcr:primaryType="nt:unstructured"
                     sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                    margin="{Boolean}true"
-                    jcr:title="Basic">
+                    jcr:title="Tab 1"
+                    margin="{Boolean}true">
                 <items
                         jcr:primaryType="nt:unstructured">
                     <column
                             jcr:primaryType="nt:unstructured"
                             sling:resourceType="granite/ui/components/coral/foundation/container">
-                        <items jcr:primaryType="nt:unstructured">
+                        <items
+                                jcr:primaryType="nt:unstructured">
                             <itemTitle
                                     jcr:primaryType="nt:unstructured"
                                     sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -114,10 +119,49 @@ Example usage of the Generic Multifield in your component _cq_dialog.xml definit
                                     fieldLabel="Item Path"
                                     fieldDescription="Item Path Description"
                                     name="./itemPath"/>
+
                         </items>
                     </column>
                 </items>
-            </basicTab>
+            </tabOne>
+            <tabTwo
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                    jcr:title="Tab 2"
+                    margin="{Boolean}true">
+                <items
+                        jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items
+                                jcr:primaryType="nt:unstructured">
+
+                            <!-- properties definition -->
+
+                        </items>
+                    </column>
+                </items>
+            </tabTwo>
+            <tabThree
+                    jcr:primaryType="nt:unstructured"
+                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+                    jcr:title="Tab 3"
+                    margin="{Boolean}true">
+                <items
+                        jcr:primaryType="nt:unstructured">
+                    <column
+                            jcr:primaryType="nt:unstructured"
+                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                        <items
+                                jcr:primaryType="nt:unstructured">
+
+                            <!-- properties definition -->
+
+                        </items>
+                    </column>
+                </items>
+            </tabThree>
         </items>
     </content>
 </jcr:root>
