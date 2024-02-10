@@ -169,7 +169,7 @@ Example usage of the Generic Multifield in your component _cq_dialog.xml definit
 
 ![multifield dialog](docs/item.png)
 
-#### Storage
+#### Repository
 In the repository the content is stored as follows:
 
 ![content](docs/repo.png)
