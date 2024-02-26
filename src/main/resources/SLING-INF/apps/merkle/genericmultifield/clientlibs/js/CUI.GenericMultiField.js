@@ -5,9 +5,9 @@
 (function ($) {
     "use strict";
 
-    var removeButton = "<button is=\"coral-button\" variant=\"quietaction\" icon=\"delete\" class=\"js-coral-GenericMultiField-remove coral-GenericMultiField-remove\"></button>";
-    var editButton = "<button is=\"coral-button\" variant=\"quietaction\" icon=\"edit\" class=\"js-coral-GenericMultiField-edit coral-GenericMultiField-edit\"></button>";
-    var moveButton = "<button is=\"coral-button\" variant=\"quietaction\" icon=\"move\" class=\"js-coral-GenericMultiField-move coral-GenericMultiField-move\"></button>";
+    var removeButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"delete\" iconsize=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-remove coral-SpectrumMultiField-remove\"></button>";
+    var editButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"edit\" iconsize=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-edit coral-SpectrumMultiField-edit\"></button>";
+    var moveButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"moveUpDown\" iconsize=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-move coral-SpectrumMultiField-move\"></button>";
 
     /**
      * The Merkle.GenericMultiField class represents an editable list
@@ -147,9 +147,9 @@
             li.append(editButton);
             li.append(moveButton);
             if (this.readOnly) {
-                $(".coral-GenericMultiField-remove", li).attr("disabled", "disabled");
-                $(".coral-GenericMultiField-edit", li).attr("disabled", "disabled");
-                $(".coral-GenericMultiField-move", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-remove", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-edit", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-move", li).attr("disabled", "disabled");
             }
             return li;
         },
@@ -165,19 +165,19 @@
                 that._addNewItem();
             });
 
-            this.$element.on("click", ".js-coral-GenericMultiField-remove", function (e) {
+            this.$element.on("click", ".js-coral-SpectrumMultiField-remove", function (e) {
                 var currentItem = $(this).closest("li");
                 that._removeItem(currentItem);
             });
 
-            this.$element.on("click", ".js-coral-GenericMultiField-edit", function (e) {
+            this.$element.on("click", ".js-coral-SpectrumMultiField-edit", function (e) {
                 var currentItem = $(this).closest("li");
                 that._editItem(currentItem);
             });
 
 
             this.$element
-                .fipo("taphold", "mousedown", ".js-coral-GenericMultiField-move", function (e) {
+                .fipo("taphold", "mousedown", ".js-coral-SpectrumMultiField-move", function (e) {
                     e.preventDefault();
 
                     var item = $(this).closest("li");

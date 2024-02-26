@@ -26,9 +26,9 @@
     padding: 0;
 }
 
-.coral-GenericMultiField-edit,
-.coral-GenericMultiField-remove,
-.coral-GenericMultiField-move {
+.coral-SpectrumMultiField-edit,
+.coral-SpectrumMultiField-remove,
+.coral-SpectrumMultiField-move {
     width: 2.375rem;
     height: 2.375rem;
 }
@@ -46,19 +46,19 @@
     text-overflow: ellipsis;
 }
 
-.coral-GenericMultiField-edit {
+.coral-SpectrumMultiField-edit {
     position: absolute;
     top: 0;
     right: 2.1rem;
 }
 
-.coral-GenericMultiField-remove {
+.coral-SpectrumMultiField-remove {
     position: absolute;
     top: 0;
     right: 4.2rem;
 }
 
-.coral-GenericMultiField-move {
+.coral-SpectrumMultiField-move {
     cursor: move;
     position: absolute;
     top: 0;
