@@ -35,7 +35,7 @@
 
 <div <%= attrs.build() %>>
     <ol class="coral-GenericMultiField-list js-coral-GenericMultiField-list"></ol>
-    <button is="coral-button" aria-label="add" icon="add" class="js-coral-GenericMultiField-add coral-GenericMultiField-add"></button>
+    <button is="coral-button" icon="add"  size="M" class="js-coral-SpectrumMultiField-add coral-SpectrumMultiField-add"></button>
 </div>
 
 <ui:includeClientLib categories="cq.authoring.editor.hook"/>

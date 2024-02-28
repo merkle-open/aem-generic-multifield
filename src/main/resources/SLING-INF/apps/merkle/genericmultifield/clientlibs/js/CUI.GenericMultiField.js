@@ -5,9 +5,9 @@
 (function ($) {
     "use strict";
 
-    var removeButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"delete\" iconsize=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-remove coral-SpectrumMultiField-remove\"></button>";
-    var editButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"edit\" iconsize=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-edit coral-SpectrumMultiField-edit\"></button>";
-    var moveButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"moveUpDown\" iconsize=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-move coral-SpectrumMultiField-move\"></button>";
+    var removeButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"delete\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-remove coral-SpectrumMultiField-remove\"></button>";
+    var editButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"edit\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-edit coral-SpectrumMultiField-edit\"></button>";
+    var moveButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"moveUpDown\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-move coral-SpectrumMultiField-move\"></button>";
 
     /**
      * The Merkle.GenericMultiField class represents an editable list
@@ -47,7 +47,7 @@
             if (this.readOnly) {
                 this.$element.addClass("is-disabled");
                 // add the "+" button for adding new items
-                $(".coral-GenericMultiField-add", this.$element).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-add", this.$element).attr("disabled", "disabled");
             } else {
                 // add button listeners
                 this._addListeners();
@@ -161,7 +161,9 @@
         _addListeners: function () {
             var that = this;
 
-            this.$element.on("click", ".js-coral-GenericMultiField-add", function (e) {
+            this.$element.on("click", ".js-coral-SpectrumMultiField-add", function (e) {
+                e.preventDefault();
+                e.stopPropagation();
                 that._addNewItem();
             });
 
