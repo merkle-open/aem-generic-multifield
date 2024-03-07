@@ -26,7 +26,7 @@
     // register adapter for generic multi-field
     registry.register("foundation.adapters", {
         type: "foundation-field",
-        selector: ".coral-GenericMultiField",
+        selector: Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR,
         adapter: function (el) {
             var $el = $(el);
             return {
@@ -62,13 +62,64 @@
 
     // register selector for generic multi-field
     registry.register("foundation.validation.selector", {
-        submittable: ".coral-GenericMultiField",
+        submittable: Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR,
         candidate: ".coral-GenericMultiField:not([disabled]):not([data-renderreadonly=true])",
         exclusion: ".coral-GenericMultiField *"
     });
 
-    // perform validation every time generic multi-field changed
-    $(document).on("change", ".coral-GenericMultiField", function () {
+    // register validator for generic multi-field
+    registry.register("foundation.validation.validator", {
+        selector: Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR,
+        validate: function (el) {
+            var $field = $(el).closest(".coral-Form-field"), items = $field.find(".coral-GenericMultiField-list li"),
+                minElements = $field.data("minelements"), maxElements = $field.data("maxelements");
+
+            // validate required attribute
+            if ($field.adaptTo("foundation-field").isRequired() && items.length === 0) {
+                return Granite.I18n.get(Merkle.Helper.CONST.ERROR_MESSAGE_REQUIRED);
+
+            }
+
+            // validate min and max elements (only if field is required)
+            if ($field.adaptTo("foundation-field").isRequired()) {
+                // validate if minElements restriction is met
+                if (items && !isNaN(minElements) && items.length < minElements) {
+                    return Granite.I18n.get(Merkle.Helper.CONST.ERROR_MESSAGE_MIN, minElements);
+                }
+                // validate if maxElements restriction is met
+                if (items && !isNaN(maxElements) && items.length > maxElements) {
+                    return Granite.I18n.get(Merkle.Helper.CONST.ERROR_MESSAGE_MAX, maxElements);
+
+                }
+            }
+
+            return null;
+        },
+        show: function (el, message, ctx) {
+            var $field = $(el).closest(".coral-Form-field");
+            $field.adaptTo("foundation-field").setInvalid(true);
+
+            setTimeout(function() {
+                $field.siblings(".coral-Form-errorlabel").each(function (index, element) {
+                    if (index > 0) {
+                        element.remove()
+                    }
+                });
+            }, 200);
+
+            ctx.next();
+        },
+        clear: function (el, ctx) {
+            var $field = $(el).closest(".coral-Form-field");
+            $field.adaptTo("foundation-field").setInvalid(false);
+            $field.siblings(".coral-Form-fielderror").remove();
+            $field.siblings(".coral-Form-errorlabel").remove();
+            ctx.next();
+        }
+    });
+
+    // perform validation every time generic multifield changed
+    $(document).on("change", Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR, function () {
         _performValidation($(this));
     });
 
