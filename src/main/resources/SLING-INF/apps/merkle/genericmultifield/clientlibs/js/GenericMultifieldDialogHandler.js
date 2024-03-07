@@ -218,7 +218,6 @@
             if (dialogContainer) {
                 // replace content with previous
                 $(DIALOG_CONTENT_SELECTOR, dialogContainer).replaceWith(self.parentDialogsData.pop());
-                // trigger "foundation-contentloaded" event with data restored=true
                 dialogContainer.trigger("foundation-contentloaded", {restored: true});
             }
         }
