@@ -53,7 +53,7 @@
                 this._addListeners();
             }
             // get list elements
-            this._updateList(false,true);
+            this._updateList(false);
         },
 
         /**
@@ -62,7 +62,7 @@
          * @param {Boolean} triggerEvent if 'change' event should be triggered.
          * @private
          */
-        _updateList: function (triggerEvent,clearValidationErrors) {
+        _updateList: function (triggerEvent) {
             var that = this;
             $.ajax({
                 type: "GET",
@@ -70,7 +70,6 @@
                 url: that.crxPath + "/" + that.itemStorageNode + ".-1.json"
             }).done(function (data) {
                 that.ol.empty();
-                var itemCount = 0;
                 $.each(data, function (key) {
                     if (typeof data[key] === 'object' && !Array.isArray(data[key]) && data[key] !== undefined && data[key]["jcr:primaryType"] !== undefined
                         && data[key]["sling:resourceType"] !== "wcm/msm/components/ghost") {
@@ -98,17 +97,13 @@
                             }
                             var li = that._createListEntry(key, propertyValue);
                             li.appendTo(that.ol);
-                            itemCount++;
                         }
-                        var $field = that.$element.closest(".coral-Form-field")
-                        if(itemCount >= that.minElements) {
-                            clearValidationError($field);
-                        }
+
                     }
                 });
                 // trigger change event on update of items
                 if (triggerEvent === true) {
-                    that._triggerChangeEvent(clearValidationErrors);
+                    that._triggerChangeEvent();
                 }
             });
         },
@@ -245,7 +240,7 @@
                     return {};
                 },
                 onSuccess: function () {
-                    that._updateList(true,true);
+                    that._updateList(true);
                     return $.Deferred().promise();
                 },
                 onCancel: cancelCallback
@@ -286,7 +281,7 @@
                     that._openEditDialog(path, function (event, dialog) {
                         that._deleteNode(path, function () {
                             // call update list after successful deletion of node
-                            that._updateList(true,true);
+                            that._updateList(true);
                         });
                     });
                 });
@@ -449,38 +444,11 @@
          *
          * @private
          */
-        _triggerChangeEvent: debounce(function(clearValidationErrors) {
-            if (clearValidationErrors) {
-                clearValidationError(this.$element.closest(".coral-Form-field"));
-            }
+        _triggerChangeEvent: function () {
             this.$element.trigger("change");
-        }, 250, false),
-    });
-    function debounce(func, wait, immediate) {
-        var timeout;
-        return function() {
-            var context = this, args = arguments;
-            clearTimeout(timeout);
-            timeout = setTimeout(function() {
-                timeout = null;
-                if (!immediate) func.apply(context, args);
-            }, wait);
-            if (immediate && !timeout) func.apply(context, args);
-        };
-    }
-
-    function clearValidationError($field) {
-        var $coralTab = $field.find(".coral-Tab");
-        if ($coralTab.length > 0) {
-            $coralTab.removeClass("is-invalid").attr("aria-invalid", "false");
-            $coralTab.find(".coral-Form-errorlabel").remove();
         }
-        $field.removeClass("is-invalid");
-        $field.attr("aria-invalid", "false");
-        $field.find(".coral-Form-errorlabel").remove();
-        $field.siblings(".coral-Form-errorlabel").remove();
-        $field.siblings().removeClass(".coral-Form-errorlabel");
-    }
+    });
+
     // put Merkle.GenericMultiField on widget registry
     CUI.Widget.registry.register(" ", Merkle.GenericMultiField);
 
@@ -488,7 +456,7 @@
     if (CUI.options.dataAPI) {
         $(document).on("cui-contentloaded.data-api", function (e, data) {
             $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).genericMultiField();
-            if (data && data.restored) {
+            if (data && data._foundationcontentloaded) {
                 $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).trigger("change");
             }
         });
