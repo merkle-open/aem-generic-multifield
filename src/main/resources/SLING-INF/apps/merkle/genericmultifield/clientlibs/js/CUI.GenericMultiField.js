@@ -456,7 +456,7 @@
     if (CUI.options.dataAPI) {
         $(document).on("cui-contentloaded.data-api", function (e, data) {
             $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).genericMultiField();
-            if (data && data.restored) {
+            if (data && data._foundationcontentloaded) {
                 $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).trigger("change");
             }
         });

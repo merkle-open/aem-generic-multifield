@@ -9,14 +9,20 @@
      */
     ns.Helper = {
 
-        CUSTOM_BACKDROP_CLASS: "cq-dialog-backdrop-GenericMultiField",
-        CUSTOM_BACKDROP_SELECTOR: ".cq-dialog-backdrop-GenericMultiField",
+        CONST: {
+            CUSTOM_BACKDROP_CLASS: 'q-dialog-backdrop-GenericMultiField',
+            CUSTOM_BACKDROP_SELECTOR: '.cq-dialog-backdrop-GenericMultiField',
+            CORAL_GENERIC_MULTIFIELD_SELECTOR: '.coral-GenericMultiField',
+            ERROR_MESSAGE_REQUIRED: 'Error: Please fill out this field.',
+            ERROR_MESSAGE_MIN: 'Error: At least {0} items must be created.',
+            ERROR_MESSAGE_MAX: 'Error: At most {0} items can be created.'
+        },
 
         /**
          * Displays the dialog backdrop over the content.
          */
         createCustomBackdrop: function () {
-            var $customBackdrop = $(ns.Helper.CUSTOM_BACKDROP_SELECTOR),
+            var $customBackdrop = $(ns.Helper.CONST.CUSTOM_BACKDROP_SELECTOR),
                 $originalBackdrop = $(".cq-dialog-backdrop");
 
             // don't create backdrop if it already exists
@@ -25,7 +31,7 @@
             }
 
             // create backdrop
-            $customBackdrop = $('<div class="' + ns.Helper.CUSTOM_BACKDROP_CLASS + '"></div>');
+            $customBackdrop = $('<div class="' + ns.Helper.CONST.CUSTOM_BACKDROP_CLASS + '"></div>');
             if ($originalBackdrop.length) {
                 $customBackdrop.insertAfter($originalBackdrop);
             } else {
@@ -69,7 +75,7 @@
          * Hides the dialog backdrop over the content.
          */
         removeCustomBackdrop: function () {
-            var $customBackdrop = $(ns.Helper.CUSTOM_BACKDROP_SELECTOR);
+            var $customBackdrop = $(ns.Helper.CONST.CUSTOM_BACKDROP_SELECTOR);
             $customBackdrop.one("transitionend", function () {
                 $customBackdrop.remove();
             });
