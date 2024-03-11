@@ -10,6 +10,7 @@
     ns.Helper = {
 
         CONST: {
+            ADD_ITEM_WORKFLOW: 'add-item',
             CUSTOM_BACKDROP_CLASS: 'q-dialog-backdrop-GenericMultiField',
             CUSTOM_BACKDROP_SELECTOR: '.cq-dialog-backdrop-GenericMultiField',
             CORAL_GENERIC_MULTIFIELD_SELECTOR: '.coral-GenericMultiField',
@@ -88,6 +89,31 @@
                     $customBackdrop.remove();
                 }
             }, 1000);
+        },
+
+        /**
+         * Adds a CSS markup class to the body element.
+         * @param {string} markup - The CSS class name to add.
+         */
+        addMarkup: function (markup) {
+            document.body.classList.add(markup);
+        },
+
+        /**
+         * Removes a CSS markup class from the body element.
+         * @param {string} markup - The CSS class name to remove.
+         */
+        removeMarkup: function (markup) {
+            document.body.classList.remove(markup);
+        },
+
+        /**
+         * Checks if the body element has a specific markup class.
+         * @param {string} markup - The CSS class name to check for.
+         * @returns {boolean} True if the class exists, false otherwise.
+         */
+        hasMarkup: function(markup) {
+            return document.body.classList.contains(markup);
         }
 
     }

@@ -21,6 +21,8 @@
             COMPONENT: "COMPONENT",
             PAGE: "PAGE"
         };
+        const { removeMarkup } = Merkle.Helper;
+        const { ADD_ITEM_WORKFLOW } = Merkle.Helper.CONST;
 
         /**
          * Array of parent dialogs.
@@ -127,6 +129,8 @@
 
             // overwrite onClose function of dialog
             dialog.onClose = function () {
+                removeMarkup(ADD_ITEM_WORKFLOW);
+
                 // if original onClose callback was set, execute it first
                 if ($.isFunction(_onCloseOrig)) {
                     _onCloseOrig();

@@ -159,9 +159,13 @@
          * @private
          */
         _addListeners: function () {
+            const { addMarkup, hasMarkup } = Merkle.Helper;
+            const { ADD_ITEM_WORKFLOW } = Merkle.Helper.CONST;
+
             var that = this;
 
             this.$element.on("click", ".js-coral-SpectrumMultiField-add", function (e) {
+                addMarkup(ADD_ITEM_WORKFLOW);
                 e.preventDefault();
                 e.stopPropagation();
                 that._addNewItem();
@@ -207,6 +211,15 @@
                 .on("dragend", function (e) {
                     that.ol.css({height: ""});
                 });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    if (hasMarkup(ADD_ITEM_WORKFLOW)) {
+                        const dialog = $('body.' + ADD_ITEM_WORKFLOW);
+                        dialog.find('.cq-dialog-cancel').click();
+                    }
+                }
+            }, true);
 
         },
 
