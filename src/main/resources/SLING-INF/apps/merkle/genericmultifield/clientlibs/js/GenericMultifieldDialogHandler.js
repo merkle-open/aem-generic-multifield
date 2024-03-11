@@ -127,6 +127,8 @@
 
             // overwrite onClose function of dialog
             dialog.onClose = function () {
+                ns.Helper.removeMarkup(ns.Helper.CONST.ADD_ITEM_WORKFLOW);
+
                 // if original onClose callback was set, execute it first
                 if ($.isFunction(_onCloseOrig)) {
                     _onCloseOrig();

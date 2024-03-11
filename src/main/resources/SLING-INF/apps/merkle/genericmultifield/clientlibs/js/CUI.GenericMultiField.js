@@ -162,6 +162,7 @@
             var that = this;
 
             this.$element.on("click", ".js-coral-SpectrumMultiField-add", function (e) {
+                Merkle.Helper.addMarkup(Merkle.Helper.CONST.ADD_ITEM_WORKFLOW);
                 e.preventDefault();
                 e.stopPropagation();
                 that._addNewItem();
@@ -207,6 +208,15 @@
                 .on("dragend", function (e) {
                     that.ol.css({height: ""});
                 });
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    if (Merkle.Helper.hasMarkup(Merkle.Helper.CONST.ADD_ITEM_WORKFLOW)) {
+                        var dialog = $('body.' + Merkle.Helper.CONST.ADD_ITEM_WORKFLOW);
+                        dialog.find('.cq-dialog-cancel').click();
+                    }
+                }
+            }, true);
 
         },
 
