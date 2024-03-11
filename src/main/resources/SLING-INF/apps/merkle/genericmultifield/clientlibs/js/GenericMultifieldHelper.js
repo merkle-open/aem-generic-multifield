@@ -93,7 +93,7 @@
 
         /**
          * Adds a CSS markup class to the body element.
-         * @param {string} markup - The CSS class name to add.
+         * @param {String} markup CSS class name to add.
          */
         addMarkup: function (markup) {
             document.body.classList.add(markup);
@@ -101,7 +101,7 @@
 
         /**
          * Removes a CSS markup class from the body element.
-         * @param {string} markup - The CSS class name to remove.
+         * @param {String} markup CSS class name to remove.
          */
         removeMarkup: function (markup) {
             document.body.classList.remove(markup);
@@ -109,10 +109,10 @@
 
         /**
          * Checks if the body element has a specific markup class.
-         * @param {string} markup - The CSS class name to check for.
-         * @returns {boolean} True if the class exists, false otherwise.
+         * @param {String} markup CSS class name to check for.
+         * @returns {boolean} true if the class exists, false otherwise.
          */
-        hasMarkup: function(markup) {
+        hasMarkup: function (markup) {
             return document.body.classList.contains(markup);
         }
 
