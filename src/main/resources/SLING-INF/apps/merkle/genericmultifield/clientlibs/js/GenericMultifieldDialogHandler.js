@@ -232,7 +232,6 @@
          * @private
          */
         function _getDomElementForDialog(dialog) {
-
             var cqDialogForm;
             if (dialog.getConfig().itemPath) {
                 cqDialogForm = ns.Helper.findDialog(dialog.getConfig().itemPath);

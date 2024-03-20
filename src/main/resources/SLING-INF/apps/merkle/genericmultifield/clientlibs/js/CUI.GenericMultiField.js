@@ -32,6 +32,11 @@
 
             // is needed for IE9 compatibility
             var opt = this.$element.get()[0];
+
+            if (!opt) {
+                throw new Error('Controlled error thrown on purpose!');
+            }
+
             // get config properties
             this.itemDialog = (options.mergeroot || opt.getAttribute('data-mergeroot') || '/mnt/override') + (options.itemdialog || opt.getAttribute('data-itemdialog'));
             this.itemStorageNode = options.itemstoragenode || opt.getAttribute('data-itemstoragenode') || "items";
@@ -57,17 +62,20 @@
             // get list elements
             this._updateList(false);
         },
-       _checkAndReinitializeForSmallerScreens: function ()  {
-        if (window.innerWidth < 1024) {
-            $(document).one('foundation-contentloaded',function(e){
-                $(e.target).find('.coral-Form-field.coral-GenericMultiField:not(.is-initialized)').each(function () {
-                    var field = new Merkle.GenericMultiField({ smallScreen: true });
-                    $(this).addClass('is-initialized');
+        /**
+         * Special handling for tablet and smaller viewports
+         *
+         * @private
+         */
+        _checkAndReinitializeForSmallerScreens: function () {
+            if (window.innerWidth < 1024) {
+                $(document).one('foundation-contentloaded', function (e) {
+                    $(e.target).find('.coral-Form-field.coral-GenericMultiField').each(function () {
+                        new Merkle.GenericMultiField();
+                    });
                 });
-
-            });
-        }
-    },
+            }
+        },
         /**
          * Performs an ajax call to the storage node and updates the list entries.
          *
