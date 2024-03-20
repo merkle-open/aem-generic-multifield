@@ -49,13 +49,24 @@
                 // add the "+" button for adding new items
                 $(".coral-SpectrumMultiField-add", this.$element).attr("disabled", "disabled");
             } else {
+                this._checkAndReinitializeForSmallerScreens();
                 // add button listeners
                 this._addListeners();
             }
             // get list elements
             this._updateList(false);
         },
+       _checkAndReinitializeForSmallerScreens: function ()  {
+        if (window.innerWidth < 1024) {
+            $(document).one('foundation-contentloaded',function(e){
+                $(e.target).find('.coral-Form-field.coral-GenericMultiField:not(.is-initialized)').each(function () {
+                    var field = new Merkle.GenericMultiField({ smallScreen: true });
+                    $(this).addClass('is-initialized');
+                });
 
+            });
+        }
+    },
         /**
          * Performs an ajax call to the storage node and updates the list entries.
          *
