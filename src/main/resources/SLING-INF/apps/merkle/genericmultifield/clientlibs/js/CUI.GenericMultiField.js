@@ -40,6 +40,7 @@
             this.minElements = options.minelements || opt.getAttribute('data-minelements');
             this.maxElements = options.maxelements || opt.getAttribute('data-maxelements');
             this.readOnly = options.renderreadonly || opt.getAttribute('data-renderreadonly');
+            this.smallScreen = options.smallScreen || false;
 
             // get the crx path of the current component from action attribute of the current form.
             this.crxPath = this.$element.parents("form").attr("action");
