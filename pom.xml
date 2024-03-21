@@ -19,6 +19,15 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>Merkle Open Source</name>
+            <email>opensource@merkle.com</email>
+            <organization>Merkle DACH</organization>
+            <organizationUrl>https://www.merkle.com/dach/de</organizationUrl>
+        </developer>
+    </developers>
+
     <properties>
         <!-- Maven Plugins -->
         <mvn.source.plugin.version>3.3.0</mvn.source.plugin.version>
