@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 11
-          distribution: oracle
+          distribution: zulu
       # Install xmllint
       - name: Install dependencies
         run: sudo apt-get install libxml2-utils
@@ -52,7 +52,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 11
-          distribution: oracle
+          distribution: zulu
       # Run maven verify
       - name: Maven verify
         run: mvn verify --batch-mode
