@@ -3,7 +3,7 @@ name: deploy snapshot
 on:
   push:
     branches:
-      - develop
+      - 6.5/develop
 
 jobs:
   deploy-snapshot:

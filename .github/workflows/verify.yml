@@ -3,8 +3,8 @@ name: verify
 on:
   push:
     branches-ignore:
-      - master
-      - develop
+      - 6.5/master
+      - 6.5/develop
 
 jobs:
   verify:
