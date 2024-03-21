@@ -22,7 +22,7 @@ if [[ $CURRENT_VERSION == *-SNAPSHOT ]]; then
 
 	echo "update develop version"
 	git fetch --all
-	git checkout develop
+	git checkout 6.5/develop
 	mvn versions:set -DnextSnapshot versions:commit --no-transfer-progress
   NEXT_SNAPSHOT=$(getVersion)
 	echo "commit new snapshot version"
