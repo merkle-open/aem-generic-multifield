@@ -10,14 +10,13 @@
                 org.osgi.service.cm.Configuration,
                 org.osgi.service.cm.ConfigurationAdmin" %>
 <%
-    ConfigurationAdmin cfgAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
-    Configuration mergePickerConfig = cfgAdmin.getConfiguration("org.apache.sling.resourcemerger.picker.overriding", null);
-    String mergeRoot = (String) mergePickerConfig.getProperties().get(org.apache.sling.resourcemerger.spi.MergedResourcePicker2.MERGE_ROOT);
+    final ConfigurationAdmin cfgAdmin = sling.getService(org.osgi.service.cm.ConfigurationAdmin.class);
+    final Configuration mergePickerConfig = cfgAdmin.getConfiguration("org.apache.sling.resourcemerger.picker.overriding", null);
+    final String mergeRoot = (String) mergePickerConfig.getProperties().get(org.apache.sling.resourcemerger.spi.MergedResourcePicker2.MERGE_ROOT);
 
-    Config cfg = cmp.getConfig();
-
-    Tag tag = cmp.consumeTag();
-    AttrBuilder attrs = tag.getAttrs();
+    final Config cfg = cmp.getConfig();
+    final Tag tag = cmp.consumeTag();
+    final AttrBuilder attrs = tag.getAttrs();
 
     attrs.addClass("coral-GenericMultiField");
     attrs.add("data-init", "genericmultifield");

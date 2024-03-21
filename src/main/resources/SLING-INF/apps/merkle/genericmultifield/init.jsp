@@ -9,7 +9,7 @@
                 org.apache.sling.api.wrappers.ValueMapDecorator,
                 java.util.HashMap" %>
 <%
-    ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
+    final ValueMap vm = new ValueMapDecorator(new HashMap<String, Object>());
 
     // set non-empty string, otherwise the read only rendering will not work
     vm.put("value", "-");

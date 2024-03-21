@@ -1,8 +1,10 @@
 # Generic Multifield for AEMaaCS
 
-System        | Status
---------------|------------------------------------------------
-Dependency    | [![Maven Central][maven-central-version]][maven-central]
+| System     | Status                                                                                               |
+|------------|------------------------------------------------------------------------------------------------------|
+| CI master  | ![release](https://github.com/merkle-open/aem-generic-multifield/workflows/release%20and%20deploy/badge.svg) |
+| CI develop | ![snapshot](https://github.com/merkle-open/aem-generic-multifield/workflows/deploy%20snapshot/badge.svg)     |
+| Dependency | [![Maven Central][maven-central-version]][maven-central]                                             |
 
 With this project you can use a widget in [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html) Touch UI which lets you create a generic multifield in a dialog.
 
@@ -19,7 +21,7 @@ With this project you can use a widget in [AEM as a Cloud Service](https://exper
 
 ### in AEM
 Since the Generic Multifield is built as an OSGi bundle, only the bundle has to be installed into your AEM instance. 
-With the common AEM archetype it can be added within the embedded configuration of the "content-package-maven-plugin" plugin.
+With the common AEM archetype it can be added within the embedded configuration of the `content-package-maven-plugin` plugin.
 ```xml
     <plugin>
         <groupId>com.day.jcr.vault</groupId>
@@ -40,7 +42,7 @@ With the common AEM archetype it can be added within the embedded configuration 
 
  
 #### Component Dialog
-Example usage of the Generic Multifield in your component _cq_dialog.xml definition within AEM (Touch UI):
+Example usage of the Generic Multifield in your component `_cq_dialog.xml` definition within AEM:
 ```xml
 <!-- Within the component dialog definition -->
 <jcr:root
@@ -75,6 +77,7 @@ Example usage of the Generic Multifield in your component _cq_dialog.xml definit
 ![main dialog](docs/component.png)
 
 #### Item-Dialog
+Example definition of the Generic Multifield item in your component's `item-dialog.xml` referenced within `<genericmultifield>` definition via property `itemDialog`:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
