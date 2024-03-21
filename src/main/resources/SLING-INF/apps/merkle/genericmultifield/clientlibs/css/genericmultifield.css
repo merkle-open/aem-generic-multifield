@@ -4,7 +4,7 @@
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     border: .0625rem solid #e9e9e9;
-    padding: .25rem .5rem;
+    padding: .5rem;
     vertical-align: top;
 }
 
@@ -26,54 +26,50 @@
     padding: 0;
 }
 
-.coral-GenericMultiField-add,
-.coral-GenericMultiField-remove,
-.coral-GenericMultiField-move {
-    width: 2.375rem;
-    height: 2.375rem;
+.coral-SpectrumMultiField-edit,
+.coral-SpectrumMultiField-remove,
+.coral-SpectrumMultiField-move {
+    width: 41px;
+    height: 41px;
 }
 
-.coral-GenericMultiField-add {
-    margin-top: .125rem;
-    margin-left: -.125rem;
+.coral-SpectrumMultiField-add {
+    margin-top: 1.5rem;
+    margin-left: 0.25rem;
 }
 
 .coral-GenericMultiField-label {
     position: relative;
-    padding: .625rem;
-    padding-right: 7rem;
+    padding: .625rem 7rem .625rem .625rem;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    height: 16px;
 }
 
-.coral-GenericMultiField-edit {
+.coral-SpectrumMultiField-edit {
     position: absolute;
     top: 0;
-    right: 2.8rem;
-    padding-top: 7px;
+    right: 2.1rem;
 }
 
-.coral-GenericMultiField-remove {
+.coral-SpectrumMultiField-remove {
     position: absolute;
     top: 0;
-    right: 4.5rem;
+    right: 4.2rem;
 }
 
-.coral-GenericMultiField-move {
-    cursor: url("/etc/clientlibs/granite/coralui2/resources/shared/cursors/openhand.cur");
+.coral-SpectrumMultiField-move {
+    cursor: move;
     position: absolute;
     top: 0;
     right: 0;
-    width: 2.375rem;
-    height: 2.375rem;
 }
 
 .coral-GenericMultiField .coral-GenericMultiField-listEntry {
     border: .0625rem solid rgba(0, 0, 0, 0.15);
     position: relative;
     margin-top: .25rem;
+    background-color: rgb(255, 255, 255);
 }
 
 .coral-GenericMultiField .coral-GenericMultiField-listEntry:only-child .coral-GenericMultiField-move {
@@ -96,6 +92,7 @@
 
 .coral-Form--vertical .coral-Form-field.coral-GenericMultiField {
     display: block;
+    background-color: rgba(80, 80, 80, 0.02);
 }
 
 .coral-GenericMultiField-storageWarning {
@@ -107,6 +104,12 @@
 .coral-GenericMultiField.is-invalid {
     border-color: #e14132;
     color: #e14132;
+    border-width: 2px
+}
+
+.coral-GenericMultiField.is-invalid + coral-icon.coral-Form-fielderror._coral-Icon._coral-Icon--sizeS {
+    height: 14px;
+    width: 14px;
 }
 
 .coral-GenericMultiField.is-disabled {
@@ -117,7 +120,7 @@
     background-color: #f0f0f0;
 }
 
-.cq-dialog-backdrop-genericmultifield {
+.cq-dialog-backdrop-GenericMultiField {
     z-index: 920;
     display: block;
     position: fixed;
@@ -136,7 +139,11 @@
     filter: alpha(opacity=0);
 }
 
-/* hide the genericmultifield backdrop if original backdrop is visible */
-.cq-dialog-backdrop:not([style*='display:none']):not([style*='display: none']) ~ .cq-dialog-backdrop-genericmultifield {
+/* hide the generic multifield backdrop if original backdrop is visible */
+.cq-dialog-backdrop:not([style*='display:none']):not([style*='display: none']) ~ .cq-dialog-backdrop-GenericMultiField {
     display: none;
+}
+
+._coral-Dialog-content {
+    overflow-x: hidden !important;
 }

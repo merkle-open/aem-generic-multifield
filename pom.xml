@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-        xmlns="http://maven.apache.org/POM/4.0.0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.namics.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
@@ -22,18 +21,30 @@
 
     <developers>
         <developer>
-            <name>Samuel Schaeublin</name>
-            <email>samuel.schaeublin@namics.com</email>
-            <organization>Namics AG</organization>
-            <organizationUrl>http://www.namics.com</organizationUrl>
-        </developer>
-        <developer>
-            <name>Alexandru Suciu</name>
-            <email>alexandru.suciu@namics.com</email>
-            <organization>Namics AG</organization>
-            <organizationUrl>http://www.namics.com</organizationUrl>
+            <name>Merkle Open Source</name>
+            <email>opensource@merkle.com</email>
+            <organization>Merkle DACH</organization>
+            <organizationUrl>https://www.merkle.com/dach/de</organizationUrl>
         </developer>
     </developers>
+
+    <properties>
+        <!-- Maven Plugins -->
+        <mvn.source.plugin.version>3.3.0</mvn.source.plugin.version>
+        <mvn.javadoc.version>3.5.0</mvn.javadoc.version>
+        <mvn.gpg.plugin.version>3.0.1</mvn.gpg.plugin.version>
+        <mvn.nexus-staging.plugin.version>1.6.13</mvn.nexus-staging.plugin.version>
+
+        <maven.build.timestamp.format>yyyy-MM-dd-z-HH-mm-ss</maven.build.timestamp.format>
+        <git.build.time>${maven.build.timestamp}</git.build.time>
+        <git.branch>unknown</git.branch>
+        <git.commit.id>unknown</git.commit.id>
+        <git.commit.time>unknown</git.commit.time>
+        <java.version>11</java.version>
+        <encoding>UTF-8</encoding>
+        <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
 
     <repositories>
         <repository>
@@ -53,9 +64,8 @@
     <dependencies>
         <dependency>
             <groupId>com.adobe.aem</groupId>
-            <artifactId>uber-jar</artifactId>
-            <version>6.5.0</version>
-            <classifier>apis</classifier>
+            <artifactId>aem-sdk-api</artifactId>
+            <version>2023.12.14697.20231215T125030Z-231200</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -88,7 +98,6 @@
         </plugins>
     </build>
 
-
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
@@ -101,11 +110,10 @@
     </distributionManagement>
 
     <scm>
-        <url>https://github.com/namics/aem-generic-multifield</url>
-        <connection>scm:git:git@github.com:namics/aem-generic-multifield</connection>
-        <developerConnection>scm:git:git@github.com:namics/aem-generic-multifield.git</developerConnection>
+        <url>https://github.com/merkle-open/aem-generic-multifield</url>
+        <connection>scm:git:git@github.com:merkle-open/aem-generic-multifield</connection>
+        <developerConnection>scm:git:git@github.com:merkle-open/aem-generic-multifield.git</developerConnection>
     </scm>
-
 
     <profiles>
         <profile>
@@ -128,13 +136,42 @@
             </build>
         </profile>
         <profile>
-            <id>ossrh</id>
+            <id>deploy</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${mvn.source.plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${mvn.javadoc.version}</version>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>${mvn.gpg.plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -142,13 +179,20 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <!-- Prevent `gpg` from using pinentry programs -->
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>1.6.7</version>
+                        <version>${mvn.nexus-staging.plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -169,7 +213,4 @@
             </build>
         </profile>
     </profiles>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 </project>
