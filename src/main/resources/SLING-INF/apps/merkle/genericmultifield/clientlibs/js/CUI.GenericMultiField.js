@@ -157,10 +157,9 @@
         _createListEntry: function (key, label) {
             var escapedLabel = $("<div/>").text(label).html();
             var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
-            var li = null;
-            var liInner = null;
-            li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultiField-listEntry"});
-            liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultiField-label"});
+            var li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultiField-listEntry"});
+            var liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultiField-label"});
+
             li.append(liInner);
             li.append($(removeButton));
             li.append(editButton);
