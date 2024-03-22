@@ -1,16 +1,35 @@
 # Generic Multifield for AEMaaCS
 
-| System     | Status                                                                                               |
-|------------|------------------------------------------------------------------------------------------------------|
-| CI master  | ![release](https://github.com/merkle-open/aem-generic-multifield/workflows/release%20and%20deploy/badge.svg) |
-| CI develop | ![snapshot](https://github.com/merkle-open/aem-generic-multifield/workflows/deploy%20snapshot/badge.svg)     |
-| Dependency | [![Maven Central][maven-central-version]][maven-central]                                             |
+With this project you can use a widget
+in [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html)
+Touch UI which lets you create a generic multifield in a dialog.
 
-With this project you can use a widget in [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html) Touch UI which lets you create a generic multifield in a dialog.
+| System     | Status                                                                                                                                                                                                                                                          |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=master)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
+| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=develop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
+| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield)                                                      |
 
-## Usage
+<!-- TOC -->
+* [Generic Multifield for AEMaaCS](#generic-multifield-for-aemaacs)
+  * [Requirements](#requirements)
+  * [Maven Dependency](#maven-dependency)
+  * [in AEM](#in-aem)
+    * [Component Dialog](#component-dialog)
+      * [Properties](#properties)
+    * [Item-Dialog](#item-dialog)
+    * [Repository](#repository)
+  * [Development](#development)
+<!-- TOC -->
 
-### Maven Dependency
+## Requirements
+
+| System  | Version                                                                                                                                                                |
+|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AEMaaCS | min version: [2023.12.0](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/release-notes/release-notes/2023/release-notes-2023-12-0) |
+
+## Maven Dependency
+
 ```
     <dependency>
       <groupId>com.namics.oss.aem</groupId>
@@ -19,65 +38,77 @@ With this project you can use a widget in [AEM as a Cloud Service](https://exper
     </dependency>
 ```
 
-### in AEM
-Since the Generic Multifield is built as an OSGi bundle, only the bundle has to be installed into your AEM instance. 
-With the common AEM archetype it can be added within the embedded configuration of the `content-package-maven-plugin` plugin.
+## in AEM
+
+Since the Generic Multifield is built as an OSGi bundle, only the bundle has to be installed into your AEM instance.
+With the common AEM archetype it can be added within the embedded configuration of the `content-package-maven-plugin`
+plugin.
+
 ```xml
-    <plugin>
-        <groupId>com.day.jcr.vault</groupId>
-        <artifactId>content-package-maven-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-            ...
-            <embeddeds>
-                <embedded>
-                    <groupId>com.namics.oss.aem</groupId>
-                    <artifactId>genericmultifield</artifactId>
-                    <target>/apps/myProject/install</target>
-                </embedded>
-            </embeddeds>
-        </configuration>
-    </plugin>
+
+<plugin>
+    <groupId>com.day.jcr.vault</groupId>
+    <artifactId>content-package-maven-plugin</artifactId>
+    <extensions>true</extensions>
+    <configuration>
+        ...
+        <embeddeds>
+            <embedded>
+                <groupId>com.namics.oss.aem</groupId>
+                <artifactId>genericmultifield</artifactId>
+                <target>/apps/myProject/install</target>
+            </embedded>
+        </embeddeds>
+    </configuration>
+</plugin>
 ```
 
- 
-#### Component Dialog
+### Component Dialog
+
 Example usage of the Generic Multifield in your component `_cq_dialog.xml` definition within AEM:
+
 ```xml
 <!-- Within the component dialog definition -->
 <jcr:root
-    ...
-        <title
-               jcr:primaryType="nt:unstructured"
-               sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-               fieldLabel="Title"
-               name="./title"/>
-        <genericmultifield
-               jcr:primaryType="nt:unstructured"
-               sling:resourceType="merkle/genericmultifield"
-               itemDialog="/your/project/path/component/item-dialog.xml"
-               fieldLabel="Generic Multifield"
-               fieldDescription="A list of generic multfield items"
-               itemNameProperty="itemTitle"
-               minElements="2"
-               maxElements="5"
-               required="{Boolean}true"
-               itemStorageNode="./items"/>
-    ...
+  ...
+    <title
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+    fieldLabel="Title"
+    name="./title"/>
+    <genericmultifield
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="merkle/genericmultifield"
+    itemDialog="/your/project/path/component/item-dialog.xml"
+    fieldLabel="Generic Multifield"
+    fieldDescription="A list of generic multfield items"
+    itemNameProperty="itemTitle"
+    minElements="2"
+    maxElements="5"
+    required="{Boolean}true"
+    itemStorageNode="./items"/>
+  ...
 </jcr:root>
 ```
-##### Properties
-**itemDialog**: path reference to the dialog definition of a generic multifield item.<br />
-**itemNameProperty**: Defines the value representation of a generic multifield entry within the component dialog. Must be a reference to a item dialog property.<br />
-**minElements**: Defines the min amount of generic multifield entries.<br />
-**maxElements**: Defines the max amount of generic multifield entries.<br />
-**required**: If set to "{Boolean}true", the main component dialog will not validate until at least one item hast been defined.<br />
-**itemStorageNode**: Defines the parent node name created within the component node. Generic multifield items will be saved beneath this node (defaults to 'items').<br />
+
+#### Properties
+
+| Property             | Function                                                                                                                                          |
+|----------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
+| **itemDialog**       | Path reference to the dialog definition of a generic multifield item.                                                                             |
+| **itemNameProperty** | Defines the value representation of a generic multifield entry within the component dialog. Must be a reference to an item dialog property.       |
+| **minElements**      | Defines the minimal amount of generic multifield entries.                                                                                         |
+| **maxElements**      | Defines the maximal amount of generic multifield entries.                                                                                         |
+| **required**         | If set to `{Boolean}true`, the main component dialog will not validate until at least one item hast been defined.                                 |
+| **itemStorageNode**  | Defines the parent node name created within the component node. Generic multifield items will be saved beneath this node <br/>(default: `items`). |
 
 ![main dialog](docs/component.png)
 
-#### Item-Dialog
-Example definition of the Generic Multifield item in your component's `item-dialog.xml` referenced within `<genericmultifield>` definition via property `itemDialog`:
+### Item-Dialog
+
+Example definition of the Generic Multifield item in your component's `item-dialog.xml` referenced
+within `<genericmultifield>` definition via property `itemDialog`:
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
@@ -172,20 +203,16 @@ Example definition of the Generic Multifield item in your component's `item-dial
 
 ![multifield dialog](docs/item.png)
 
-#### Repository
+### Repository
+
 In the repository the content is stored as follows:
 
 ![content](docs/repo.png)
 
+## Development
 
-### Requirements
-* min AEM 6.5 with Touch UI
-
-### Development
 Build locally with Maven
+
 ```
     mvn clean install -PautoInstallBundle
-``` 
-
-[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg
-[maven-central]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield
+```
