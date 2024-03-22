@@ -9,7 +9,7 @@
     <version>3.2.0</version>
     <name>Generic Multi-field for AEM 6.5</name>
     <description>com.namics.oss.aem - Generic Multi-field for AEM 6.5</description>
-    <url>https://github.com/namics/aem-generic-multifield</url>
+    <url>https://github.com/merkle-open/aem-generic-multifield</url>
 
     <licenses>
         <license>
