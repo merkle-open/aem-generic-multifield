@@ -1,10 +1,10 @@
 # Generic Multifield for AEM 6.3
 
-System        | Status
---------------|------------------------------------------------        
-CI master     | [![Build Status][travis-master]][travis-url]
-CI develop    | [![Build Status][travis-develop]][travis-url]
-Dependency    | [![Maven Central][maven-central-version]][maven-central]
+| System     | Status                                                                                                                                                                                                                                                                |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=6.3%2Fmaster)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
+| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=6.3%2Fdevelop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
+| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg?version=1.0.5)](https://search.maven.org/artifact/com.namics.oss.aem/genericmultifield/1.0.5/bundle)                                                |
 
 With this project you can use a widget in [Adobe Experience Manager 6.3](https://helpx.adobe.com/experience-manager/6-3/release-notes.html) Touch UI which lets you create a generic multifield in a dialog.
 
@@ -78,7 +78,7 @@ Example item dialog:
 ![multifield dialog](docs/item.png)
 
 #### Storage
-In the reporsitory the content is stored like this:
+In the repository the content is stored like this:
 
 ![content](docs/repo.png)
 
@@ -90,11 +90,4 @@ In the reporsitory the content is stored like this:
 Build locally with Maven
 ```
     mvn clean install -PautoInstallBundle
-``` 
-
-
-[travis-master]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=6.3%2Fmaster
-[travis-develop]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=6.3%2Fdevelop
-[travis-url]: https://travis-ci.org/namics/aem-generic-multifield
-[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg
-[maven-central]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield
+```

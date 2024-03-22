@@ -137,8 +137,10 @@
         _createListEntry: function (key, label) {
             var escapedLabel = $("<div/>").text(label).html();
             var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
-            var li = null;
-            li = $("<li id=" + key + " title=" + labelWithKeyAsFallback + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + labelWithKeyAsFallback + "</div></li>");
+            var li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultiField-listEntry"});
+            var liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultiField-label"});
+
+            li.append(liInner);
             li.append($(removeButton));
             li.append(editButton);
             li.append(moveButton);
@@ -274,8 +276,7 @@
                         });
                     });
                 });
-            }
-            else {
+            } else {
                 this.ui.alert(Granite.I18n.get("Maximum reached"), Granite.I18n.get("Maximum number of {0} item(s) reached, you cannot add any additional items.", this.maxElements), "warning");
             }
         },
@@ -304,8 +305,7 @@
                                 }
                             }
                         }]);
-            }
-            else {
+            } else {
                 this.ui.alert(Granite.I18n.get("Minimum reached"), Granite.I18n.get("Minimum number of {0} item(s) reached, you cannot delete any additional items.", this.minElements), "warning");
             }
 
@@ -333,8 +333,7 @@
                     data: ":order=before " + before.attr("id"),
                     url: this.crxPath + "/" + this.itemStorageNode + "/" + item.attr("id")
                 });
-            }
-            else if (after.length > 0) {
+            } else if (after.length > 0) {
                 item.insertAfter(after);
                 $.ajax({
                     type: "POST",
