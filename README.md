@@ -112,64 +112,63 @@ within `<genericmultifield>` definition via property `itemDialog`:
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0"
-          xmlns:jcr="http://www.jcp.org/jcr/1.0"
-          xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
-          jcr:primaryType="nt:unstructured"
-          sling:resourceType="cq/gui/components/authoring/dialog"
-          jcr:title="Generic Multifield Item">
+  xmlns:jcr="http://www.jcp.org/jcr/1.0"
+  xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+  jcr:primaryType="nt:unstructured"
+  sling:resourceType="cq/gui/components/authoring/dialog"
+  jcr:title="Generic Multifield Item">
     <content
-            jcr:primaryType="nt:unstructured"
-            sling:resourceType="granite/ui/components/coral/foundation/tabs">
+      jcr:primaryType="nt:unstructured"
+      sling:resourceType="granite/ui/components/coral/foundation/tabs">
         <items
-                jcr:primaryType="nt:unstructured">
+          jcr:primaryType="nt:unstructured">
             <tabOne
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                    jcr:title="Tab 1"
-                    margin="{Boolean}true">
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+              jcr:title="Tab 1"
+              margin="{Boolean}true">
                 <items
-                        jcr:primaryType="nt:unstructured">
+                  jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/coral/foundation/container">
                         <items
-                                jcr:primaryType="nt:unstructured">
+                          jcr:primaryType="nt:unstructured">
                             <itemTitle
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-                                    fieldLabel="Item Title"
-                                    fieldDescription="Item Title Description"
-                                    required="{Boolean}true"
-                                    name="./itemTitle"/>
+                              jcr:primaryType="nt:unstructured"
+                              sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+                              fieldLabel="Item Title"
+                              fieldDescription="Item Title Description"
+                              required="{Boolean}true"
+                              name="./itemTitle"/>
                             <itemText
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
-                                    fieldLabel="Item Text"
-                                    fieldDescription="Item Text Description"
-                                    name="./itemText"/>
+                              jcr:primaryType="nt:unstructured"
+                              sling:resourceType="granite/ui/components/coral/foundation/form/textarea"
+                              fieldLabel="Item Text"
+                              fieldDescription="Item Text Description"
+                              name="./itemText"/>
                             <itemPath
-                                    jcr:primaryType="nt:unstructured"
-                                    sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
-                                    fieldLabel="Item Path"
-                                    fieldDescription="Item Path Description"
-                                    name="./itemPath"/>
-
+                              jcr:primaryType="nt:unstructured"
+                              sling:resourceType="granite/ui/components/coral/foundation/form/pathbrowser"
+                              fieldLabel="Item Path"
+                              fieldDescription="Item Path Description"
+                              name="./itemPath"/>
                         </items>
                     </column>
                 </items>
             </tabOne>
             <tabTwo
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                    jcr:title="Tab 2"
-                    margin="{Boolean}true">
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+              jcr:title="Tab 2"
+              margin="{Boolean}true">
                 <items
-                        jcr:primaryType="nt:unstructured">
+                  jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/coral/foundation/container">
                         <items
-                                jcr:primaryType="nt:unstructured">
+                          jcr:primaryType="nt:unstructured">
 
                             <!-- properties definition -->
 
@@ -178,17 +177,17 @@ within `<genericmultifield>` definition via property `itemDialog`:
                 </items>
             </tabTwo>
             <tabThree
-                    jcr:primaryType="nt:unstructured"
-                    sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
-                    jcr:title="Tab 3"
-                    margin="{Boolean}true">
+              jcr:primaryType="nt:unstructured"
+              sling:resourceType="granite/ui/components/coral/foundation/fixedcolumns"
+              jcr:title="Tab 3"
+              margin="{Boolean}true">
                 <items
-                        jcr:primaryType="nt:unstructured">
+                  jcr:primaryType="nt:unstructured">
                     <column
-                            jcr:primaryType="nt:unstructured"
-                            sling:resourceType="granite/ui/components/coral/foundation/container">
+                      jcr:primaryType="nt:unstructured"
+                      sling:resourceType="granite/ui/components/coral/foundation/container">
                         <items
-                                jcr:primaryType="nt:unstructured">
+                          jcr:primaryType="nt:unstructured">
 
                             <!-- properties definition -->
 
