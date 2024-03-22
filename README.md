@@ -4,11 +4,11 @@ With this project you can use a widget
 in [Adobe Experience Manager 6.5](https://docs.adobe.com/content/help/en/experience-manager-65/release-notes/release-notes.html)
 Touch UI which lets you create a generic multifield in a dialog.
 
-| System     | Status                                                                                                                                                                                                                                        |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CI master  | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=6.5%2Fmaster)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)  |
-| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=6.5%2Fdevelop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml) |
-| Dependency | [![Maven Central][maven-central-version]][maven-central]                                                                                                                                                                                      |
+| System     | Status                                                                                                                                                                                                                                                                |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=6.5%2Fmaster)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
+| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=6.5%2Fdevelop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
+| Dependency | [![Maven Central][maven-central-version]][maven-central]                                                                                                                                                                                                              |
 
 <!-- TOC -->
 * [Generic Multifield for AEM 6.5](#generic-multifield-for-aem-65)
