@@ -4,11 +4,11 @@ With this project you can use a widget
 in [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html)
 Touch UI which lets you create a generic multifield in a dialog.
 
-| System     | Status                                                                                                       |
-|------------|--------------------------------------------------------------------------------------------------------------|
-| CI master  | ![release](https://github.com/merkle-open/aem-generic-multifield/workflows/release%20and%20deploy/badge.svg) |
-| CI develop | ![snapshot](https://github.com/merkle-open/aem-generic-multifield/workflows/deploy%20snapshot/badge.svg)     |
-| Dependency | [![Maven Central][maven-central-version]][maven-central]                                                     |
+| System     | Status                                                                                                                                                                                                                                                          |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=master)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
+| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=develop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
+| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield)                                                      |
 
 <!-- TOC -->
 * [Generic Multifield for AEMaaCS](#generic-multifield-for-aemaacs)
@@ -215,8 +215,4 @@ Build locally with Maven
 
 ```
     mvn clean install -PautoInstallBundle
-``` 
-
-[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg
-
-[maven-central]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield
+```
