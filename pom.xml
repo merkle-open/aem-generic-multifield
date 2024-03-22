@@ -6,7 +6,7 @@
     <groupId>com.namics.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
     <packaging>bundle</packaging>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.1-SNAPSHOT</version>
     <name>Generic Multi-field for AEMaaCS</name>
     <description>com.namics.oss.aem - Generic Multi-field for AEMaaCS</description>
     <url>https://github.com/merkle-open/aem-generic-multifield</url>
