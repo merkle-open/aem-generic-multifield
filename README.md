@@ -135,7 +135,7 @@ In the repository the content is stored as follows:
 
 
 ### Requirements
-* AEM 6.4 with Touch UI
+* AEM 6.4 (Touch UI)
 
 ### Development
 Build locally with Maven
