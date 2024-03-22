@@ -1,0 +1,26 @@
+name: verify
+
+on:
+  push:
+    branches-ignore:
+      - 6.5/master
+      - 6.5/develop
+
+jobs:
+  verify:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Setup Java environment
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: zulu
+      # Run maven verify
+      - name: Maven verify
+        run: mvn verify --batch-mode

@@ -1,38 +1,28 @@
 /**
- * The Namics.GenericMultiField class represents an editable list
+ * The Merkle.GenericMultiField class represents an editable list
  * of form fields for editing multi value properties.
  */
 (function ($) {
     "use strict";
 
-    var removeButton =
-        "<button type=\"button\" class=\"js-coral-GenericMultiField-remove coral-GenericMultiField-remove coral-MinimalButton\">" +
-        "<i class=\"coral-Icon coral-Icon--sizeS coral-Icon--delete coral-MinimalButton-icon\"></i>" +
-        "</button>";
-    var moveButton =
-        "<button type=\"button\" class=\"js-coral-GenericMultiField-move coral-GenericMultiField-move coral-MinimalButton\">" +
-        "<i class=\"coral-Icon coral-Icon--sizeS coral-Icon--moveUpDown coral-MinimalButton-icon\"></i>" +
-        "</button>";
-    var editButton =
-        "<button type=\"button\" class=\"js-coral-GenericMultiField-edit coral-GenericMultiField-edit coral-MinimalButton\">" +
-        "<i class=\"coral-Icon coral-Icon--sizeS coral-Icon--edit coral-MinimalButton-icon\"></i>" +
-        "</button>";
-
+    var removeButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"delete\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-remove coral-SpectrumMultiField-remove\"></button>";
+    var editButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"edit\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-edit coral-SpectrumMultiField-edit\"></button>";
+    var moveButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"moveUpDown\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-move coral-SpectrumMultiField-move\"></button>";
 
     /**
-     * The Namics.GenericMultiField class represents an editable list
+     * The Merkle.GenericMultiField class represents an editable list
      * of form fields for editing multi value properties.
      *
      * @extends CUI.Widget
      */
-    Namics.GenericMultiField = new Class({
+    Merkle.GenericMultiField = new Class({
 
         toString: 'GenericMultiField',
 
         extend: CUI.Widget,
 
         /**
-         * Creates a new Namics.GenericMultiField.
+         * Creates a new Merkle.GenericMultiField.
          * @constructor
          * @param options object containing config properties
          */
@@ -42,6 +32,11 @@
 
             // is needed for IE9 compatibility
             var opt = this.$element.get()[0];
+
+            if (!opt) {
+                throw new Error('Controlled error thrown on purpose!');
+            }
+
             // get config properties
             this.itemDialog = (options.mergeroot || opt.getAttribute('data-mergeroot') || '/mnt/override') + (options.itemdialog || opt.getAttribute('data-itemdialog'));
             this.itemStorageNode = options.itemstoragenode || opt.getAttribute('data-itemstoragenode') || "items";
@@ -57,18 +52,33 @@
             if (this.readOnly) {
                 this.$element.addClass("is-disabled");
                 // add the "+" button for adding new items
-                $(".coral-GenericMultiField-add", this.$element).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-add", this.$element).attr("disabled", "disabled");
             } else {
+                this._checkAndReinitializeForSmallerScreens();
                 // add button listeners
                 this._addListeners();
             }
             // get list elements
             this._updateList(false);
         },
-
+        /**
+         * Special handling for tablet and smaller viewports
+         *
+         * @private
+         */
+        _checkAndReinitializeForSmallerScreens: function () {
+            if (window.innerWidth < 1024) {
+                $(document).one('foundation-contentloaded', function (e) {
+                    $(e.target).find('.coral-Form-field.coral-GenericMultiField').each(function () {
+                        new Merkle.GenericMultiField();
+                    });
+                });
+            }
+        },
         /**
          * Performs an ajax call to the storage node and updates the list entries.
-         * @param triggerEvent (Boolean) If "change" event should be triggered.
+         *
+         * @param {Boolean} triggerEvent if 'change' event should be triggered.
          * @private
          */
         _updateList: function (triggerEvent) {
@@ -80,7 +90,8 @@
             }).done(function (data) {
                 that.ol.empty();
                 $.each(data, function (key) {
-                    if (typeof data[key] === 'object' && !Array.isArray(data[key]) && data[key] !== undefined && data[key]["jcr:primaryType"] !== undefined) {
+                    if (typeof data[key] === 'object' && !Array.isArray(data[key]) && data[key] !== undefined && data[key]["jcr:primaryType"] !== undefined
+                        && data[key]["sling:resourceType"] !== "wcm/msm/components/ghost") {
 
                         if (that.itemNameDisplayStrategy === "pageTitle") {
                             //use the jcr:title from a page
@@ -116,6 +127,9 @@
             });
         },
 
+        /**
+         * @private
+         */
         _labelFromPage: function (key, targetPath) {
             var that = this;
             $.ajax({
@@ -131,27 +145,30 @@
                 }
 
             });
-
         },
 
         /**
          * Creates the markup for a single list entry.
+         *
+         * @param {String} key the name of the current item.
+         * @param {String} label the label of the current item.
          * @private
-         * @param key the name of the current item
-         * @param label the label of the current item
          */
         _createListEntry: function (key, label) {
             var escapedLabel = $("<div/>").text(label).html();
             var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
             var li = null;
-            li = $("<li id=" + key + " title=" + labelWithKeyAsFallback + " class='coral-GenericMultiField-listEntry'>" + "<div class='coral-GenericMultiField-label'>" + labelWithKeyAsFallback + "</div></li>");
+            var liInner = null;
+            li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultiField-listEntry"});
+            liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultiField-label"});
+            li.append(liInner);
             li.append($(removeButton));
             li.append(editButton);
             li.append(moveButton);
             if (this.readOnly) {
-                $(".coral-GenericMultiField-remove", li).attr("disabled", "disabled");
-                $(".coral-GenericMultiField-edit", li).attr("disabled", "disabled");
-                $(".coral-GenericMultiField-move", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-remove", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-edit", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-move", li).attr("disabled", "disabled");
             }
             return li;
         },
@@ -163,23 +180,26 @@
         _addListeners: function () {
             var that = this;
 
-            this.$element.on("click", ".js-coral-GenericMultiField-add", function (e) {
+            this.$element.on("click", ".js-coral-SpectrumMultiField-add", function (e) {
+                Merkle.Helper.addMarkup(Merkle.Helper.CONST.ADD_ITEM_WORKFLOW);
+                e.preventDefault();
+                e.stopPropagation();
                 that._addNewItem();
             });
 
-            this.$element.on("click", ".js-coral-GenericMultiField-remove", function (e) {
+            this.$element.on("click", ".js-coral-SpectrumMultiField-remove", function (e) {
                 var currentItem = $(this).closest("li");
                 that._removeItem(currentItem);
             });
 
-            this.$element.on("click", ".js-coral-GenericMultiField-edit", function (e) {
+            this.$element.on("click", ".js-coral-SpectrumMultiField-edit", function (e) {
                 var currentItem = $(this).closest("li");
                 that._editItem(currentItem);
             });
 
 
             this.$element
-                .fipo("taphold", "mousedown", ".js-coral-GenericMultiField-move", function (e) {
+                .fipo("taphold", "mousedown", ".js-coral-SpectrumMultiField-move", function (e) {
                     e.preventDefault();
 
                     var item = $(this).closest("li");
@@ -208,12 +228,23 @@
                     that.ol.css({height: ""});
                 });
 
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') {
+                    if (Merkle.Helper.hasMarkup(Merkle.Helper.CONST.ADD_ITEM_WORKFLOW)) {
+                        var dialog = $('body.' + Merkle.Helper.CONST.ADD_ITEM_WORKFLOW);
+                        dialog.find('.cq-dialog-cancel').click();
+                    }
+                }
+            }, true);
+
         },
 
         /**
          * Opens the edit dialog for a given item id.
          * If the item id is not defined, a empty dialog for a new item is loaded.
-         * @param itemPath the path of the current item
+         *
+         * @param {String} itemPath of the current item
+         * @param {Function} cancelCallback on abort.
          * @private
          */
         _openEditDialog: function (itemPath, cancelCallback) {
@@ -244,7 +275,7 @@
                 onCancel: cancelCallback
             }
             try {
-                Namics.GenericMultifieldDialogHandler.openDialog(dialog);
+                Merkle.GenericMultifieldDialogHandler.openDialog(dialog);
             } catch (error) {
                 console.error(error);
                 if ($.isFunction(cancelCallback)) {
@@ -255,7 +286,8 @@
 
         /**
          * Edits an item by opening the item dialog.
-         * @param item List item to be edited
+         *
+         * @param {Object} item List item to be edited.
          * @private
          */
         _editItem: function (item) {
@@ -266,6 +298,7 @@
         /**
          * Adds a new item by opening the empty item dialog if maxElements is not reached.
          * Otherwise, a warning dialog is displayed.
+         *
          * @private
          */
         _addNewItem: function () {
@@ -287,9 +320,11 @@
         },
 
         /**
-         * Removes an item from the list. Shows a warning dialog ("Cancel","Delete") before the delete action is executed.
+         * Removes an item from the list.
+         * Shows a warning dialog ('Cancel','Delete') before the delete action is executed.
+         *
+         * @param {Object} item the list item to be deleted
          * @private
-         * @param item the list item to be deleted
          */
         _removeItem: function (item) {
             var that = this,
@@ -302,7 +337,7 @@
                             text: Granite.I18n.get("Delete"),
                             warning: true,
                             handler: function () {
-                                if (currentElements == 1) {
+                                if (currentElements === 1) {
                                     // delete whole itemStorageNode if last item is being removed
                                     that._deleteNode(that.crxPath + "/" + that.itemStorageNode, deleteItemCallback);
                                 } else {
@@ -322,9 +357,11 @@
         },
 
         /**
-         * Performs drag and drop reordering and executes a sling reordering request on crx items.
+         * Performs drag and drop reordering and
+         * executes a sling reordering request on crx items.
+         *
+         * @param {Object} item the dragging item.
          * @private
-         * @param item the dragging item
          */
         _reorder: function (item) {
             var before = this.ol.children(".drag-after").first();
@@ -347,14 +384,13 @@
                 });
 
             }
-            ;
-
         },
 
         /**
          * Creates a preview view on drag and drop reordering action.
+         *
+         * @param {Event} e the event object.
          * @private
-         * @param e the event object
          */
         _reorderPreview: function (e) {
             var pos = this._pagePosition(e);
@@ -367,9 +403,10 @@
         },
 
         /**
-         * gets the page position.
+         * Gets the page position.
+         *
+         * @param {Event} e the event object.
          * @private
-         * @param e the event object
          */
         _pagePosition: function (e) {
             var touch = {};
@@ -390,9 +427,10 @@
         },
 
         /**
-         * Creates a new node at given path
-         * @param (String) path Path of node to be deleted
-         * @return (String) Path of node that has been created
+         * Creates a new node at given path.
+         *
+         * @param {String} path of node to be deleted.
+         * @param {Function} callback node that has been created.
          * @private
          */
         _createNode: function (path, callback) {
@@ -412,9 +450,10 @@
         },
 
         /**
-         * Deletes the node at given path
-         * @param (String) path Path of node to be deleted
-         * @return (String) Path of node that has been deleted
+         * Deletes the node at given path.
+         *
+         * @param {String} path of node to be deleted.
+         * @param {Function} callback node that has been created.
          * @private
          */
         _deleteNode: function (path, callback) {
@@ -431,6 +470,7 @@
 
         /**
          * Triggers the change event with the DOM element as the source.
+         *
          * @private
          */
         _triggerChangeEvent: function () {
@@ -438,14 +478,14 @@
         }
     });
 
-    // put Namics.GenericMultiField on widget registry
-    CUI.Widget.registry.register(" ", Namics.GenericMultiField);
+    // put Merkle.GenericMultiField on widget registry
+    CUI.Widget.registry.register(" ", Merkle.GenericMultiField);
 
     // Data API
     if (CUI.options.dataAPI) {
         $(document).on("cui-contentloaded.data-api", function (e, data) {
             $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).genericMultiField();
-            if (data && data.restored) {
+            if (data && data._foundationcontentloaded) {
                 $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).trigger("change");
             }
         });
