@@ -70,25 +70,25 @@ Example usage of the Generic Multifield in your component `_cq_dialog.xml` defin
 ```xml
 <!-- Within the component dialog definition -->
 <jcr:root
-        ...
-<title
-jcr:primaryType="nt:unstructured"
-sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
-fieldLabel="Title"
-name="./title"/>
-<genericmultifield
-jcr:primaryType="nt:unstructured"
-sling:resourceType="merkle/genericmultifield"
-itemDialog="/your/project/path/component/item-dialog.xml"
-fieldLabel="Generic Multifield"
-fieldDescription="A list of generic multfield items"
-itemNameProperty="itemTitle"
-minElements="2"
-maxElements="5"
-required="{Boolean}true"
-itemStorageNode="./items"/>
-        ...
-        </jcr:root>
+  ...
+    <title
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
+    fieldLabel="Title"
+    name="./title"/>
+    <genericmultifield
+    jcr:primaryType="nt:unstructured"
+    sling:resourceType="merkle/genericmultifield"
+    itemDialog="/your/project/path/component/item-dialog.xml"
+    fieldLabel="Generic Multifield"
+    fieldDescription="A list of generic multfield items"
+    itemNameProperty="itemTitle"
+    minElements="2"
+    maxElements="5"
+    required="{Boolean}true"
+    itemStorageNode="./items"/>
+  ...
+</jcr:root>
 ```
 
 #### Properties
