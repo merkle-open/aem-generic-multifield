@@ -1,10 +1,10 @@
 # Generic Multifield for AEM 6.4
 
-System        | Status
---------------|------------------------------------------------        
-CI master     | [![Build Status][travis-master]][travis-url]
-CI develop    | [![Build Status][travis-develop]][travis-url]
-Dependency    | [![Maven Central][maven-central-version]][maven-central]
+| System     | Status                                                                                                                                                                                                                                                                |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=6.4%2Fmaster)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
+| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=6.4%2Fdevelop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
+| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg?version=2.0.4)](https://search.maven.org/artifact/com.namics.oss.aem/genericmultifield/2.0.4/bundle)                                                |
 
 With this project you can use a widget in [Adobe Experience Manager 6.4](https://helpx.adobe.com/experience-manager/6-4/release-notes.html) Touch UI which lets you create a generic multifield in a dialog.
 
@@ -142,10 +142,3 @@ Build locally with Maven
 ```
     mvn clean install -PautoInstallBundle
 ``` 
-
-
-[travis-master]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=6.4%2Fmaster
-[travis-develop]: https://travis-ci.org/namics/aem-generic-multifield.svg?branch=6.4%2Fdevelop
-[travis-url]: https://travis-ci.org/namics/aem-generic-multifield
-[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg
-[maven-central]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield

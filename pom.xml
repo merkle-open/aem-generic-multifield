@@ -10,7 +10,7 @@
     <version>2.0.4-SNAPSHOT</version>
     <name>Generic Multifield for AEM 6.4</name>
     <description>com.namics.oss.aem - Generic Multifield for AEM 6.4</description>
-    <url>https://github.com/namics/aem-generic-multifield</url>
+    <url>https://github.com/merkle-open/aem-generic-multifield</url>
 
     <licenses>
         <license>
@@ -22,16 +22,10 @@
 
     <developers>
         <developer>
-            <name>Samuel Schaeublin</name>
-            <email>samuel.schaeublin@namics.com</email>
-            <organization>Namics AG</organization>
-            <organizationUrl>http://www.namics.com</organizationUrl>
-        </developer>
-        <developer>
-            <name>Alexandru Suciu</name>
-            <email>alexandru.suciu@namics.com</email>
-            <organization>Namics AG</organization>
-            <organizationUrl>http://www.namics.com</organizationUrl>
+            <name>Merkle Open Source</name>
+            <email>opensource@merkle.com</email>
+            <organization>Merkle DACH</organization>
+            <organizationUrl>https://www.merkle.com/dach/de</organizationUrl>
         </developer>
     </developers>
 
@@ -101,9 +95,9 @@
     </distributionManagement>
 
     <scm>
-        <url>https://github.com/namics/aem-generic-multifield</url>
-        <connection>scm:git:git@github.com:namics/aem-generic-multifield</connection>
-        <developerConnection>scm:git:git@github.com:namics/aem-generic-multifield.git</developerConnection>
+        <url>https://github.com/merkle-open/aem-generic-multifield</url>
+        <connection>scm:git:git@github.com:merkle-open/aem-generic-multifield</connection>
+        <developerConnection>scm:git:git@github.com:merkle-open/aem-generic-multifield.git</developerConnection>
     </scm>
 
 
