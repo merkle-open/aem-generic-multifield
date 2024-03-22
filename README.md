@@ -34,7 +34,7 @@ Touch UI which lets you create a generic multifield in a dialog.
     <dependency>
       <groupId>com.namics.oss.aem</groupId>
       <artifactId>genericmultifield</artifactId>
-      <version>3.2.0-SNAPHOT</version>
+      <version>3.2.0</version>
     </dependency>
 ```
 
