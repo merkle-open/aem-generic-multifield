@@ -77,7 +77,7 @@ Example usage of the Generic Multifield in your component `_cq_dialog.xml` defin
         name="./title"/>
         <genericmultifield
         jcr:primaryType="nt:unstructured"
-        sling:resourceType="merkle/genericmultifield"
+        sling:resourceType="namics/genericmultifield"
         itemDialog="/your/project/path/component/item-dialog.xml"
         fieldLabel="Generic Multifield"
         fieldDescription="A list of generic multfield items"
