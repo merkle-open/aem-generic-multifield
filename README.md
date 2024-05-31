@@ -8,7 +8,7 @@ Touch UI which lets you create a generic multifield in a dialog.
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=6.5%2Fmaster)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
 | CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=6.5%2Fdevelop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
-| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg?version=3.2.0)](https://search.maven.org/artifact/com.namics.oss.aem/genericmultifield/3.2.0/bundle)                                                |
+| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg?version=3.2.1)](https://search.maven.org/artifact/com.namics.oss.aem/genericmultifield/3.2.1/bundle)                                                |
 
 <!-- TOC -->
 * [Generic Multifield for AEM 6.5](#generic-multifield-for-aem-65)
@@ -34,7 +34,7 @@ Touch UI which lets you create a generic multifield in a dialog.
     <dependency>
       <groupId>com.namics.oss.aem</groupId>
       <artifactId>genericmultifield</artifactId>
-      <version>3.2.0-SNAPHOT</version>
+      <version>3.2.1</version>
     </dependency>
 ```
 
@@ -214,8 +214,4 @@ Build locally with Maven
 
 ```
     mvn clean install -PautoInstallBundle
-``` 
-
-[maven-central-version]: https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg?version=3.2.0
-
-[maven-central]: https://search.maven.org/artifact/com.namics.oss.aem/genericmultifield/3.2.0/bundle
+```
