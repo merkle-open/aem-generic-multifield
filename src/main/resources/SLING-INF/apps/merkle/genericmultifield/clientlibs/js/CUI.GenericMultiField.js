@@ -46,8 +46,8 @@
             this.maxElements = options.maxelements || opt.getAttribute('data-maxelements');
             this.readOnly = options.renderreadonly || opt.getAttribute('data-renderreadonly');
 
-            // get the crx path of the current component from action attribute of the current form.
-            this.crxPath = this.$element.parents("form").attr("action");
+            // get the crx path of the current component from action or data-formid (metadataeditor) attribute of the current form.
+            this.crxPath = this.$element.parents("form").attr("action") ?? this.$element.parents("form").attr("data-formid");
 
             if (this.readOnly) {
                 this.$element.addClass("is-disabled");
