@@ -8,6 +8,7 @@
     var removeButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"delete\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-remove coral-SpectrumMultiField-remove\"></button>";
     var editButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"edit\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-edit coral-SpectrumMultiField-edit\"></button>";
     var moveButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"moveUpDown\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-move coral-SpectrumMultiField-move\"></button>";
+    var copyButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"copy\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-copy coral-SpectrumMultiField-copy\"></button>";
 
     /**
      * The Merkle.GenericMultiField class represents an editable list
@@ -46,8 +47,8 @@
             this.maxElements = options.maxelements || opt.getAttribute('data-maxelements');
             this.readOnly = options.renderreadonly || opt.getAttribute('data-renderreadonly');
 
-            // get the crx path of the current component from action attribute of the current form.
-            this.crxPath = this.$element.parents("form").attr("action");
+            // get the crx path of the current component from action or data-formid (metadataeditor) attribute of the current form.
+            this.crxPath = this.$element.parents("form").attr("action") ?? this.$element.parents("form").attr("data-formid");
 
             if (this.readOnly) {
                 this.$element.addClass("is-disabled");
@@ -164,10 +165,12 @@
             li.append($(removeButton));
             li.append(editButton);
             li.append(moveButton);
+            li.append(copyButton);
             if (this.readOnly) {
                 $(".coral-SpectrumMultiField-remove", li).attr("disabled", "disabled");
                 $(".coral-SpectrumMultiField-edit", li).attr("disabled", "disabled");
                 $(".coral-SpectrumMultiField-move", li).attr("disabled", "disabled");
+                $(".coral-SpectrumMultiField-copy", li).attr("disabled", "disabled");
             }
             return li;
         },
@@ -194,6 +197,11 @@
             this.$element.on("click", ".js-coral-SpectrumMultiField-edit", function (e) {
                 var currentItem = $(this).closest("li");
                 that._editItem(currentItem);
+            });
+
+            this.$element.on("click", ".js-coral-SpectrumMultiField-copy", function (e) {
+                var currentItem = $(this).closest("li");
+                that._copyItem(currentItem);
             });
 
 
@@ -356,6 +364,37 @@
         },
 
         /**
+         * Copies an item by creating a duplicate.
+         *
+         * @param {Object} item List item to be copied.
+         * @private
+         */
+        _copyItem: function (item) {
+            var that = this;
+            var currentElements = this.$element.find("li").length;
+
+            if (!this.maxElements || (currentElements < this.maxElements)) {
+
+                this.ui.prompt(Granite.I18n.get("Copy Item"), Granite.I18n.get("Are you sure you want to copy this item?", this.minElements), "info",
+                    [{text: Granite.I18n.get("Cancel")},
+                        {
+                            text: Granite.I18n.get("Copy"),
+                            primary: true,
+                            handler: function () {
+                                var sourcePath = that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id");
+                                that._copyNode(sourcePath, function (copiedPath) {
+                                    console.log("Item copied successfully to:", copiedPath);
+                                    // Refresh the list to show the newly copied item
+                                    that._updateList(true);
+                                });
+                            }
+                        }]);    
+            } else {
+                this.ui.alert(Granite.I18n.get("Maximum reached"), Granite.I18n.get("Maximum number of {0} item(s) reached, you cannot add any additional items.", this.maxElements), "warning");
+            }
+        },
+
+        /**
          * Performs drag and drop reordering and
          * executes a sling reordering request on crx items.
          *
@@ -464,6 +503,33 @@
                 if ($.isFunction(callback)) {
                     callback(path);
                 }
+            });
+        },
+
+        /**
+         * Copies the node at given path.
+         *
+         * @param {String} path of node to be copied.
+         * @param {Function} callback node that has been copied.
+         * @private
+         */
+        _copyNode: function (path, callback) {
+            var that = this;
+            // Create a unique destination path for the copy
+            var timestamp = Date.now();
+            var destinationPath = that.crxPath + "/" + that.itemStorageNode + "/copy_" + timestamp;
+            
+            $.ajax({
+                type: "POST",
+                data: ":operation=copy&:dest=" + destinationPath,
+                url: path
+            }).done(function (data) {
+                if ($.isFunction(callback)) {
+                    callback(destinationPath);
+                }
+            }).fail(function(xhr, status, error) {
+                console.error("Copy operation failed:", error);
+                that.ui.alert(Granite.I18n.get("Copy Error"), Granite.I18n.get("Failed to copy the item. Please try again."), "error");
             });
         },
 

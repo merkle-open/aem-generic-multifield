@@ -28,7 +28,8 @@
 
 .coral-SpectrumMultiField-edit,
 .coral-SpectrumMultiField-remove,
-.coral-SpectrumMultiField-move {
+.coral-SpectrumMultiField-move,
+.coral-SpectrumMultiField-copy {
     width: 41px;
     height: 41px;
 }
@@ -63,6 +64,12 @@
     position: absolute;
     top: 0;
     right: 0;
+}
+
+.coral-SpectrumMultiField-copy {
+    position: absolute;
+    top: 0;
+    right: 6.3rem;
 }
 
 .coral-GenericMultiField .coral-GenericMultiField-listEntry {
