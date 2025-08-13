@@ -6,7 +6,7 @@
     <groupId>com.namics.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
     <packaging>bundle</packaging>
-    <version>4.0.0</version>
+    <version>4.0.1-SNAPSHOT</version>
     <name>Generic Multi-field for AEMaaCS</name>
     <description>com.namics.oss.aem - Generic Multi-field for AEMaaCS</description>
     <url>https://github.com/merkle-open/aem-generic-multifield</url>
@@ -24,7 +24,7 @@
             <name>Merkle Open Source</name>
             <email>opensource@merkle.com</email>
             <organization>Merkle DACH</organization>
-            <organizationUrl>https://www.merkle.com/dach/de</organizationUrl>
+            <organizationUrl>https://www.merkle.com/dach</organizationUrl>
         </developer>
     </developers>
 
@@ -37,9 +37,6 @@
 
         <maven.build.timestamp.format>yyyy-MM-dd-z-HH-mm-ss</maven.build.timestamp.format>
         <git.build.time>${maven.build.timestamp}</git.build.time>
-        <git.branch>unknown</git.branch>
-        <git.commit.id>unknown</git.commit.id>
-        <git.commit.time>unknown</git.commit.time>
         <java.version>11</java.version>
         <encoding>UTF-8</encoding>
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
