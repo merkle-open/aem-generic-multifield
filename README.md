@@ -88,6 +88,7 @@ Example usage of the Generic Multifield in your component `_cq_dialog.xml` defin
             minElements="2"
             maxElements="5"
             required="{Boolean}true"
+            allowItemCopy="{Boolean}true"
             itemStorageNode="./items"/>
     ...
 </jcr:root>
@@ -102,6 +103,7 @@ Example usage of the Generic Multifield in your component `_cq_dialog.xml` defin
 | **minElements**      | Defines the minimal amount of generic multifield entries.                                                                                         |
 | **maxElements**      | Defines the maximal amount of generic multifield entries.                                                                                         |
 | **required**         | If set to `{Boolean}true`, the main component dialog will not validate until at least one item hast been defined.                                 |
+| **allowItemCopy**    | If set to `{Boolean}true`, defined multifield entries may be copied to the list.                                                                  |
 | **itemStorageNode**  | Defines the parent node name created within the component node. Generic multifield items will be saved beneath this node <br/>(default: `items`). |
 
 ![main dialog](docs/component.png)
