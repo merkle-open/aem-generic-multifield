@@ -1,5 +1,5 @@
 /**
- * The Merkle.GenericMultiField class represents an editable list
+ * The Merkle.GenericMultifield class represents an editable list
  * of form fields for editing multi value properties.
  */
 (function ($) {
@@ -11,19 +11,19 @@
     var copyButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"copy\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-copy coral-SpectrumMultiField-copy\"></button>";
 
     /**
-     * The Merkle.GenericMultiField class represents an editable list
+     * The Merkle.GenericMultifield class represents an editable list
      * of form fields for editing multi value properties.
      *
      * @extends CUI.Widget
      */
-    Merkle.GenericMultiField = new Class({
+    Merkle.GenericMultifield = new Class({
 
-        toString: 'GenericMultiField',
+        toString: 'GenericMultifield',
 
         extend: CUI.Widget,
 
         /**
-         * Creates a new Merkle.GenericMultiField.
+         * Creates a new Merkle.GenericMultifield.
          * @constructor
          * @param options object containing config properties
          */
@@ -71,8 +71,8 @@
         _checkAndReinitializeForSmallerScreens: function () {
             if (window.innerWidth < 1024) {
                 $(document).one('foundation-contentloaded', function (e) {
-                    $(e.target).find('.coral-Form-field.coral-GenericMultiField').each(function () {
-                        new Merkle.GenericMultiField();
+                    $(e.target).find('.coral-Form-field.coral-GenericMultifield').each(function () {
+                        new Merkle.GenericMultifield();
                     });
                 });
             }
@@ -159,8 +159,8 @@
         _createListEntry: function (key, label) {
             var escapedLabel = $("<div/>").text(label).html();
             var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
-            var li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultiField-listEntry"});
-            var liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultiField-label"});
+            var li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultifield-listEntry"});
+            var liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultifield-label"});
 
             li.append(liInner);
             li.append($(removeButton));
@@ -545,15 +545,15 @@
         }
     });
 
-    // put Merkle.GenericMultiField on widget registry
-    CUI.Widget.registry.register(" ", Merkle.GenericMultiField);
+    // put Merkle.GenericMultifield on widget registry
+    CUI.Widget.registry.register(" ", Merkle.GenericMultifield);
 
     // Data API
     if (CUI.options.dataAPI) {
         $(document).on("cui-contentloaded.data-api", function (e, data) {
-            $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).genericMultiField();
+            $(".coral-GenericMultifield[data-init~='genericmultifield']", e.target).genericMultifield();
             if (data && data._foundationcontentloaded) {
-                $(".coral-GenericMultiField[data-init~='genericmultifield']", e.target).trigger("change");
+                $(".coral-GenericMultifield[data-init~='genericmultifield']", e.target).trigger("change");
             }
         });
     }

@@ -18,7 +18,7 @@
     final Tag tag = cmp.consumeTag();
     final AttrBuilder attrs = tag.getAttrs();
 
-    attrs.addClass("coral-GenericMultiField");
+    attrs.addClass("coral-GenericMultifield");
     attrs.add("data-init", "genericmultifield");
     attrs.add("id", cfg.get("id", String.class));
     attrs.addClass(cfg.get("class", String.class));
@@ -33,7 +33,7 @@
 %>
 
 <div <%= attrs.build() %>>
-    <ol class="coral-GenericMultiField-list js-coral-GenericMultiField-list"></ol>
+    <ol class="coral-GenericMultifield-list js-coral-GenericMultifield-list"></ol>
     <button is="coral-button" icon="add"  size="M" class="js-coral-SpectrumMultiField-add coral-SpectrumMultiField-add"></button>
 </div>
 

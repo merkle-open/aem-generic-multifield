@@ -1,1 +1,1 @@
-genericmultifield.css
+generic-multifield.css

@@ -1,4 +1,4 @@
-.coral-GenericMultiField {
+.coral-GenericMultifield {
     display: inline-block;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -8,18 +8,18 @@
     vertical-align: top;
 }
 
-.coral-GenericMultiField[data-renderreadonly] {
+.coral-GenericMultifield[data-renderreadonly] {
     background: none;
     border: none;
     padding: 0;
 }
 
-.coral--dark .coral-GenericMultiField {
+.coral--dark .coral-GenericMultifield {
     border-color: #434343;
     background-color: #484848;
 }
 
-.coral-GenericMultiField-list {
+.coral-GenericMultifield-list {
     list-style: none;
     position: relative;
     margin: 0;
@@ -39,7 +39,7 @@
     margin-left: 0.25rem;
 }
 
-.coral-GenericMultiField-label {
+.coral-GenericMultifield-label {
     position: relative;
     padding: .625rem 7rem .625rem .625rem;
     overflow: hidden;
@@ -72,18 +72,18 @@
     right: 6.3rem;
 }
 
-.coral-GenericMultiField .coral-GenericMultiField-listEntry {
+.coral-GenericMultifield .coral-GenericMultifield-listEntry {
     border: .0625rem solid rgba(0, 0, 0, 0.15);
     position: relative;
     margin-top: .25rem;
     background-color: rgb(255, 255, 255);
 }
 
-.coral-GenericMultiField .coral-GenericMultiField-listEntry:only-child .coral-GenericMultiField-move {
+.coral-GenericMultifield .coral-GenericMultifield-listEntry:only-child .coral-GenericMultifield-move {
     display: none;
 }
 
-.coral-GenericMultiField .coral-GenericMultiField-listEntry.is-dragging {
+.coral-GenericMultifield .coral-GenericMultifield-listEntry.is-dragging {
     opacity: 0.7;
     position: absolute;
     left: 0;
@@ -92,42 +92,42 @@
     background-color: rgba(128, 128, 128, 0.5);
 }
 
-.coral-GenericMultiField .drag-after {
+.coral-GenericMultifield .drag-after {
     position: relative;
     top: 2.625rem;
 }
 
-.coral-Form--vertical .coral-Form-field.coral-GenericMultiField {
+.coral-Form--vertical .coral-Form-field.coral-GenericMultifield {
     display: block;
     background-color: rgba(80, 80, 80, 0.02);
 }
 
-.coral-GenericMultiField-storageWarning {
+.coral-GenericMultifield-storageWarning {
     color: #969696;
     margin-top: 0.2em;
     margin-bottom: 0.2em;
 }
 
-.coral-GenericMultiField.is-invalid {
+.coral-GenericMultifield.is-invalid {
     border-color: #e14132;
     color: #e14132;
     border-width: 2px
 }
 
-.coral-GenericMultiField.is-invalid + coral-icon.coral-Form-fielderror._coral-Icon._coral-Icon--sizeS {
+.coral-GenericMultifield.is-invalid + coral-icon.coral-Form-fielderror._coral-Icon._coral-Icon--sizeS {
     height: 14px;
     width: 14px;
 }
 
-.coral-GenericMultiField.is-disabled {
+.coral-GenericMultifield.is-disabled {
     color: #bebebe;
 }
 
-.coral-GenericMultiField.is-disabled .coral-GenericMultiField-listEntry {
+.coral-GenericMultifield.is-disabled .coral-GenericMultifield-listEntry {
     background-color: #f0f0f0;
 }
 
-.cq-dialog-backdrop-GenericMultiField {
+.cq-dialog-backdrop-GenericMultifield {
     z-index: 920;
     display: block;
     position: fixed;
@@ -147,7 +147,7 @@
 }
 
 /* hide the generic multifield backdrop if original backdrop is visible */
-.cq-dialog-backdrop:not([style*='display:none']):not([style*='display: none']) ~ .cq-dialog-backdrop-GenericMultiField {
+.cq-dialog-backdrop:not([style*='display:none']):not([style*='display: none']) ~ .cq-dialog-backdrop-GenericMultifield {
     display: none;
 }
 

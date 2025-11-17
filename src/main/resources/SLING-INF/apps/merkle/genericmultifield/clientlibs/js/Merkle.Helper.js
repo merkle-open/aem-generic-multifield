@@ -11,9 +11,9 @@
 
         CONST: {
             ADD_ITEM_WORKFLOW: 'add-item',
-            CUSTOM_BACKDROP_CLASS: 'q-dialog-backdrop-GenericMultiField',
-            CUSTOM_BACKDROP_SELECTOR: '.cq-dialog-backdrop-GenericMultiField',
-            CORAL_GENERIC_MULTIFIELD_SELECTOR: '.coral-GenericMultiField',
+            CUSTOM_BACKDROP_CLASS: 'q-dialog-backdrop-GenericMultifield',
+            CUSTOM_BACKDROP_SELECTOR: '.cq-dialog-backdrop-GenericMultifield',
+            CORAL_GENERIC_MULTIFIELD_SELECTOR: '.coral-GenericMultifield',
             ERROR_MESSAGE_REQUIRED: 'Error: Please fill out this field.',
             ERROR_MESSAGE_MIN: 'Error: At least {0} items must be created.',
             ERROR_MESSAGE_MAX: 'Error: At most {0} items can be created.'

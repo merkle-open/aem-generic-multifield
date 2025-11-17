@@ -1,5 +1,5 @@
 /**
- * Validates the generic multi-field's minimum and maximum number of elements
+ * Validates the generic multifield's minimum and maximum number of elements
  * restriction.
  */
 
@@ -7,13 +7,13 @@
     "use strict";
 
     /**
-     * Performs the validation of the generic multi-field.
+     * Performs the validation of the generic multifield.
      *
-     * @param {Object} multiField to perform validation on.
+     * @param {Object} multifield to perform validation on.
      * @private
      */
-    function _performValidation(multiField) {
-        var api = multiField.adaptTo("foundation-validation");
+    function _performValidation(multifield) {
+        var api = multifield.adaptTo("foundation-validation");
         if (api) {
             api.checkValidity();
             api.updateUI();
@@ -23,7 +23,7 @@
     // get global foundation registry
     var registry = $(window).adaptTo("foundation-registry");
 
-    // register adapter for generic multi-field
+    // register adapter for generic multifield
     registry.register("foundation.adapters", {
         type: "foundation-field",
         selector: Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR,
@@ -60,18 +60,18 @@
         }
     });
 
-    // register selector for generic multi-field
+    // register selector for generic multifield
     registry.register("foundation.validation.selector", {
         submittable: Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR,
-        candidate: ".coral-GenericMultiField:not([disabled]):not([data-renderreadonly=true])",
-        exclusion: ".coral-GenericMultiField *"
+        candidate: ".coral-GenericMultifield:not([disabled]):not([data-renderreadonly=true])",
+        exclusion: ".coral-GenericMultifield *"
     });
 
-    // register validator for generic multi-field
+    // register validator for generic multifield
     registry.register("foundation.validation.validator", {
         selector: Merkle.Helper.CONST.CORAL_GENERIC_MULTIFIELD_SELECTOR,
         validate: function (el) {
-            var $field = $(el).closest(".coral-Form-field"), items = $field.find(".coral-GenericMultiField-list li"),
+            var $field = $(el).closest(".coral-Form-field"), items = $field.find(".coral-GenericMultifield-list li"),
                 minElements = $field.data("minelements"), maxElements = $field.data("maxelements");
 
             // validate required attribute

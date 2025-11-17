@@ -7,8 +7,8 @@
 
     /**
      * This dialog frame represents the Granite UI Dialog Frame in the Generic
-     * MultiField (Merkle) context. It is basically a copy of the DialogFrame.js
-     * with little extensions for the Generic MultiField.
+     * Multifield (Merkle) context. It is basically a copy of the DialogFrame.js
+     * with little extensions for the Generic Multifield.
      *
      * @namespace
      * @alias Merkle.DialogFrame
@@ -74,7 +74,7 @@
             ns.Helper.createCustomBackdrop();
 
             // open new dialog
-            Granite.author.DialogFrame.openDialog(_extendGenericMultiFieldDialog(dialog));
+            Granite.author.DialogFrame.openDialog(_extendGenericMultifieldDialog(dialog));
         }
 
         /**
@@ -114,14 +114,14 @@
         }
 
         /**
-         * Extend dialogs created by generic multi-field.
+         * Extend dialogs created by generic multifield.
          * Extends the dialog object with necessary callback functions.
          *
          * @param {Object} dialog dialog to be extended.
          * @returns {Object} extended dialog.
          * @private
          */
-        function _extendGenericMultiFieldDialog(dialog) {
+        function _extendGenericMultifieldDialog(dialog) {
             // save original onClose callback
             var _onCloseOrig = dialog.onClose, _onReadyOrig = dialog.onReady;
 
