@@ -258,7 +258,7 @@
                 getConfig: function () {
                     return {
                         src: path,
-                        itemPath: itemPath,
+                        itemPath: ns.Helper.replaceWhiteSpace(itemPath),
                         loadingMode: "auto",
                         layout: "auto",
                         isGenericMultifield: true
@@ -489,4 +489,4 @@
             }
         });
     }
-}(window.jQuery));
+}(window.jQuery, Merkle));
