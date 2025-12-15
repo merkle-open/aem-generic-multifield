@@ -3,12 +3,12 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.namics.oss.aem</groupId>
+    <groupId>com.merkle.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
     <packaging>bundle</packaging>
     <version>4.0.1-SNAPSHOT</version>
     <name>Generic Multifield for AEMaaCS</name>
-    <description>com.namics.oss.aem - Generic Multifield for AEMaaCS</description>
+    <description>com.merkle.oss.aem - Generic Multifield for AEMaaCS</description>
     <url>https://github.com/merkle-open/aem-generic-multifield</url>
     <inceptionYear>2018</inceptionYear>
 

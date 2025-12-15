@@ -4,6 +4,7 @@ With this project you can use a widget
 in [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html)
 Touch UI which lets you create a generic multifield in a dialog.
 
+[//]: # (TODO: update url and badges)
 | System     | Status                                                                                                                                                                                                                                                          |
 |------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=master)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
@@ -34,7 +35,7 @@ Touch UI which lets you create a generic multifield in a dialog.
 
 ```
   <dependency>
-    <groupId>com.namics.oss.aem</groupId>
+    <groupId>com.merkle.oss.aem</groupId>
     <artifactId>genericmultifield</artifactId>
     <version>4.0.1-SNAPSHOT</version>
   </dependency>
@@ -55,7 +56,7 @@ plugin.
         ...
         <embeddeds>
             <embedded>
-                <groupId>com.namics.oss.aem</groupId>
+                <groupId>com.merkle.oss.aem</groupId>
                 <artifactId>genericmultifield</artifactId>
                 <target>/apps/project-name/install</target>
             </embedded>
