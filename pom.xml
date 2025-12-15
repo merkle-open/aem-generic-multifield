@@ -7,9 +7,10 @@
     <artifactId>genericmultifield</artifactId>
     <packaging>bundle</packaging>
     <version>4.0.1-SNAPSHOT</version>
-    <name>Generic Multi-field for AEMaaCS</name>
-    <description>com.namics.oss.aem - Generic Multi-field for AEMaaCS</description>
+    <name>Generic Multifield for AEMaaCS</name>
+    <description>com.namics.oss.aem - Generic Multifield for AEMaaCS</description>
     <url>https://github.com/merkle-open/aem-generic-multifield</url>
+    <inceptionYear>2018</inceptionYear>
 
     <licenses>
         <license>
@@ -21,12 +22,41 @@
 
     <developers>
         <developer>
-            <name>Merkle Open Source</name>
-            <email>opensource@merkle.com</email>
+            <name>Merkle Open Source AEM</name>
+            <email>AEMtech@merkle.com</email>
             <organization>Merkle DACH</organization>
             <organizationUrl>https://www.merkle.com/dach</organizationUrl>
         </developer>
     </developers>
+
+    <organization>
+        <name>Merkle DACH</name>
+        <url>https://www.merkle.com/dach</url>
+    </organization>
+
+    <scm>
+        <url>https://github.com/merkle-open/aem-generic-multifield</url>
+        <connection>scm:git:git@github.com:merkle-open/aem-generic-multifield.git</connection>
+        <developerConnection>scm:git:git@github.com:merkle-open/aem-generic-multifield.git</developerConnection>
+    </scm>
+
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <name>Central Portal Snapshots</name>
+            <id>central-portal-snapshots</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </snapshotRepository>
+    </distributionManagement>
 
     <properties>
         <!-- Maven Plugins -->
@@ -34,6 +64,8 @@
         <mvn.javadoc.version>3.5.0</mvn.javadoc.version>
         <mvn.gpg.plugin.version>3.0.1</mvn.gpg.plugin.version>
         <mvn.nexus-staging.plugin.version>1.6.13</mvn.nexus-staging.plugin.version>
+        <mvn.gpg.plugin.version>3.2.8</mvn.gpg.plugin.version>
+        <mvn.sonatype.publishing.plugin.version>0.9.0</mvn.sonatype.publishing.plugin.version>
 
         <maven.build.timestamp.format>yyyy-MM-dd-z-HH-mm-ss</maven.build.timestamp.format>
         <git.build.time>${maven.build.timestamp}</git.build.time>
@@ -92,25 +124,37 @@
                     <password>admin</password>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${mvn.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${mvn.javadoc.version}</version>
+                <configuration>
+                    <failOnError>false</failOnError>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
-
-    <scm>
-        <url>https://github.com/merkle-open/aem-generic-multifield</url>
-        <connection>scm:git:git@github.com:merkle-open/aem-generic-multifield</connection>
-        <developerConnection>scm:git:git@github.com:merkle-open/aem-generic-multifield.git</developerConnection>
-    </scm>
 
     <profiles>
         <profile>
@@ -138,35 +182,6 @@
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>${mvn.source.plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>attach-sources</id>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${mvn.javadoc.version}</version>
-                        <configuration>
-                            <failOnError>false</failOnError>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>attach-javadocs</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
                         <version>${mvn.gpg.plugin.version}</version>
                         <executions>
@@ -187,27 +202,19 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${mvn.nexus-staging.plugin.version}</version>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${mvn.sonatype.publishing.plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>true</autoPublish>
+                            <waitUntil>published</waitUntil>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>deploy-to-sonatype</id>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>deploy</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
+
 </project>

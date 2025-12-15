@@ -57,7 +57,7 @@ plugin.
             <embedded>
                 <groupId>com.namics.oss.aem</groupId>
                 <artifactId>genericmultifield</artifactId>
-                <target>/apps/myProject/install</target>
+                <target>/apps/project-name/install</target>
             </embedded>
         </embeddeds>
     </configuration>
@@ -108,7 +108,7 @@ Example usage of the Generic Multifield in your component `_cq_dialog.xml` defin
 
 ![main dialog](docs/component.png)
 
-### Item-Dialog
+### Item Dialog
 
 Example definition of the Generic Multifield item in your component's `item-dialog.xml` referenced
 within `<genericmultifield>` definition via property `itemDialog`:
