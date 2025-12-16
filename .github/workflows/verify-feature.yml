@@ -1,4 +1,4 @@
-name: verify
+name: CI feature
 
 on:
   push:
@@ -21,6 +21,6 @@ jobs:
         with:
           java-version: 11
           distribution: zulu
-      # Run maven verify
+      # Run maven verify (includes unit tests)
       - name: Maven verify
         run: mvn verify --batch-mode
