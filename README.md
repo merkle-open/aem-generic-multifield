@@ -4,32 +4,22 @@ With this project you can use a widget
 in [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html)
 Touch UI which lets you create a generic multifield in a dialog.
 
-[//]: # (TODO: update url and badges)
-| System     | Status                                                                                                                                                                                                                                                          |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CI master  | [![release and deploy](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml/badge.svg?branch=master)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/release-and-deploy-release.yml) |
-| CI develop | [![deploy snapshot](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml/badge.svg?branch=develop)](https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml)                         |
-| Dependency | [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.namics.oss.aem/genericmultifield)                                                      |
+## Status
 
-<!-- TOC -->
-
-* [Generic Multifield for AEMaaCS](#generic-multifield-for-aemaacs)
-    * [Requirements](#requirements)
-    * [Maven Dependency](#maven-dependency)
-    * [in AEM](#in-aem)
-        * [Component Dialog](#component-dialog)
-            * [Properties](#properties)
-        * [Item-Dialog](#item-dialog)
-        * [Repository](#repository)
-    * [Development](#development)
-
-<!-- TOC -->
+<p align="center">
+    <a href="https://maven-badges.sml.io/sonatype-central/com.merkle.oss.aem/aem-generic-multifield/" style="text-decoration: none;">
+        <img alt="Sonatype Central Version" src="https://img.shields.io/maven-central/v/com.merkle.oss.aem/aem-generic-multifield?strategy=highestVersion&logo=sonatype&logoColor=white&logoSize=auto&label=Sonatype-Central&labelColor=black&color=blue&link=https%3A%2F%2Fmaven-badges.sml.io%2Fsonatype-central%2Fcom.merkle.oss.aem%2Faem-generic-multifield%2F"></a>
+    <a href="https://github.com/merkle-open/aem-generic-multifield/actions/workflows/verify-snapshot.yml" style="text-decoration: none;">
+        <img alt="CI - Github Action" src="https://img.shields.io/github/actions/workflow/status/merkle-open/aem-generic-multifield/verify-snapshot.yml?branch=develop&logo=githubactions&logoColor=white&logoSize=auto&label=CI&labelColor=black&link=https%3A%2F%2Fgithub.com%2Fmerkle-open%2Faem-generic-multifield%2Factions%2Fworkflows%2Fverify-snapshot.yml"></a>
+    <a href="https://github.com/merkle-open/aem-generic-multifield/actions/workflows/deploy-snapshot.yml" style="text-decoration: none;">
+        <img alt="Deploy SNAPSHOT - Github Action" src="https://img.shields.io/github/actions/workflow/status/merkle-open/aem-generic-multifield/deploy-snapshot.yml?branch=develop&logo=githubactions&logoColor=white&logoSize=auto&label=SNAPSHOT-Deploy&labelColor=black&link=https%3A%2F%2Fgithub.com%2Fmerkle-open%2Faem-generic-multifield%2Factions%2Fworkflows%2Fdeploy-snapshot.yml"></a>
+</p>
 
 ## Requirements
 
-| System  | Version                                                                                                                                                                |
-|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AEMaaCS | min version: [2023.12.0](https://experienceleague.adobe.com/en/docs/experience-manager-cloud-service/content/release-notes/release-notes/2023/release-notes-2023-12-0) |
+| System                 |
+|------------------------|
+| [AEM as a Cloud Service](https://experienceleague.adobe.com/docs/experience-manager-cloud-service/content/release-notes/home.html) |
 
 ## Maven Dependency
 

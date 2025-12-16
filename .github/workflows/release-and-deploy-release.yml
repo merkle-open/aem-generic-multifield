@@ -1,4 +1,4 @@
-name: release and deploy
+name: Release & deploy
 
 on:
   push:
@@ -6,8 +6,29 @@ on:
       - master
 
 jobs:
+  verify:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: '0'
+      # Setup Java environment
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: zulu
+      # Run maven verify (includes unit tests)
+      - name: Maven verify
+        run: mvn verify --batch-mode
+
   release:
 
+    needs: verify
     runs-on: ubuntu-latest
 
     steps:
@@ -24,13 +45,13 @@ jobs:
           distribution: zulu
       # Install xmllint
       - name: Install dependencies
-        run: sudo apt-get install libxml2-utils
+        run: sudo apt-get update && sudo apt-get install libxml2-utils
       # Set git username and email
       - name: Set up Git
         run: |
           chmod +x ci/setup-git.sh
           ci/setup-git.sh
-      # Release, set correct versions and create tag
+      # Release, set correct versions and create a tag
       - name: Release (versioning/tag)
         run: |
           chmod +x ci/mvn-release.sh
@@ -38,7 +59,7 @@ jobs:
 
   deploy-release:
 
-    needs: release
+    needs: [ verify, release ]
     runs-on: ubuntu-latest
 
     steps:
@@ -51,16 +72,17 @@ jobs:
       - name: Set up JDK 11
         uses: actions/setup-java@v2
         with:
-          java-version: 11
           distribution: zulu
-      # Run maven verify
-      - name: Maven verify
-        run: mvn verify --batch-mode
-      # Publish
+          java-version: 11
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+      # Deploy release (to Sonatype)
       - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          nexus_username: ${{ secrets.OSSRH_USER }}
-          nexus_password: ${{ secrets.OSSRH_PASSWORD }}
+        run: mvn deploy -Pdeploy
+        env:
+          MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
+          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
