@@ -114,7 +114,16 @@
          */
         hasMarkup: function (markup) {
             return document.body.classList.contains(markup);
-        }
+        },
+
+        /**
+         * Replaces white space with UTF-8 encoded space in a path.
+         * @param {String} path to replace white space in.
+         * @returns {String} path with white space replaced with UTF-8 encoded space.
+         */
+        replaceWhiteSpace(path) {
+            return path.replace(/ /g, "%20");
+        },
 
     }
 
