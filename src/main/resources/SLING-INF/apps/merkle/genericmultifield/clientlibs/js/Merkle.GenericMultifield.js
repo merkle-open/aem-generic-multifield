@@ -298,7 +298,7 @@
                 getConfig: function () {
                     return {
                         src: path,
-                        itemPath: itemPath,
+                        itemPath: Merkle.Helper.replaceWhiteSpace(itemPath),
                         loadingMode: "auto",
                         layout: "auto",
                         isGenericMultifield: true
