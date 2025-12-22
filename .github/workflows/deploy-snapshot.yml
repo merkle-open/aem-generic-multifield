@@ -1,4 +1,4 @@
-name: Deploy snapshot
+name: Deploy SNAPSHOT
 
 on:
   push:
@@ -7,50 +7,109 @@ on:
 
 jobs:
   verify:
-
+    name: Verify
     runs-on: ubuntu-latest
-
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          fetch-depth: '0'
+          fetch-depth: 0
+
       # Setup Java environment
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
         with:
-          java-version: 11
+          java-version: 21
           distribution: zulu
+          cache: maven
+
       # Run maven verify (includes unit tests)
       - name: Maven verify
         run: mvn verify --batch-mode
 
-  deploy-snapshot:
+      # Step to save the coverage report for the Analyze job
+      - name: Upload JaCoCo Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-report
+          path: core/target/site/jacoco/jacoco.xml
+          retention-days: 1
 
+  analyze:
+    name: Analyze
     needs: verify
     runs-on: ubuntu-latest
+    steps:
+      # Checkout source code
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
+      # Setup Java environment
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: zulu
+          cache: maven
+
+      # Step to retrieve the report from the Verify job
+      - name: Download JaCoCo Report
+        uses: actions/download-artifact@v4
+        with:
+          name: jacoco-report
+          path: core/target/site/jacoco/
+
+      # Cache SonarQube packages
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      # Cache Maven packages
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      # Run maven verify and sonar scan
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=merkle-open_aem-generic-multifield -DskipTests
+
+  deploy-snapshot:
+    name: Deploy SNAPSHOT
+    needs: [ verify, analyze ]
+    runs-on: ubuntu-latest
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          fetch-depth: '0'
+          fetch-depth: 0
+
       # Setup Java environment
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
         with:
           distribution: zulu
-          java-version: 11
+          java-version: 21
           server-id: central
           server-username: MAVEN_USERNAME
           server-password: MAVEN_PASSWORD
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          cache: maven
+
       # Run maven deploy (to Sonatype)
       - name: Release Maven package
-        run: mvn deploy -Pdeploy
+        run: mvn deploy -Pdeploy -DskipTests --batch-mode
         env:
           MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
           MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
