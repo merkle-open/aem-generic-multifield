@@ -47,7 +47,7 @@
         <mvn.gpg.plugin.version>3.0.1</mvn.gpg.plugin.version>
         <mvn.nexus-staging.plugin.version>1.6.13</mvn.nexus-staging.plugin.version>
         <mvn.gpg.plugin.version>3.2.8</mvn.gpg.plugin.version>
-        <mvn.sonatype.publishing.plugin.version>0.9.0</mvn.sonatype.publishing.plugin.version>
+        <mvn.sonatype.publishing.plugin.version>0.10.0</mvn.sonatype.publishing.plugin.version>
 
         <maven.build.timestamp.format>yyyy-MM-dd-z-HH-mm-ss</maven.build.timestamp.format>
         <git.build.time>${maven.build.timestamp}</git.build.time>
