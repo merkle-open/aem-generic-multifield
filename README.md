@@ -39,11 +39,15 @@ The project contains an example component implementation that demonstrates the u
   type: [examplecomponent](ui.apps/src/main/content/jcr_root/apps/merkle/generic-multifield/example/components/examplecomponent)
 - Model: [ExampleComponent](core/src/main/java/com/merkle/oss/aem/genericmultifield/example/components)
 
+<div align="center">
+
 | Description                                | Preview                                          |
 |--------------------------------------------|--------------------------------------------------|
 | [Component Dialog](#dialog-definition)     | <img src="docs/Dialog.png" width="300">          |
-| [Multifield Item Dialog](#item-definition) | <img src="docs/Multifield-item.png" width="300"> |
+| [Multifield Item Dialog](#item-definition) | <img src="docs/Multifield-Item.png" width="300"> |
 | Repository structure                       | <img src="docs/Repository.png" width="300">      |
+
+</div>
 
 ## Installation
 
