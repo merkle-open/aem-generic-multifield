@@ -1,0 +1,26 @@
+{
+  "component-with-items": {
+    "jcr:primaryType": "nt:unstructured",
+    "title": "My Component Title",
+    "items": {
+      "item1": {
+        "jcr:primaryType": "nt:unstructured",
+        "itemTitle": "Title 1",
+        "itemText": "Text 1"
+      },
+      "item2": {
+        "jcr:primaryType": "nt:unstructured",
+        "itemTitle": "Title 2",
+        "itemText": "Text 2"
+      },
+      "invalid-item": {
+        "jcr:primaryType": "nt:unstructured",
+        "itemTitle": "Missing Text"
+      }
+    }
+  },
+  "empty-component": {
+    "jcr:primaryType": "nt:unstructured",
+    "title": "Empty"
+  }
+}

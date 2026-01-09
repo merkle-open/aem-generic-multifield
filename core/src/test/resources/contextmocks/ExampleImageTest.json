@@ -1,0 +1,19 @@
+{
+  "valid-image": {
+    "jcr:primaryType": "nt:unstructured",
+    "title": "Image Title",
+    "alt": "Image Alt Text",
+    "fileReference": "/content/dam/example.jpg",
+    "isDecorativeImage": false
+  },
+  "decorative-image": {
+    "jcr:primaryType": "nt:unstructured",
+    "alt": "Hidden Alt Text",
+    "fileReference": "/content/dam/decorative.jpg",
+    "isDecorativeImage": true
+  },
+  "invalid-image": {
+    "jcr:primaryType": "nt:unstructured",
+    "title": "No File Reference"
+  }
+}

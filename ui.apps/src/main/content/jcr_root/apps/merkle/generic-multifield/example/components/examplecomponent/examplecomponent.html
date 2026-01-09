@@ -1,0 +1,50 @@
+<sly data-sly-use.model="com.merkle.oss.aem.genericmultifield.example.components.ExampleComponent"/>
+
+<div data-sly-test="${wcmmode.edit && !model.viewable}"
+     class="cq-placeholder"
+     data-emptytext="Generic Multifield Example Component"></div>
+
+<sly data-sly-test="${model.viewable}">
+    <h3 style="text-align: center"
+        class="coral-Heading--L coral-Heading--heavy">${model.title}</h3>
+    <table data-sly-test="${model.items}"
+           style="width: 800px; margin: auto; margin-bottom: 48px;"
+           handle="table" class=" _coral-Table" role="grid" aria-describedby="coral-id-0">
+        <tbody data-sly-list.item="${model.items}"
+               is="coral-table-body" divider="cell" _observe="on" class="_coral-Table-divider--cell _coral-Table-body">
+        <tr is="coral-table-row" class="_coral-Table-row">
+            <td style="background-color: rgba(75,75,75,.02);" colspan="2" is="coral-table-cell" role="rowheader"
+                class="_coral-Table-cell" id="coral-id-2">
+                ${item.itemTitle}
+            </td>
+        </tr>
+        <tr data-sly-test="${item.itemText}"
+            is="coral-table-row" class="_coral-Table-row">
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item text</td>
+            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">${item.itemText}</td>
+        </tr>
+        <tr data-sly-test="${item.itemPath}"
+            is="coral-table-row" class="_coral-Table-row">
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item path</td>
+            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">${item.itemPath}</td>
+        </tr>
+        <tr data-sly-test="${item.image.valid}"
+            is="coral-table-row" class="_coral-Table-row">
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item image</td>
+            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">
+                <img data-sly-test="${item.image.valid}"
+                     style="max-width: 100px; max-height: 100px;"
+                     src="${item.image.src}"
+                     alt="${item.image.alt || true}">
+            </td>
+        </tr>
+        <tr data-sly-test="${item.text}"
+            is="coral-table-row" class="_coral-Table-row">
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item richtext</td>
+            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">${item.text @ context='html'}</td>
+        </tr>
+        </tbody>
+        <tfoot is="coral-table-foot"></tfoot>
+        <colgroup></colgroup>
+    </table>
+</sly>
