@@ -30,7 +30,7 @@ jobs:
 
       # Step to save the coverage report for the Analyze job
       - name: Upload JaCoCo Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: jacoco-report
           path: core/target/site/jacoco/jacoco.xml
@@ -56,14 +56,14 @@ jobs:
 
       # Step to retrieve the report from the Verify job
       - name: Download JaCoCo Report
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v7
         with:
           name: jacoco-report
           path: core/target/site/jacoco/
 
       # Cache SonarQube packages
       - name: Cache SonarQube packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
@@ -71,7 +71,7 @@ jobs:
 
       # Cache Maven packages
       - name: Cache Maven packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
