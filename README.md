@@ -43,9 +43,9 @@ The project contains an example component implementation that demonstrates the u
 
 | Description                                | Preview                                          |
 |--------------------------------------------|--------------------------------------------------|
-| [Component Dialog](#dialog-definition)     | <img src="docs/Dialog.png" width="300">          |
-| [Multifield Item Dialog](#item-definition) | <img src="docs/Multifield-Item.png" width="300"> |
-| Repository structure                       | <img src="docs/Repository.png" width="300">      |
+| [Component Dialog](#dialog-definition)     | <img src="docs/Dialog.png" width="400">            |
+| [Multifield Item Dialog](#item-definition) | <img src="docs/Multifield-Item.png" width="400"> |
+| Repository structure                       | <img src="docs/Repository.png" width="400">      |
 
 </div>
 
