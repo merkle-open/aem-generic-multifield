@@ -19,7 +19,7 @@
     final AttrBuilder attrs = tag.getAttrs();
 
     attrs.addClass("coral-GenericMultifield");
-    attrs.add("data-init", "genericmultifield");
+    attrs.add("data-init", "generic-multifield");
     attrs.add("id", cfg.get("id", String.class));
     attrs.addClass(cfg.get("class", String.class));
     attrs.addRel(cfg.get("rel", String.class));

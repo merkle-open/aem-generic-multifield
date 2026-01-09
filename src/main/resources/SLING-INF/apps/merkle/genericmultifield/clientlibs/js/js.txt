@@ -1,5 +1,0 @@
-namespace.Merkle.js
-Merkle.Helper.js
-Merkle.GenericMultifieldDialogHandler.js
-Merkle.GenericMultifield.js
-validations.js

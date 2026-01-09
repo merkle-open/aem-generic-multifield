@@ -1,0 +1,160 @@
+// Variables
+@border-color-light: #e9e9e9;
+@border-color-dark: #434343;
+@bg-color-dark: #484848;
+@error-color: #e14132;
+@disabled-text: #bebebe;
+
+// Mixins
+.transition(@settings) {
+  -webkit-transition: @settings;
+  -moz-transition: @settings;
+  -o-transition: @settings;
+  -ms-transition: @settings;
+  transition: @settings;
+}
+
+// Main Component
+.coral-GenericMultifield {
+  display: inline-block;
+  box-sizing: border-box;
+  border: .0625rem solid @border-color-light;
+  padding: .5rem;
+  vertical-align: top;
+
+  // Nested Elements
+  &-list {
+    list-style: none;
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+
+  &-label {
+    position: relative;
+    padding: .625rem 7rem .625rem .625rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &-listEntry {
+    border: .0625rem solid rgba(0, 0, 0, 0.15);
+    position: relative;
+    margin-top: .25rem;
+    background-color: #fff;
+
+    &:only-child .coral-GenericMultifield-move {
+      display: none;
+    }
+
+    &.is-dragging {
+      opacity: 0.7;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 10000;
+      background-color: rgba(128, 128, 128, 0.5);
+    }
+  }
+
+  .drag-after {
+    position: relative;
+    top: 2.625rem;
+  }
+
+  &-storageWarning {
+    color: #969696;
+    margin: 0.2em 0;
+  }
+
+  // States
+  &.is-invalid {
+    border-color: @error-color;
+    color: @error-color;
+    border-width: 2px;
+
+    & + coral-icon.coral-Form-fielderror._coral-Icon._coral-Icon--sizeS {
+      height: 14px;
+      width: 14px;
+    }
+  }
+
+  &.is-disabled {
+    color: @disabled-text;
+
+    .coral-GenericMultifield-listEntry {
+      background-color: #f0f0f0;
+    }
+  }
+}
+
+// Theme/Context Overrides
+.coral--dark {
+  .coral-GenericMultifield {
+    border-color: @border-color-dark;
+    background-color: @bg-color-dark;
+  }
+}
+
+.coral-Form--vertical .coral-Form-field.coral-GenericMultifield {
+  display: block;
+  background-color: rgba(80, 80, 80, 0.02);
+}
+
+// Spectrum MultiField Actions
+.coral-SpectrumMultiField {
+  &-edit, &-remove, &-move, &-copy {
+    width: 41px;
+    height: 41px;
+    position: absolute;
+    top: 0;
+  }
+
+  &-add {
+    margin-top: 1.5rem;
+    margin-left: 0.25rem;
+  }
+
+  &-edit {
+    right: 2.1rem;
+  }
+
+  &-remove {
+    right: 4.2rem;
+  }
+
+  &-move {
+    right: 0;
+    cursor: move;
+  }
+
+  &-copy {
+    right: 6.3rem;
+  }
+}
+
+// Dialog & Backdrop
+.cq-dialog-backdrop-GenericMultifield {
+  z-index: 920;
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  .transition(opacity 0.35s);
+  opacity: 1;
+  filter: alpha(opacity=0); // Legacy IE support
+}
+
+.cq-dialog-backdrop:not([style*='display:none']):not([style*='display: none']) {
+  & ~ .cq-dialog-backdrop-GenericMultifield {
+    display: none;
+  }
+}
+
+._coral-Dialog-content {
+  overflow-x: hidden !important;
+}

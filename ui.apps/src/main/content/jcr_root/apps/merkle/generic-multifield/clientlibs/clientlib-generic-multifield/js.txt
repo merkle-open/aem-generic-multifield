@@ -1,0 +1,8 @@
+#base=js
+
+namespace.Merkle.js
+Merkle.GenericMultifield.MultifieldHelper.js
+Merkle.GenericMultifield.DialogHandler.js
+Merkle.GenericMultifield.Multifield.js
+Merkle.GenericMultifield.MultifieldValidator.js
+init.js

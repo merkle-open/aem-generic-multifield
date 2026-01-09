@@ -1,44 +1,68 @@
 /**
- * The Merkle.GenericMultifield class represents an editable list
- * of form fields for editing multi value properties.
+ * @fileoverview Main Multifield widget for the Merkle Generic Multifield.
+ * Handles CRUD operations, drag-and-drop reordering, and AEM dialog integration.
+ *
+ *@dependency {object} global - The window object containing Granite and Coral APIs.
+ *@dependency {jQuery} $ - The jQuery library for DOM manipulation.
+ *@dependency {Merkle.GenericMultifield} namespace - The namespace object.
  */
-(function ($) {
+((global, $, namespace) => {
+
     "use strict";
 
-    var removeButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"delete\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-remove coral-SpectrumMultiField-remove\"></button>";
-    var editButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"edit\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-edit coral-SpectrumMultiField-edit\"></button>";
-    var moveButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"moveUpDown\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-move coral-SpectrumMultiField-move\"></button>";
-    var copyButton = "<button is=\"coral-button\" variant=\"minimal\" icon=\"copy\" size=\"S\" type=\"button\" class=\"js-coral-SpectrumMultiField-copy coral-SpectrumMultiField-copy\"></button>";
+    /**
+     * @type {typeof Merkle.GenericMultifield.MultifieldHelper}
+     * @description Local reference to the static utility helper class.
+     * @const
+     */
+    const MultifieldHelper = namespace.MultifieldHelper;
 
     /**
-     * The Merkle.GenericMultifield class represents an editable list
-     * of form fields for editing multi value properties.
-     *
-     * @extends CUI.Widget
+     * @type {typeof Merkle.GenericMultifield.DialogHandler}
+     * @description Local reference to the dialog handler class.
+     * @const
      */
-    Merkle.GenericMultifield = new Class({
+    const DialogHandler = namespace.DialogHandler;
+
+    /**
+     * Represents an editable list of form fields for editing multi-value properties in AEM.
+     * Inherits from CUI.Widget to integrate with the Coral UI framework.
+     *
+     * @class Multifield
+     * @extends CUI.Widget
+     * @memberof Merkle.GenericMultifield
+     */
+    namespace.Multifield = new Class({
 
         toString: 'GenericMultifield',
 
         extend: CUI.Widget,
 
         /**
-         * Creates a new Merkle.GenericMultifield.
+         * Initializes the GenericMultifield component.
+         *
          * @constructor
-         * @param options object containing config properties
+         * @param {Object} options - Configuration properties for the widget.
+         * @param {string} [options.mergeroot] - Root path for dialog merging.
+         * @param {string} [options.itemdialog] - Path to the item dialog resource.
+         * @param {string} [options.itemstoragenode="items"] - Name of the JCR node where items are stored.
+         * @param {string} [options.itemnameproperty="jcr:title"] - Property used for display labels.
+         * @param {number} [options.minelements] - Minimum required number of items.
+         * @param {number} [options.maxelements] - Maximum allowed number of items.
+         * @param {boolean} [options.allowitemcopy=false] - Whether the copy functionality is enabled.
+         * @throws {Error} Throws an error if the underlying DOM element is not found.
          */
         construct: function (options) {
-            this.ui = $(window).adaptTo('foundation-ui');
+            this.ui = $(global).adaptTo('foundation-ui');
             this.ol = this.$element.children("ol");
 
             // is needed for IE9 compatibility
-            var opt = this.$element.get()[0];
-
+            const opt = this.$element.get()[0];
             if (!opt) {
                 throw new Error('Controlled error thrown on purpose!');
             }
 
-            // get config properties
+            // Configuration properties initialization
             this.itemDialog = (options.mergeroot || opt.getAttribute('data-mergeroot') || '/mnt/override') + (options.itemdialog || opt.getAttribute('data-itemdialog'));
             this.itemStorageNode = options.itemstoragenode || opt.getAttribute('data-itemstoragenode') || "items";
             this.itemNameProperty = options.itemnameproperty || opt.getAttribute('data-itemnameproperty') || "jcr:title";
@@ -46,45 +70,43 @@
             this.minElements = options.minelements || opt.getAttribute('data-minelements');
             this.maxElements = options.maxelements || opt.getAttribute('data-maxelements');
             this.allowItemCopy = options.allowitemcopy || opt.getAttribute('data-allowitemcopy') || false;
-            this.readOnly = options.renderreadonly || opt.getAttribute('data-renderreadonly');
 
-            // get the crx path of the current component from action or data-formid (metadataeditor) attribute of the current form.
-            this.crxPath = this.$element.parents("form").attr("action") ?? this.$element.parents("form").attr("data-formid");
+            // get the crx path of the current component from the action or data-formid (metadataeditor) attribute of the current form.
+            this.crxPath = this.$element.parents("form").attr("action") || this.$element.parents("form").attr("data-formid");
 
-            if (this.readOnly) {
-                this.$element.addClass("is-disabled");
-                // add the "+" button for adding new items
-                $(".coral-SpectrumMultiField-add", this.$element).attr("disabled", "disabled");
-            } else {
-                this._checkAndReinitializeForSmallerScreens();
-                // add button listeners
-                this._addListeners();
-            }
-            // get list elements
+            this._checkAndReinitializeForSmallerScreens();
+            this._addListeners();
             this._updateList(false);
         },
+
         /**
-         * Special handling for tablet and smaller viewports
+         * Re-initializes the widget for touch devices or smaller viewports to ensure UX consistency.
          *
          * @private
          */
         _checkAndReinitializeForSmallerScreens: function () {
-            if (window.innerWidth < 1024) {
-                $(document).one('foundation-contentloaded', function (e) {
-                    $(e.target).find('.coral-Form-field.coral-GenericMultifield').each(function () {
-                        new Merkle.GenericMultifield();
-                    });
-                });
+            const BREAKPOINT = 1024;
+
+            if (global.innerWidth >= BREAKPOINT) {
+                return;
             }
+
+            $(document).one('foundation-contentloaded', function (e) {
+                $(e.target).find('.coral-Form-field.coral-GenericMultifield').each(function () {
+                    new namespace.Multifield();
+                });
+            });
         },
+
         /**
          * Performs an ajax call to the storage node and updates the list entries.
          *
-         * @param {Boolean} triggerEvent if 'change' event should be triggered.
+         * @param {boolean} triggerEvent - If true, triggers the 'change' event after the update.
          * @private
          */
         _updateList: function (triggerEvent) {
-            var that = this;
+            const that = this;
+
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -99,11 +121,12 @@
                             //use the jcr:title from a page
                             that._labelFromPage(key, data[key][that.itemNameProperty]);
                         } else {
-                            var propertyValue;
+                            let propertyValue;
+
                             if (that.itemNameProperty.indexOf('/') > -1) {
                                 propertyValue = that.itemNameProperty.split('/');
-                                var parent = data[key];
-                                for (var i = 0; i < propertyValue.length - 1; i += 1) {
+                                let parent = data[key];
+                                for (let i = 0; i < propertyValue.length - 1; i += 1) {
                                     parent = parent[propertyValue[i]];
                                 }
 
@@ -112,11 +135,11 @@
                                 } else {
                                     propertyValue = key;
                                 }
-
                             } else {
                                 propertyValue = data[key][that.itemNameProperty];
                             }
-                            var li = that._createListEntry(key, propertyValue);
+
+                            const li = that._createListEntry(key, propertyValue);
                             li.appendTo(that.ol);
                         }
 
@@ -130,19 +153,23 @@
         },
 
         /**
+         * Resolves a display label by fetching the jcr:title of a referenced page.
+         *
+         * @param {string} key - The JCR node name.
+         * @param {string} targetPath - The path to the referenced page.
          * @private
          */
         _labelFromPage: function (key, targetPath) {
-            var that = this;
+            const that = this;
+
             $.ajax({
                 type: "GET",
                 dataType: "json",
                 async: false,
                 url: targetPath + ".-1.json"
             }).done(function (data) {
-
                 if (typeof data["jcr:content"] === 'object') {
-                    var li = that._createListEntry(key, data["jcr:content"]["jcr:title"]);
+                    const li = that._createListEntry(key, data["jcr:content"]["jcr:title"]);
                     li.appendTo(that.ol);
                 }
 
@@ -150,60 +177,64 @@
         },
 
         /**
-         * Creates the markup for a single list entry.
+         * Generates the HTML markup for a multifield list item including action buttons.
          *
-         * @param {String} key the name of the current item.
-         * @param {String} label the label of the current item.
+         * @param {string} key - The JCR node name of the item.
+         * @param {string} label - The text to display in the list entry.
+         * @returns {jQuery} The jQuery-wrapped list item element.
          * @private
          */
         _createListEntry: function (key, label) {
-            var escapedLabel = $("<div/>").text(label).html();
-            var labelWithKeyAsFallback = escapedLabel ? escapedLabel : key;
-            var li = $('<li>', {id: key, title: labelWithKeyAsFallback, class: "coral-GenericMultifield-listEntry"});
-            var liInner = $('<div>', {text: labelWithKeyAsFallback, class: "coral-GenericMultifield-label"});
+            const displayLabel = label?.trim() || key;
+            const isCopyAllowed = String(this.allowItemCopy).toLowerCase() === 'true';
 
-            li.append(liInner);
-            li.append($(removeButton));
-            li.append(editButton);
-            li.append(moveButton);
-            if (this.allowItemCopy) {
-                li.append(copyButton);
-            }
-            if (this.readOnly) {
-                $(".coral-SpectrumMultiField-remove", li).attr("disabled", "disabled");
-                $(".coral-SpectrumMultiField-edit", li).attr("disabled", "disabled");
-                $(".coral-SpectrumMultiField-move", li).attr("disabled", "disabled");
-                $(".coral-SpectrumMultiField-copy", li).attr("disabled", "disabled");
-            }
-            return li;
+            const getButton = (type, icon) => `
+                <button is="coral-button" variant="minimal" icon="${icon}" size="S" type="button" 
+                class="js-coral-SpectrumMultiField-${type} coral-SpectrumMultiField-${type}"></button>
+            `;
+
+            const liContent = `
+                <div class="coral-GenericMultifield-label">${$('<div/>').text(displayLabel).html()}</div>
+                ${getButton('remove', 'delete')}
+                ${getButton('edit', 'edit')}
+                ${getButton('move', 'moveUpDown')}
+                ${isCopyAllowed ? getButton('copy', 'copy') : ''}
+                `;
+
+            return $('<li>', {
+                id: key,
+                title: displayLabel,
+                class: "coral-GenericMultifield-listEntry"
+            }).html(liContent);
         },
 
         /**
-         * Initializes listeners.
+         * Attaches event listeners for CRUD actions and drag-and-drop reordering.
+         *
          * @private
          */
         _addListeners: function () {
-            var that = this;
+            const that = this;
 
             this.$element.on("click", ".js-coral-SpectrumMultiField-add", function (e) {
-                Merkle.Helper.addMarkup(Merkle.Helper.CONST.ADD_ITEM_WORKFLOW);
+                MultifieldHelper.addMarkup(MultifieldHelper.CONST.ADD_ITEM_WORKFLOW);
                 e.preventDefault();
                 e.stopPropagation();
                 that._addNewItem();
             });
 
             this.$element.on("click", ".js-coral-SpectrumMultiField-remove", function (e) {
-                var currentItem = $(this).closest("li");
+                const currentItem = $(this).closest("li");
                 that._removeItem(currentItem);
             });
 
             this.$element.on("click", ".js-coral-SpectrumMultiField-edit", function (e) {
-                var currentItem = $(this).closest("li");
+                const currentItem = $(this).closest("li");
                 that._editItem(currentItem);
             });
 
             this.$element.on("click", ".js-coral-SpectrumMultiField-copy", function (e) {
-                var currentItem = $(this).closest("li");
+                const currentItem = $(this).closest("li");
                 that._copyItem(currentItem);
             });
 
@@ -211,11 +242,11 @@
                 .fipo("taphold", "mousedown", ".js-coral-SpectrumMultiField-move", function (e) {
                     e.preventDefault();
 
-                    var item = $(this).closest("li");
+                    const item = $(this).closest("li");
                     item.prevAll().addClass("drag-before");
                     item.nextAll().addClass("drag-after");
 
-                    // Fix height of list element to avoid flickering of page
+                    // Fix the height of a list element to avoid flickering of the page
                     that.ol.css({height: that.ol.height() + $(e.item).height() + "px"});
                     new CUI.DragAction(e, that.$element, item, [that.ol], "vertical");
                 })
@@ -238,25 +269,23 @@
                 });
 
             document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') {
-                    if (Merkle.Helper.hasMarkup(Merkle.Helper.CONST.ADD_ITEM_WORKFLOW)) {
-                        var dialog = $('body.' + Merkle.Helper.CONST.ADD_ITEM_WORKFLOW);
-                        dialog.find('.cq-dialog-cancel').click();
-                    }
+                if (event.key === 'Escape' && MultifieldHelper.hasMarkup(MultifieldHelper.CONST.ADD_ITEM_WORKFLOW)) {
+                    const dialog = $('body.' + MultifieldHelper.CONST.ADD_ITEM_WORKFLOW);
+                    dialog.find('.cq-dialog-cancel').click();
                 }
             }, true);
 
         },
 
         /**
-         * Copies an item by creating a duplicate.
+         * Initiates the copy process for a specific item.
          *
-         * @param {Object} item List item to be copied.
+         * @param {jQuery} item - The list item jQuery object to be copied.
          * @private
          */
         _copyItem: function (item) {
-            var that = this;
-            var currentElements = this.$element.find("li").length;
+            const that = this;
+            const currentElements = this.$element.find("li").length;
 
             if (!this.maxElements || (currentElements < this.maxElements)) {
 
@@ -266,7 +295,7 @@
                             text: Granite.I18n.get("Copy"),
                             primary: true,
                             handler: function () {
-                                var sourcePath = that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id");
+                                const sourcePath = that.crxPath + "/" + that.itemStorageNode + "/" + item.attr("id");
                                 that._copyNode(sourcePath, function (copiedPath) {
                                     // Refresh the list to show the newly copied item
                                     that._updateList(true);
@@ -279,11 +308,11 @@
         },
 
         /**
-         * Opens the edit dialog for a given item id.
-         * If the item id is not defined, a empty dialog for a new item is loaded.
+         * Loads and displays the edit dialog for an item resource.
          *
-         * @param {String} itemPath of the current item
-         * @param {Function} cancelCallback on abort.
+         * @param {string} itemPath - CRX path of the current item.
+         * @param {Function} [cancelCallback] - Function to execute if the dialog is canceled.
+         * @throws {Error} Throws error if itemPath is not provided.
          * @private
          */
         _openEditDialog: function (itemPath, cancelCallback) {
@@ -291,14 +320,14 @@
                 throw new Error("Parameter 'itemPath' must be defined");
             }
 
-            var that = this,
-                path = this.itemDialog + ".html" + itemPath;
+            const that = this;
+            const path = this.itemDialog + ".html" + itemPath;
 
-            var dialog = {
+            const dialog = {
                 getConfig: function () {
                     return {
                         src: path,
-                        itemPath: Merkle.Helper.replaceWhiteSpace(itemPath),
+                        itemPath: MultifieldHelper.replaceWhiteSpace(itemPath),
                         loadingMode: "auto",
                         layout: "auto",
                         isGenericMultifield: true
@@ -314,7 +343,8 @@
                 onCancel: cancelCallback
             }
             try {
-                Merkle.GenericMultifieldDialogHandler.openDialog(dialog);
+                const dialogHandler = new DialogHandler();
+                dialogHandler.openDialog(dialog);
             } catch (error) {
                 console.error(error);
                 if ($.isFunction(cancelCallback)) {
@@ -324,14 +354,14 @@
         },
 
         /**
-         * Edits an item by opening the item dialog.
+         * Triggers the edit workflow for an existing list item.
          *
-         * @param {Object} item List item to be edited.
+         * @param {jQuery} item - The list item jQuery object to be edited.
          * @private
          */
         _editItem: function (item) {
-            var path = this.crxPath + "/" + this.itemStorageNode + "/" + item.attr("id");
-            this._openEditDialog(path);
+            const path = this.crxPath + "/" + this.itemStorageNode + "/" + item.attr("id");
+            this._openEditDialog(path, null);
         },
 
         /**
@@ -341,14 +371,14 @@
          * @private
          */
         _addNewItem: function () {
-            var that = this;
-            var currentElements = this.$element.find("li").length;
+            const that = this;
+            const currentElements = this.$element.find("li").length;
 
             if (!this.maxElements || (currentElements < this.maxElements)) {
                 this._createNode(this.crxPath + "/" + this.itemStorageNode + "/*", function (path) {
                     that._openEditDialog(path, function (event, dialog) {
                         that._deleteNode(path, function () {
-                            // call update list after successful deletion of node
+                            // call update list after successful deletion of a node
                             that._updateList(true);
                         });
                     });
@@ -362,12 +392,12 @@
          * Removes an item from the list.
          * Shows a warning dialog ('Cancel','Delete') before the delete action is executed.
          *
-         * @param {Object} item the list item to be deleted
+         * @param {jQuery} item - The list item jQuery object to be deleted.
          * @private
          */
         _removeItem: function (item) {
-            var that = this,
-                currentElements = this.$element.find("li").length;
+            const that = this
+            const currentElements = this.$element.find("li").length;
 
             if (!this.minElements || (currentElements > this.minElements)) {
                 this.ui.prompt(Granite.I18n.get("Remove Item"), Granite.I18n.get("Are you sure you want to delete this item?", this.minElements), "warning",
@@ -388,7 +418,7 @@
                 this.ui.alert(Granite.I18n.get("Minimum reached"), Granite.I18n.get("Minimum number of {0} item(s) reached, you cannot delete any additional items.", this.minElements), "warning");
             }
 
-            // remove item from DOM on successful callback
+            // remove item from DOM on a successful callback
             function deleteItemCallback(path) {
                 item.remove();
                 that._triggerChangeEvent();
@@ -399,13 +429,12 @@
          * Performs drag and drop reordering and
          * executes a sling reordering request on crx items.
          *
-         * @param {Object} item the dragging item.
+         * @param {jQuery} item - The jQuery object of the item being dragged.
          * @private
          */
         _reorder: function (item) {
-            var before = this.ol.children(".drag-after").first();
-            var after = this.ol.children(".drag-before").last();
-
+            const before = this.ol.children(".drag-after").first();
+            const after = this.ol.children(".drag-before").last();
 
             if (before.length > 0) {
                 item.insertBefore(before);
@@ -426,17 +455,16 @@
         },
 
         /**
-         * Copies the node at given path.
+         * Performs a Sling copy operation on the specified JCR node.
          *
-         * @param {String} path of node to be copied.
-         * @param {Function} callback node that has been copied.
+         * @param {string} path - CRX path of the node to copy.
+         * @param {Function} callback - Success callback receiving the new destination path.
          * @private
          */
         _copyNode: function (path, callback) {
-            var that = this;
-            // Create a unique destination path for the copy
-            var timestamp = Date.now();
-            var destinationPath = that.crxPath + "/" + that.itemStorageNode + "/copy_" + timestamp;
+            const that = this;
+            const timestamp = Date.now();
+            let destinationPath = that.crxPath + "/" + that.itemStorageNode + "/copy_" + timestamp;
             destinationPath = destinationPath.replace("_jcr_content", "jcr:content");
 
             $.ajax({
@@ -454,13 +482,13 @@
         },
 
         /**
-         * Creates a preview view on drag and drop reordering action.
+         * Visualizes the potential drop position during a drag-and-drop operation.
          *
-         * @param {Event} e the event object.
+         * @param {Event} e - The native browser event object.
          * @private
          */
         _reorderPreview: function (e) {
-            var pos = this._pagePosition(e);
+            const pos = this._pagePosition(e);
             this.ol.children(":not(.is-dragging)").each(function () {
                 var el = $(this);
                 var isAfter = pos.y < (el.offset().top + el.outerHeight() / 2);
@@ -470,13 +498,14 @@
         },
 
         /**
-         * Gets the page position.
+         * Calculates the cursor/touch coordinates relative to the page.
          *
-         * @param {Event} e the event object.
+         * @param {Event|jQuery.Event} e - The event object.
+         * @returns {Object} An object containing x and y coordinates.
          * @private
          */
         _pagePosition: function (e) {
-            var touch = {};
+            let touch = {};
             if (e.originalEvent) {
                 var o = e.originalEvent;
                 if (o.changedTouches && o.changedTouches.length > 0) {
@@ -494,10 +523,10 @@
         },
 
         /**
-         * Creates a new node at given path.
+         * Creates a new JCR node at the specified path using a Sling POST request.
          *
-         * @param {String} path of node to be deleted.
-         * @param {Function} callback node that has been created.
+         * @param {string} path - The destination JCR path.
+         * @param {Function} callback - Success callback receiving the created node's path.
          * @private
          */
         _createNode: function (path, callback) {
@@ -508,19 +537,17 @@
                 },
                 url: path
             }).done(function (data) {
-                if ($.isFunction(callback)) {
-                    if (data && data.path) {
-                        callback(data.path);
-                    }
+                if ($.isFunction(callback) && data && data.path) {
+                    callback(data.path);
                 }
             });
         },
 
         /**
-         * Deletes the node at given path.
+         * Deletes a JCR node at the specified path using a Sling POST request.
          *
-         * @param {String} path of node to be deleted.
-         * @param {Function} callback node that has been created.
+         * @param {string} path - The JCR path to delete.
+         * @param {Function} callback - Success callback.
          * @private
          */
         _deleteNode: function (path, callback) {
@@ -536,7 +563,7 @@
         },
 
         /**
-         * Triggers the change event with the DOM element as the source.
+         * Dispatches a 'change' event on the widget's root element.
          *
          * @private
          */
@@ -545,16 +572,4 @@
         }
     });
 
-    // put Merkle.GenericMultifield on widget registry
-    CUI.Widget.registry.register(" ", Merkle.GenericMultifield);
-
-    // Data API
-    if (CUI.options.dataAPI) {
-        $(document).on("cui-contentloaded.data-api", function (e, data) {
-            $(".coral-GenericMultifield[data-init~='genericmultifield']", e.target).genericMultifield();
-            if (data && data._foundationcontentloaded) {
-                $(".coral-GenericMultifield[data-init~='genericmultifield']", e.target).trigger("change");
-            }
-        });
-    }
-}(window.jQuery));
+})(window, window.jQuery, window.Merkle.GenericMultifield);
