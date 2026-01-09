@@ -12,7 +12,7 @@ code. Please report unacceptable behavior to the project maintainers.
 We welcome contributions in many forms:
 
 * **Feature Requests:** New functionality or enhancements.
-* **Bug Reports:** Reproducible issues found in the AEM UI.
+* **Bug Reports:** Reproducible issues found in the existing feature scope.
 * **Documentation:** Improving the README, Javadocs, or Wiki.
 * **Code:** Pull requests for bug fixes or approved features.
 
@@ -36,20 +36,21 @@ To maintain a stable release cycle, we follow a specific branching model:
 * **`master`**: Reserved for stable, production-ready releases.
 
 > [!CAUTION]
-> Pull Requests targeting the `master` branch or based on outdated code not based on `develop` will be automatically
-> rejected.
+> Pull Requests targeting the `master` branch or not based on `develop` branch as well as based on an outdated `develop`
+> branch will be automatically rejected.
 
 ### Development Workflow
 
 1. **Fork** the repository to your own GitHub account. [^1]
 2. **Clone** your fork locally.
-3. **Create a branch** off of `develop` (e.g., `feature/123-description`).
-4. **Commit** your changes with clear, descriptive commit messages by including the issue number (e.g., `#123 Description`).
+3. **Create a branch** of `develop` (e.g., `feature/123-description`).
+4. **Commit** your changes with clear, descriptive commit messages by including the issue number (e.g.,
+   `#123 Description`).
 5. **Submit a Pull Request** (PR) to our `develop` branch. [^2]
 
 ## Issue Report Guidelines
 
-A high-quality issue report helps us resolve problems faster. Please adhere to the following when creating an issue:
+A high-quality issue report helps us resolve problems faster.
 
 For more details, please see our [bug report](.github/ISSUE_TEMPLATE/BUG_TEMPLATE.md)
 or [feature request](.github/ISSUE_TEMPLATE/FEATURE_REQUEST_TEMPLATE.md) templates.
