@@ -91,11 +91,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <bnd.version>7.1.0</bnd.version>
-        <aemanalyser.version>1.6.12</aemanalyser.version>
-        <mockito.version>5.21.0</mockito.version>
+        <mvn.release.plugin.version>3.3.1</mvn.release.plugin.version>
+        <mvn.javdoc.plugin.version>3.12.0</mvn.javdoc.plugin.version>
+        <mvn.source.plugin.version>3.4.0</mvn.source.plugin.version>
+        <jacoco.mvn.plugin.version>0.8.14</jacoco.mvn.plugin.version>
+        <sonar.mvn.plugin.version>5.5.0.6356</sonar.mvn.plugin.version>
+        <mvn.assembly.plugin.version>3.8.0</mvn.assembly.plugin.version>
+        <mvn.jar.plugin.version>3.5.0</mvn.jar.plugin.version>
+        <mvn.clean.plugin.version>3.5.0</mvn.clean.plugin.version>
+        <bnd.mvn.plugin.version>7.2.1</bnd.mvn.plugin.version>
+        <mvn.resource.plugin.version>3.4.0</mvn.resource.plugin.version>
+        <mvn.compiler.plugin.version>3.14.1</mvn.compiler.plugin.version>
+        <mvn.install.plugin.version>3.1.4</mvn.install.plugin.version>
+        <mvn.surefire.plugin.version>3.5.4</mvn.surefire.plugin.version>
+        <mvn.failsafe.plugin.version>3.5.4</mvn.failsafe.plugin.version>
+        <mvn.deploy.plugin.version>3.1.4</mvn.deploy.plugin.version>
+        <sling.mvn.plugin.version>3.0.4</sling.mvn.plugin.version>
+        <htl.mvn.plugin.version>2.0.4-1.4.0</htl.mvn.plugin.version>
+        <filevault.package.mvn.plugin.version>1.4.0</filevault.package.mvn.plugin.version>
+        <aemanalyser.mvn.plugin.version>1.6.12</aemanalyser.mvn.plugin.version>
+        <content.package.mvn.plugin.version>1.0.6</content.package.mvn.plugin.version>
+        <mvn.enforcer.plugin.version>3.6.2</mvn.enforcer.plugin.version>
+        <mvn.dependency.plugin.version>3.9.0</mvn.dependency.plugin.version>
+        <build.helper.mvn.plugin.version>3.6.1</build.helper.mvn.plugin.version>
+        <lifecycle.mapping.plugin.version>3.6.1</lifecycle.mapping.plugin.version>
         <mvn.gpg.plugin.version>3.2.8</mvn.gpg.plugin.version>
         <mvn.sonatype.publishing.plugin.version>0.9.0</mvn.sonatype.publishing.plugin.version>
+
+        <junit.version>6.0.2</junit.version>
+        <mockito.version>5.21.0</mockito.version>
 
         <java.version>21</java.version>
         <aem.sdk.api>2025.9.22758.20250928T092442Z-250900</aem.sdk.api>
@@ -110,7 +134,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${mvn.release.plugin.version}</version>
                 <configuration>
                     <scmCommentPrefix>[maven-scm] :</scmCommentPrefix>
                     <preparationGoals>clean install</preparationGoals>
@@ -122,14 +146,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>${mvn.source.plugin.version}</version>
                 <inherited>true</inherited>
             </plugin>
             <!-- Maven Javadocs Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.12.0</version>
+                <version>${mvn.javdoc.plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <doclint>none</doclint>
@@ -178,7 +202,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.14</version>
+                <version>${jacoco.mvn.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -202,7 +226,7 @@
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
-                <version>5.5.0.6356</version>
+                <version>${sonar.mvn.plugin.version}</version>
             </plugin>
         </plugins>
         <pluginManagement>
@@ -210,7 +234,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.8.0</version>
+                    <version>${mvn.assembly.plugin.version}</version>
                     <configuration>
                         <tarLongFileMode>posix</tarLongFileMode>
                     </configuration>
@@ -219,19 +243,19 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>${mvn.jar.plugin.version}</version>
                 </plugin>
                 <!-- Maven Clean Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>${mvn.clean.plugin.version}</version>
                 </plugin>
                 <!-- BND Maven Plugin -->
                 <plugin>
                     <groupId>biz.aQute.bnd</groupId>
                     <artifactId>bnd-maven-plugin</artifactId>
-                    <version>${bnd.version}</version>
+                    <version>${bnd.mvn.plugin.version}</version>
                     <executions>
                         <execution>
                             <id>bnd-process</id>
@@ -276,49 +300,49 @@
                 <plugin>
                     <groupId>biz.aQute.bnd</groupId>
                     <artifactId>bnd-baseline-maven-plugin</artifactId>
-                    <version>${bnd.version}</version>
+                    <version>${bnd.mvn.plugin.version}</version>
                 </plugin>
                 <!-- Maven Resources Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.4.0</version>
+                    <version>${mvn.resource.plugin.version}</version>
                 </plugin>
                 <!-- Maven Compiler Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.14.1</version>
+                    <version>${mvn.compiler.plugin.version}</version>
                 </plugin>
                 <!-- Maven Installer Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.4</version>
+                    <version>${mvn.install.plugin.version}</version>
                 </plugin>
                 <!-- Maven Surefire Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.5.4</version>
+                    <version>${mvn.surefire.plugin.version}</version>
                 </plugin>
                 <!-- Maven Failsafe Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.5.4</version>
+                    <version>${mvn.failsafe.plugin.version}</version>
                 </plugin>
                 <!-- Maven Deploy Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.4</version>
+                    <version>${mvn.deploy.plugin.version}</version>
                 </plugin>
                 <!-- Apache Sling Plugin -->
                 <plugin>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>sling-maven-plugin</artifactId>
-                    <version>3.0.4</version>
+                    <version>${sling.mvn.plugin.version}</version>
                     <configuration>
                         <slingUrl>http://${aem.host}:${aem.port}/system/console</slingUrl>
                         <deploymentMethod>WebConsole</deploymentMethod>
@@ -328,7 +352,7 @@
                 <plugin>
                     <groupId>org.apache.sling</groupId>
                     <artifactId>htl-maven-plugin</artifactId>
-                    <version>2.0.4-1.4.0</version>
+                    <version>${htl.mvn.plugin.version}</version>
                     <configuration>
                         <failOnWarnings>true</failOnWarnings>
                     </configuration>
@@ -338,7 +362,7 @@
                     <groupId>org.apache.jackrabbit</groupId>
                     <artifactId>filevault-package-maven-plugin</artifactId>
                     <extensions>true</extensions>
-                    <version>1.4.0</version>
+                    <version>${filevault.package.mvn.plugin.version}</version>
                     <configuration>
                         <filterSource>src/main/content/META-INF/vault/filter.xml</filterSource>
                         <validatorsSettings>
@@ -362,14 +386,14 @@
                 <plugin>
                     <groupId>com.adobe.aem</groupId>
                     <artifactId>aemanalyser-maven-plugin</artifactId>
-                    <version>${aemanalyser.version}</version>
+                    <version>${aemanalyser.mvn.plugin.version}</version>
                     <extensions>true</extensions>
                 </plugin>
                 <!-- Content Package Plugin -->
                 <plugin>
                     <groupId>com.day.jcr.vault</groupId>
                     <artifactId>content-package-maven-plugin</artifactId>
-                    <version>1.0.6</version>
+                    <version>${content.package.mvn.plugin.version}</version>
                     <configuration>
                         <targetURL>http://${aem.host}:${aem.port}/crx/packmgr/service.jsp</targetURL>
                         <failOnError>true</failOnError>
@@ -381,26 +405,26 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.6.2</version>
+                    <version>${mvn.enforcer.plugin.version}</version>
                 </plugin>
                 <!-- Maven Dependency Plugin -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.9.0</version>
+                    <version>${mvn.dependency.plugin.version}</version>
                 </plugin>
                 <!-- Build Helper Maven Plugin -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>${build.helper.mvn.plugin.version}</version>
                 </plugin>
                 <!--This plugin's configuration is used to store Eclipse
                             m2e settings only. It has no influence on the Maven build itself. -->
                 <plugin>
                     <groupId>org.eclipse.m2e</groupId>
                     <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
+                    <version>${lifecycle.mapping.plugin.version}</version>
                     <configuration>
                         <lifecycleMappingMetadata>
                             <pluginExecutions>
@@ -594,9 +618,15 @@
             <dependency>
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
-                <version>6.0.1</version>
+                <version>${junit.version}</version>
                 <type>pom</type>
-                <scope>import</scope>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>

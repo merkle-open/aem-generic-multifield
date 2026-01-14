@@ -126,6 +126,12 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
+        <dependency>
+            <groupId>com.merkle.oss.aem</groupId>
+            <artifactId>aem-generic-multifield.core-bundle</artifactId>
+            <version>${project.version}</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
 </project>
