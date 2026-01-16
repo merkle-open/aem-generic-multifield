@@ -92,7 +92,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <mvn.release.plugin.version>3.3.1</mvn.release.plugin.version>
-        <mvn.javdoc.plugin.version>3.12.0</mvn.javdoc.plugin.version>
+        <mvn.javadoc.plugin.version>3.12.0</mvn.javadoc.plugin.version>
         <mvn.source.plugin.version>3.4.0</mvn.source.plugin.version>
         <jacoco.mvn.plugin.version>0.8.14</jacoco.mvn.plugin.version>
         <sonar.mvn.plugin.version>5.5.0.6356</sonar.mvn.plugin.version>
@@ -118,8 +118,13 @@
         <mvn.gpg.plugin.version>3.2.8</mvn.gpg.plugin.version>
         <mvn.sonatype.publishing.plugin.version>0.9.0</mvn.sonatype.publishing.plugin.version>
 
+        <org.jspecify.version>1.0.0</org.jspecify.version>
+        <org.apache.sling.scripting.sightly.runtime.version>1.2.6-1.4.0
+        </org.apache.sling.scripting.sightly.runtime.version>
         <junit.version>6.0.2</junit.version>
         <mockito.version>5.21.0</mockito.version>
+        <io.wcm.testing.aem-mock.junit5.version>5.6.14</io.wcm.testing.aem-mock.junit5.version>
+        <slf4j.simple.version>2.0.17</slf4j.simple.version>
 
         <java.version>21</java.version>
         <aem.sdk.api>2025.9.22758.20250928T092442Z-250900</aem.sdk.api>
@@ -153,7 +158,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>${mvn.javdoc.plugin.version}</version>
+                <version>${mvn.javadoc.plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <doclint>none</doclint>
@@ -607,11 +612,16 @@
                 <version>${aem.sdk.api}</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>org.jspecify</groupId>
+                <artifactId>jspecify</artifactId>
+                <version>${org.jspecify.version}</version>
+            </dependency>
             <!-- HTL dependencies needed for the HTL Maven Plugin source code generation -->
             <dependency>
                 <groupId>org.apache.sling</groupId>
                 <artifactId>org.apache.sling.scripting.sightly.runtime</artifactId>
-                <version>1.2.6-1.4.0</version>
+                <version>${org.apache.sling.scripting.sightly.runtime.version}</version>
                 <scope>provided</scope>
             </dependency>
             <!-- Testing - Start -->
@@ -643,7 +653,7 @@
             <dependency>
                 <groupId>io.wcm</groupId>
                 <artifactId>io.wcm.testing.aem-mock.junit5</artifactId>
-                <version>5.6.14</version>
+                <version>${io.wcm.testing.aem-mock.junit5.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

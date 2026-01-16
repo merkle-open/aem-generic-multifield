@@ -6,42 +6,44 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ExampleComponentItem {
 
     @ValueMapValue
-    private String itemTitle;
+    private @NonNull String itemTitle;
 
     @ValueMapValue
-    private String itemText;
+    private @NonNull String itemText;
 
     @ValueMapValue
-    private String itemPath;
+    private @Nullable String itemPath;
 
     @ChildResource
-    private ExampleImage image;
+    private @Nullable ExampleImage image;
 
     @ValueMapValue
-    private String text;
+    private @Nullable String text;
 
-    public String getItemTitle() {
+    public @NonNull String getItemTitle() {
         return itemTitle;
     }
 
-    public String getItemText() {
+    public @NonNull String getItemText() {
         return itemText;
     }
 
-    public String getItemPath() {
+    public @Nullable String getItemPath() {
         return itemPath;
     }
 
-    public ExampleImage getImage() {
+    public @Nullable ExampleImage getImage() {
         return image;
     }
 
-    public String getText() {
+    public @Nullable String getText() {
         return text;
     }
 

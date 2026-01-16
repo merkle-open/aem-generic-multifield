@@ -42,7 +42,8 @@
                             <bnd><![CDATA[
 Bundle-Category: merkle.oss
 Bundle-SymbolicName: aem-generic-multifield.core-bundle
-Import-Package: javax.annotation;version=0.0.0,*
+Import-Package: javax.annotation;version=0.0.0,*\
+!org.jspecify.annotations,
                                 ]]></bnd>
                         </configuration>
                     </execution>
@@ -116,6 +117,10 @@ Import-Package: javax.annotation;version=0.0.0,*
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>aem-sdk-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
         </dependency>
     </dependencies>
 

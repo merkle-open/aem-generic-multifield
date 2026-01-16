@@ -5,34 +5,35 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.jspecify.annotations.Nullable;
 
 @Model(adaptables = Resource.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ExampleImage {
 
     @ValueMapValue
-    private String title;
+    private @Nullable String title;
 
     @ValueMapValue
-    private String alt;
+    private @Nullable String alt;
 
     @ValueMapValue
     private boolean isDecorativeImage;
 
     @ValueMapValue
-    private String fileReference;
+    private @Nullable String fileReference;
 
-    public String getTitle() {
+    public @Nullable String getTitle() {
         return title;
     }
 
-    public String getAlt() {
+    public @Nullable String getAlt() {
         if (isDecorativeImage) {
             return StringUtils.EMPTY;
         }
         return alt;
     }
 
-    public String getSrc() {
+    public @Nullable String getSrc() {
         return fileReference;
     }
 

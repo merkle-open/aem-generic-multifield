@@ -6,6 +6,8 @@ import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.injectorspecific.ChildResource;
 import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import java.util.Collections;
 import java.util.List;
@@ -14,16 +16,16 @@ import java.util.List;
 public class ExampleComponent {
 
     @ValueMapValue
-    private String title;
+    private @Nullable String title;
 
     @ChildResource
-    private List<ExampleComponentItem> items = Collections.emptyList();
+    private @NonNull List<ExampleComponentItem> items = Collections.emptyList();
 
-    public String getTitle() {
+    public @Nullable String getTitle() {
         return title;
     }
 
-    public List<ExampleComponentItem> getItems() {
+    public @NonNull List<ExampleComponentItem> getItems() {
         return items.stream()
                 .filter(ExampleComponentItem::isValid)
                 .toList();
