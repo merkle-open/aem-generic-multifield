@@ -24,7 +24,7 @@ class ExampleImageTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleImage#getTitle()}, {@link ExampleImage#getAlt()}, {@link ExampleImage#getSrc()} and {@link ExampleImage#isValid()}
+     * Method under test: {@link ExampleImage#getTitle()}, {@link ExampleImage#getAlt()}, {@link ExampleImage#getSrc()} and {@link ExampleImage#isValid()}
      */
     @Test
     void testValidImage() {
@@ -39,7 +39,7 @@ class ExampleImageTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleImage#getAlt()}
+     * Method under test: {@link ExampleImage#getAlt()}
      */
     @Test
     void testDecorativeImage() {
@@ -52,7 +52,7 @@ class ExampleImageTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleImage#isValid()}
+     * Method under test: {@link ExampleImage#isValid()}
      */
     @Test
     void testInvalidImage() {

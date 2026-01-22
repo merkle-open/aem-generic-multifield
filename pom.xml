@@ -162,6 +162,23 @@
                 <configuration>
                     <source>${java.version}</source>
                     <doclint>none</doclint>
+                    <tags>
+                        <tag>
+                            <name>apiNote</name>
+                            <placement>a</placement>
+                            <head>API Note:</head>
+                        </tag>
+                        <tag>
+                            <name>implSpec</name>
+                            <placement>a</placement>
+                            <head>Implementation Requirements:</head>
+                        </tag>
+                        <tag>
+                            <name>implNote</name>
+                            <placement>a</placement>
+                            <head>Implementation Note:</head>
+                        </tag>
+                    </tags>
                 </configuration>
                 <executions>
                     <execution>
@@ -271,7 +288,9 @@
                                 <bnd>
                                     Bundle-Category: ${componentGroupName}
 
-                                    -exportcontents: com.merkle.oss.aem.genericmultifield*
+                                    -conditionalpackage: org.jspecify.*
+
+                                    -exportcontents: com.merkle.oss.aem.genericmultifield*, org.jspecify.annotations.*
 
                                     # reproducible builds (https://github.com/bndtools/bnd/issues/3521)
                                     -noextraheaders: true
@@ -616,6 +635,7 @@
                 <groupId>org.jspecify</groupId>
                 <artifactId>jspecify</artifactId>
                 <version>${org.jspecify.version}</version>
+                <scope>compile</scope>
             </dependency>
             <!-- HTL dependencies needed for the HTL Maven Plugin source code generation -->
             <dependency>

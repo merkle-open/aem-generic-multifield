@@ -24,7 +24,7 @@ class ExampleComponentTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleComponent#getTitle()}
+     * Method under test: {@link ExampleComponent#getTitle()}
      */
     @Test
     void testGetTitle() {
@@ -36,7 +36,7 @@ class ExampleComponentTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleComponent#getItems()}
+     * Method under test: {@link ExampleComponent#getItems()}
      */
     @Test
     void testGetItems_FiltersInvalid() {
@@ -50,7 +50,7 @@ class ExampleComponentTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleComponent#isViewable()}
+     * Method under test: {@link ExampleComponent#isViewable()}
      */
     @Test
     void testIsViewable_WithItems() {
@@ -61,7 +61,7 @@ class ExampleComponentTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleComponent#isViewable()}
+     * Method under test: {@link ExampleComponent#isViewable()}
      */
     @Test
     void testIsViewable_Empty() {

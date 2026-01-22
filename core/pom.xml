@@ -42,8 +42,7 @@
                             <bnd><![CDATA[
 Bundle-Category: merkle.oss
 Bundle-SymbolicName: aem-generic-multifield.core-bundle
-Import-Package: javax.annotation;version=0.0.0,*\
-!org.jspecify.annotations,
+Import-Package: javax.annotation;version=0.0.0,*
                                 ]]></bnd>
                         </configuration>
                     </execution>
@@ -88,6 +87,10 @@ Import-Package: javax.annotation;version=0.0.0,*\
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
+        <dependency>
+            <groupId>org.jspecify</groupId>
+            <artifactId>jspecify</artifactId>
+        </dependency>
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -117,10 +120,6 @@ Import-Package: javax.annotation;version=0.0.0,*\
         <dependency>
             <groupId>com.adobe.aem</groupId>
             <artifactId>aem-sdk-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.jspecify</groupId>
-            <artifactId>jspecify</artifactId>
         </dependency>
     </dependencies>
 

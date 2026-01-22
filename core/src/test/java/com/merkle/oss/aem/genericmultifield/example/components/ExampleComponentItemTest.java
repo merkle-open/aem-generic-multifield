@@ -24,7 +24,7 @@ class ExampleComponentItemTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleComponentItem#getItemTitle()}, {@link ExampleComponentItem#getItemText()},
+     * Method under test: {@link ExampleComponentItem#getItemTitle()}, {@link ExampleComponentItem#getItemText()},
      * {@link ExampleComponentItem#getItemPath()}, {@link ExampleComponentItem#getText()} and {@link ExampleComponentItem#getImage()}
      */
     @Test
@@ -44,7 +44,7 @@ class ExampleComponentItemTest {
     }
 
     /**
-     * <p>Method under test: {@link ExampleComponentItem#isValid()}
+     * Method under test: {@link ExampleComponentItem#isValid()}
      */
     @Test
     void testInvalidItems() {
