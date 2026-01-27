@@ -43,7 +43,7 @@ The project contains an example component implementation that demonstrates the u
 
 | Description                                | Preview                                          |
 |--------------------------------------------|--------------------------------------------------|
-| [Component Dialog](#dialog-definition)     | <img src="docs/Dialog.png" width="400">            |
+| [Component Dialog](#dialog-definition)     | <img src="docs/Dialog.png" width="400">          |
 | [Multifield Item Dialog](#item-definition) | <img src="docs/Multifield-Item.png" width="400"> |
 | Repository structure                       | <img src="docs/Repository.png" width="400">      |
 
@@ -55,7 +55,7 @@ The project contains an example component implementation that demonstrates the u
 
 Add the `aem-generic-multifield.all` artifact to the `<dependencies>` section
 
-   ```xml
+```xml
 
 <dependency>
     <groupId>com.merkle.oss.aem</groupId>
@@ -64,13 +64,13 @@ Add the `aem-generic-multifield.all` artifact to the `<dependencies>` section
     <type>zip</type>
 </dependency>
 
-   ```
+```
 
 ### Package embedding
 
 Embed the package into your `all` deployment module using the `filevault-package-maven-plugin`:
 
-   ```xml
+```xml
 
 <embedded>
     <groupId>com.merkle.oss.aem</groupId>
@@ -78,7 +78,7 @@ Embed the package into your `all` deployment module using the `filevault-package
     <target>/apps/{your/install/path}/install</target>
 </embedded>
 
-   ```
+```
 
 ### Dialog definition
 
@@ -120,7 +120,7 @@ Example property defintion of the Generic Multifield in your component `_cq_dial
 | maxElements      | Defines the maximal amount of generic multifield entries.                                                                                   | -           |
 | required         | If set to `{Boolean}true`, the main component dialog will not validate until at least one item hast been defined.                           | `false`     |
 | allowItemCopy    | If set to `{Boolean}true`, defined multifield entries may be copied to the list.                                                            | `false`     |
-| itemStorageNode  | Defines the parent node name created within the component node. Generic multifield items will be saved beneath this node. <br/>             | `items`     |
+| itemStorageNode  | Defines the parent node name created within the component node. Generic multifield items will be saved beneath this node.                   | `items`     |
 
 ### Item definition
 
@@ -231,3 +231,15 @@ Build and deploy the full package to a local AEM Author:
 ```
     mvn clean install -PautoInstallPackage
 ```
+
+## Compatibility & Requirements
+
+### AEM Version
+
+This tool requires **AEM Version 2025.9.x** or higher.
+
+### Platform Support
+
+- **AEM as a Cloud Service (AEMaaCS):** This tool is primarily designed and optimized for Cloud Service environments.
+- **AEM On-Premise / Adobe Managed Services:** While the codebase is compatible with standard AEM On-Premise
+  installations, please note that it has not been formally tested in these environments.
