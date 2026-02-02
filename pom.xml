@@ -101,7 +101,7 @@
         <mvn.clean.plugin.version>3.5.0</mvn.clean.plugin.version>
         <bnd.mvn.plugin.version>7.2.1</bnd.mvn.plugin.version>
         <mvn.resource.plugin.version>3.4.0</mvn.resource.plugin.version>
-        <mvn.compiler.plugin.version>3.14.1</mvn.compiler.plugin.version>
+        <mvn.compiler.plugin.version>3.15.0</mvn.compiler.plugin.version>
         <mvn.install.plugin.version>3.1.4</mvn.install.plugin.version>
         <mvn.surefire.plugin.version>3.5.4</mvn.surefire.plugin.version>
         <mvn.failsafe.plugin.version>3.5.4</mvn.failsafe.plugin.version>
