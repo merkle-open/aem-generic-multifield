@@ -96,7 +96,7 @@ Example property defintion of the Generic Multifield in your component `_cq_dial
             name="./title"/>
     <genericMultifield
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="merkle/generic-multifield"
+            sling:resourceType="merkle/generic-multifield/ui/component"
             itemDialog="/your/project/path/component/item-dialog.xml"
             fieldLabel="Generic Multifield"
             fieldDescription="A list of generic multifield items"

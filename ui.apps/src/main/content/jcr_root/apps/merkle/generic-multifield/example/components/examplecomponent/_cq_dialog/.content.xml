@@ -27,7 +27,7 @@
                             name="./title"/>
                     <genericMultifield
                             jcr:primaryType="nt:unstructured"
-                            sling:resourceType="merkle/generic-multifield"
+                            sling:resourceType="merkle/generic-multifield/ui/component"
                             itemDialog="/apps/merkle/generic-multifield/example/components/examplecomponent/item-dialog"
                             required="{Boolean}true"
                             fieldLabel="Generic Multifield"

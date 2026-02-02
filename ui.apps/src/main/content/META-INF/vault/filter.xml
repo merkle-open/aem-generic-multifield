@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <workspaceFilter version="1.0">
     <filter root="/apps/merkle/generic-multifield/clientlibs"/>
-    <filter root="/apps/merkle/generic-multifield/init.jsp"/>
-    <filter root="/apps/merkle/generic-multifield/render.jsp"/>
     <filter root="/apps/merkle/generic-multifield/example"/>
+    <filter root="/apps/merkle/generic-multifield/ui"/>
 </workspaceFilter>
