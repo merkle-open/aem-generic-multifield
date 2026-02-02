@@ -1,0 +1,21 @@
+{
+  "valid-item": {
+    "jcr:primaryType": "nt:unstructured",
+    "itemTitle": "Item Title",
+    "itemText": "Item Text",
+    "itemPath": "/content/page",
+    "text": "Additional Text",
+    "image": {
+      "jcr:primaryType": "nt:unstructured",
+      "fileReference": "/content/dam/test.jpg"
+    }
+  },
+  "invalid-item-missing-text": {
+    "jcr:primaryType": "nt:unstructured",
+    "itemTitle": "Title Only"
+  },
+  "invalid-item-missing-title": {
+    "jcr:primaryType": "nt:unstructured",
+    "itemText": "Text Only"
+  }
+}

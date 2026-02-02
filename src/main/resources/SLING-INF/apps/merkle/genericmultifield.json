@@ -1,4 +1,0 @@
-{
-  "jcr:primaryType": "sling:Folder",
-  "sling:resourceSuperType": "granite/ui/components/foundation/form/field"
-}
