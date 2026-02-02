@@ -185,7 +185,7 @@
          * @private
          */
         _createListEntry: function (key, label) {
-            const displayLabel = label?.trim() || key;
+            const displayLabel = (label && label.trim()) || key;
             const isCopyAllowed = String(this.allowItemCopy).toLowerCase() === 'true';
 
             const getButton = (type, icon) => `
