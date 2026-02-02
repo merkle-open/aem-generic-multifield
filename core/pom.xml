@@ -40,10 +40,10 @@
                         </goals>
                         <configuration>
                             <bnd><![CDATA[
-Bundle-Category: merkle.oss
-Bundle-SymbolicName: aem-generic-multifield.core-bundle
-Import-Package: javax.annotation;version=0.0.0,*
-                                ]]></bnd>
+                                Bundle-Category: merkle.oss
+                                Bundle-SymbolicName: aem-generic-multifield.core-bundle
+                                Import-Package: javax.annotation;version=0.0.0,*
+                            ]]></bnd>
                         </configuration>
                     </execution>
                 </executions>

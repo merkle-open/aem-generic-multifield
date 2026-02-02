@@ -124,7 +124,7 @@
         <junit.version>6.0.2</junit.version>
         <mockito.version>5.21.0</mockito.version>
         <io.wcm.testing.aem-mock.junit5.version>5.6.14</io.wcm.testing.aem-mock.junit5.version>
-        <slf4j.simple.version>2.0.17</slf4j.simple.version>
+        <slf4j-simple.version>2.0.17</slf4j-simple.version>
 
         <java.version>21</java.version>
         <aem.sdk.api>2025.9.22758.20250928T092442Z-250900</aem.sdk.api>
@@ -285,21 +285,30 @@
                                 <goal>bnd-process</goal>
                             </goals>
                             <configuration>
-                                <bnd>
+                                <bnd><![CDATA[
                                     Bundle-Category: ${componentGroupName}
+                                    Bundle-DocURL: https://github.com/merkle-open/aem-generic-multifield
 
-                                    -conditionalpackage: org.jspecify.*
+                                    -conditionalpackage: \
+                                    org.jspecify.*
 
-                                    -exportcontents: com.merkle.oss.aem.genericmultifield*, org.jspecify.annotations.*
+                                    -exportcontents: \
+                                    com.merkle.oss.aem.genericmultifield*
 
-                                    # reproducible builds (https://github.com/bndtools/bnd/issues/3521)
+                                    # This explicitly prevents these from appearing in Import-Package
+                                    Import-Package: \
+                                    !org.jspecify.*, \
+                                    *
+
+                                    -fixupmessages.one: "Export com.merkle.oss.aem.genericmultifield.*jspecify.*";is:=ignore
+                                    -fixupmessages.two: "Export *,  has \\d+,  private references"; restrict:=warning; is:=error
+
                                     -noextraheaders: true
                                     -snapshot: SNAPSHOT
 
-                                    Bundle-DocURL:
-                                    -plugin org.apache.sling.caconfig.bndplugin.ConfigurationClassScannerPlugin
-                                    -plugin org.apache.sling.bnd.models.ModelsScannerPlugin
-                                </bnd>
+                                    -plugin.caconfig: org.apache.sling.caconfig.bndplugin.ConfigurationClassScannerPlugin
+                                    -plugin.models: org.apache.sling.bnd.models.ModelsScannerPlugin
+                                ]]></bnd>
                             </configuration>
                         </execution>
                     </executions>
@@ -349,6 +358,13 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${mvn.surefire.plugin.version}</version>
+                    <configuration>
+                        <argLine>
+                            @{argLine}
+                            -XX:+EnableDynamicAgentLoading
+                            -Xshare:off
+                        </argLine>
+                    </configuration>
                 </plugin>
                 <!-- Maven Failsafe Plugin -->
                 <plugin>
@@ -675,11 +691,21 @@
                 <artifactId>io.wcm.testing.aem-mock.junit5</artifactId>
                 <version>${io.wcm.testing.aem-mock.junit5.version}</version>
                 <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.sling</groupId>
+                        <artifactId>org.apache.sling.scripting.api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-simple</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>2.0.17</version>
+                <version>${slf4j-simple.version}</version>
                 <scope>test</scope>
             </dependency>
             <!-- Testing - End -->
