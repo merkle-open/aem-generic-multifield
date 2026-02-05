@@ -88,7 +88,7 @@ Example property defintion of the Generic Multifield in your component `_cq_dial
 <?xml version="1.0" encoding="UTF-8"?>
 <jcr:root>
     <!-- Within the component dialog definition -->
-    ...
+    <!-- ... -->
     <title
             jcr:primaryType="nt:unstructured"
             sling:resourceType="granite/ui/components/coral/foundation/form/textfield"
@@ -106,7 +106,7 @@ Example property defintion of the Generic Multifield in your component `_cq_dial
             required="{Boolean}true"
             allowItemCopy="{Boolean}true"
             itemStorageNode="./items"/>
-    ...
+    <!-- ... -->
 </jcr:root>
 ```
 
