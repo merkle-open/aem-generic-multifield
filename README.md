@@ -60,7 +60,7 @@ Add the `aem-generic-multifield.all` artifact to the `<dependencies>` section
 <dependency>
     <groupId>com.merkle.oss.aem</groupId>
     <artifactId>aem-generic-multifield.all</artifactId>
-    <version>4.0.1</version>
+    <version>4.1.0</version>
     <type>zip</type>
 </dependency>
 
