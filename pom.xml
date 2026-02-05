@@ -9,7 +9,7 @@
     <groupId>com.merkle.oss.aem</groupId>
     <artifactId>aem-generic-multifield</artifactId>
     <packaging>pom</packaging>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>4.0.2-SNAPSHOT</version>
     <name>AEM Generic Multifield</name>
     <description>Maven Multimodule project for AEM Generic Multifield</description>
     <url>https://github.com/merkle-open/aem-generic-multifield</url>
