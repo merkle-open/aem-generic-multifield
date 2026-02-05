@@ -1,0 +1,27 @@
+name: CI feature
+
+on:
+  push:
+    branches-ignore:
+      - master
+      - develop
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      # Setup Java environment
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: zulu
+
+      # Run maven verify (includes unit tests)
+      - name: Maven verify
+        run: mvn verify --batch-mode

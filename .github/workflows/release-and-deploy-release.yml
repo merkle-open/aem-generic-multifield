@@ -1,4 +1,4 @@
-name: release and deploy
+name: Release & deploy
 
 on:
   push:
@@ -6,61 +6,147 @@ on:
       - master
 
 jobs:
-  release:
-
+  verify:
+    name: Verify
     runs-on: ubuntu-latest
-
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: '0'
+        uses: actions/checkout@v6
+
       # Setup Java environment
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
         with:
-          java-version: 11
+          java-version: 21
           distribution: zulu
+          cache: maven
+
+      # Run maven verify (includes unit tests)
+      - name: Maven verify
+        run: mvn verify --batch-mode
+
+      # Step to save the coverage report for the Analyze job
+      - name: Upload JaCoCo Report
+        uses: actions/upload-artifact@v6
+        with:
+          name: jacoco-report
+          path: core/target/site/jacoco/jacoco.xml
+          retention-days: 1 # We only need this for the duration of the workflow
+
+  analyze:
+    name: Analyze
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout source code
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Setup Java environment
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: zulu
+          cache: maven
+
+      # Step to retrieve the report from the Verify job
+      - name: Download JaCoCo Report
+        uses: actions/download-artifact@v7
+        with:
+          name: jacoco-report
+          path: core/target/site/jacoco/
+
+      # Cache SonarQube packages
+      - name: Cache SonarQube packages
+        uses: actions/cache@v5
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      # Cache Maven packages
+      - name: Cache Maven packages
+        uses: actions/cache@v5
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      # Run maven verify and sonar scan
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        # Added -DskipTests as verification happened in the first job
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=merkle-open_aem-generic-multifield -DskipTests
+
+  release:
+    name: Release
+    needs: [ verify, analyze ]
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout source code
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      # Setup Java environment
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          java-version: 21
+          distribution: zulu
+          cache: maven
+
       # Install xmllint
       - name: Install dependencies
-        run: sudo apt-get install libxml2-utils
+        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
+
       # Set git username and email
       - name: Set up Git
         run: |
           chmod +x ci/setup-git.sh
           ci/setup-git.sh
-      # Release, set correct versions and create tag
-      - name: Release (versioning/tag)
+
+      # Release, set correct versions and create a tag
+      - name: Release new version
+        id: versioning
         run: |
           chmod +x ci/mvn-release.sh
           ci/mvn-release.sh
 
   deploy-release:
-
-    needs: release
+    name: Deploy release
+    needs: [ verify, analyze, release ]
     runs-on: ubuntu-latest
-
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
-          ref: 'master'
+          ref: master
+
       # Setup Java environment
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
         with:
-          java-version: 11
           distribution: zulu
-      # Run maven verify
-      - name: Maven verify
-        run: mvn verify --batch-mode
-      # Publish
+          java-version: 21
+          server-id: central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
+          cache: maven
+
+      # Deploy release (to Sonatype)
       - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-          gpg_passphrase: ${{ secrets.GPG_PASSPHRASE }}
-          nexus_username: ${{ secrets.OSSRH_USER }}
-          nexus_password: ${{ secrets.OSSRH_PASSWORD }}
+        # Added -DskipTests as verification happened in the first job
+        run: mvn deploy -Pdeploy -DskipTests --batch-mode
+        env:
+          MAVEN_USERNAME: ${{ secrets.SONATYPE_USER }}
+          MAVEN_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
