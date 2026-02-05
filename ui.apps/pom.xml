@@ -22,6 +22,13 @@
     <description>UI apps package for AEM Generic Multifield</description>
 
     <!-- ====================================================================== -->
+    <!-- P R O P E R T I E S                                                    -->
+    <!-- ====================================================================== -->
+    <properties>
+        <maven.javadoc.skip>true</maven.javadoc.skip>
+    </properties>
+
+    <!-- ====================================================================== -->
     <!-- B U I L D   D E F I N I T I O N                                        -->
     <!-- ====================================================================== -->
     <build>
@@ -43,8 +50,10 @@
                             <artifactId>aem-generic-multifield.ui.apps.structure</artifactId>
                         </repositoryStructurePackage>
                     </repositoryStructurePackages>
-                    <dependencies>
-                    </dependencies>
+                    <thumbnailImage>${project.basedir}/src/main/content/META-INF/vault/definition/thumbnail.png</thumbnailImage>
+                    <excludes>
+                        <exclude>META-INF/vault/definition/thumbnail.png</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>

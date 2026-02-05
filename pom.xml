@@ -154,6 +154,14 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <version>${mvn.source.plugin.version}</version>
                 <inherited>true</inherited>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Maven Javadocs Plugin -->
             <plugin>

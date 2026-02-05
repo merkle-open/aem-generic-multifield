@@ -33,6 +33,12 @@
                 <configuration>
                     <group>com.merkle.oss.aem</group>
                     <packageType>container</packageType>
+                    <repositoryStructurePackages>
+                        <repositoryStructurePackage>
+                            <groupId>com.merkle.oss.aem</groupId>
+                            <artifactId>aem-generic-multifield.ui.apps.structure</artifactId>
+                        </repositoryStructurePackage>
+                    </repositoryStructurePackages>
                     <embeddeds>
                         <embedded>
                             <groupId>com.merkle.oss.aem</groupId>
@@ -46,6 +52,11 @@
                             <target>/apps/merkle/generic-multifield/install</target>
                         </embedded>
                     </embeddeds>
+                    <thumbnailImage>${project.basedir}/src/main/content/META-INF/vault/definition/thumbnail.png
+                    </thumbnailImage>
+                    <excludes>
+                        <exclude>META-INF/vault/definition/thumbnail.png</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -120,6 +131,12 @@
     <!-- D E P E N D E N C I E S                                                -->
     <!-- ====================================================================== -->
     <dependencies>
+        <dependency>
+            <groupId>com.merkle.oss.aem</groupId>
+            <artifactId>aem-generic-multifield.ui.apps.structure</artifactId>
+            <version>${project.version}</version>
+            <type>zip</type>
+        </dependency>
         <dependency>
             <groupId>com.merkle.oss.aem</groupId>
             <artifactId>aem-generic-multifield.ui.apps</artifactId>

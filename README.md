@@ -3,8 +3,8 @@
 <p align="center">
     <a href="https://maven-badges.sml.io/sonatype-central/com.merkle.oss.aem/aem-generic-multifield/">
         <img alt="Sonatype Central Version" src="https://img.shields.io/maven-central/v/com.merkle.oss.aem/aem-generic-multifield?strategy=highestVersion&logo=sonatype&logoColor=white&logoSize=auto&label=sonatype-central&color=blue&link=https%3A%2F%2Fmaven-badges.sml.io%2Fsonatype-central%2Fcom.merkle.oss.aem%2Faem-generic-multifield%2F"></a>
-    <a href="https://javadoc.io/doc/com.merkle.oss.aem/aem-generic-multifield">
-        <img alt="Javadoc" src="https://javadoc.io/badge2/com.merkle.oss.aem/aem-generic-multifield/javadoc.svg?color=yellow"></a>
+    <a href="https://javadoc.io/doc/com.merkle.oss.aem/aem-generic-multifield.core-bundle">
+        <img alt="Javadoc" src="https://javadoc.io/badge2/com.merkle.oss.aem/aem-generic-multifield.core-bundle/javadoc.svg?color=yellow"></a>
     <a href="https://sonarcloud.io/summary/overall?id=merkle-open_aem-generic-multifield&branch=master">
         <img alt="SonarQube - Quality Gate" src="https://sonarcloud.io/api/project_badges/measure?project=merkle-open_aem-generic-multifield&metric=alert_status"></a>
     <a href="https://sonarcloud.io/summary/overall?id=merkle-open_aem-generic-multifield&branch=master">
@@ -25,7 +25,7 @@
 
 The **Generic Multifield** is a Coral UI extension for AEM that provides a robust solution for complex multifield dialog
 definitions. It serves as a superior alternative when the out-of-the-box
-granite/ui/components/coral/foundation/form/multifield lacks the necessary flexibility or fails to provide an adequate
+`granite/ui/components/coral/foundation/form/multifield` lacks the necessary flexibility or fails to provide an adequate
 user experience for content authors. This component is particularly effective for dialogs requiring complex UI
 elements—such as Rich Text Editors or Image properties—and supports the implementation of custom validation rules.
 Furthermore, the Generic Multifield supports nesting, allowing for the management of hierarchical data
@@ -96,7 +96,7 @@ Example property defintion of the Generic Multifield in your component `_cq_dial
             name="./title"/>
     <genericMultifield
             jcr:primaryType="nt:unstructured"
-            sling:resourceType="merkle/generic-multifield/ui/component"
+            sling:resourceType="merkle/generic-multifield/authoring/ui/components/multifield"
             itemDialog="/your/project/path/component/item-dialog.xml"
             fieldLabel="Generic Multifield"
             fieldDescription="A list of generic multifield items"
