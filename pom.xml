@@ -110,7 +110,7 @@
         <sling.mvn.plugin.version>3.0.4</sling.mvn.plugin.version>
         <htl.mvn.plugin.version>2.0.4-1.4.0</htl.mvn.plugin.version>
         <filevault.package.mvn.plugin.version>1.4.0</filevault.package.mvn.plugin.version>
-        <aemanalyser.mvn.plugin.version>1.6.12</aemanalyser.mvn.plugin.version>
+        <aemanalyser.mvn.plugin.version>1.6.14</aemanalyser.mvn.plugin.version>
         <content.package.mvn.plugin.version>1.0.6</content.package.mvn.plugin.version>
         <mvn.enforcer.plugin.version>3.6.2</mvn.enforcer.plugin.version>
         <mvn.dependency.plugin.version>3.9.0</mvn.dependency.plugin.version>
