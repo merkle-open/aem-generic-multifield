@@ -36,7 +36,7 @@ structures.
 The project contains an example component implementation that demonstrates the usage of the Generic Multifield.
 
 - Resource
-  type: [examplecomponent](ui.apps/src/main/content/jcr_root/apps/merkle/generic-multifield/example/components/examplecomponent)
+  type: [examplecomponent](ui.apps/src/main/content/jcr_root/apps/merkle/generic-multifield/components/examplecomponent)
 - Model: [ExampleComponent](core/src/main/java/com/merkle/oss/aem/genericmultifield/example/components)
 
 <div align="center">
