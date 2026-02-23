@@ -104,7 +104,7 @@
         <mvn.resource.plugin.version>3.4.0</mvn.resource.plugin.version>
         <mvn.compiler.plugin.version>3.15.0</mvn.compiler.plugin.version>
         <mvn.install.plugin.version>3.1.4</mvn.install.plugin.version>
-        <mvn.surefire.plugin.version>3.5.4</mvn.surefire.plugin.version>
+        <mvn.surefire.plugin.version>3.5.5</mvn.surefire.plugin.version>
         <mvn.failsafe.plugin.version>3.5.5</mvn.failsafe.plugin.version>
         <mvn.deploy.plugin.version>3.1.4</mvn.deploy.plugin.version>
         <sling.mvn.plugin.version>3.0.4</sling.mvn.plugin.version>
