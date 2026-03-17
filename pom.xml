@@ -124,7 +124,7 @@
         </org.apache.sling.scripting.sightly.runtime.version>
         <junit.version>6.0.3</junit.version>
         <mockito.version>5.23.0</mockito.version>
-        <io.wcm.testing.aem-mock.junit5.version>5.7.0</io.wcm.testing.aem-mock.junit5.version>
+        <io.wcm.testing.aem-mock.junit5.version>5.7.2</io.wcm.testing.aem-mock.junit5.version>
         <slf4j-simple.version>2.0.17</slf4j-simple.version>
 
         <java.version>21</java.version>
