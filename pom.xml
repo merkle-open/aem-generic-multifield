@@ -100,7 +100,7 @@
         <mvn.assembly.plugin.version>3.8.0</mvn.assembly.plugin.version>
         <mvn.jar.plugin.version>3.5.0</mvn.jar.plugin.version>
         <mvn.clean.plugin.version>3.5.0</mvn.clean.plugin.version>
-        <bnd.mvn.plugin.version>7.2.1</bnd.mvn.plugin.version>
+        <bnd.mvn.plugin.version>7.2.2</bnd.mvn.plugin.version>
         <mvn.resource.plugin.version>3.5.0</mvn.resource.plugin.version>
         <mvn.compiler.plugin.version>3.15.0</mvn.compiler.plugin.version>
         <mvn.install.plugin.version>3.1.4</mvn.install.plugin.version>
