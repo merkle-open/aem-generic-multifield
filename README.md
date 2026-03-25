@@ -240,6 +240,6 @@ This tool requires **AEM Version 2025.9.x** or higher.
 
 ### Platform Support
 
-- **AEM as a Cloud Service (AEMaaCS):** This tool is primarily designed and optimized for Cloud Service environments.
-- **AEM On-Premise / Adobe Managed Services:** While the codebase is compatible with standard AEM On-Premise
+- **AEM as a Cloud Service (AEMaaCS):** This tool is primarily designed and optimized for AEMaaCS environments.
+- **AEM On-Premise / Adobe Managed Services (AMS):** While the codebase is compatible with standard AEM On-Premise/AMS
   installations, please note that it has not been formally tested in these environments.
