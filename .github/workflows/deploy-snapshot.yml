@@ -30,7 +30,7 @@ jobs:
 
       # Step to save the coverage report for the Analyze job
       - name: Upload JaCoCo Report
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: jacoco-report
           path: core/target/site/jacoco/jacoco.xml
@@ -56,7 +56,7 @@ jobs:
 
       # Step to retrieve the report from the Verify job
       - name: Download JaCoCo Report
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@v8
         with:
           name: jacoco-report
           path: core/target/site/jacoco/

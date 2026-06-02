@@ -9,7 +9,7 @@
     <groupId>com.merkle.oss.aem</groupId>
     <artifactId>aem-generic-multifield</artifactId>
     <packaging>pom</packaging>
-    <version>4.1.0</version>
+    <version>4.1.1-SNAPSHOT</version>
     <name>AEM Generic Multifield</name>
     <description>Maven Multimodule project for AEM Generic Multifield</description>
     <url>https://github.com/merkle-open/aem-generic-multifield</url>
@@ -96,24 +96,24 @@
         <mvn.javadoc.plugin.version>3.12.0</mvn.javadoc.plugin.version>
         <mvn.source.plugin.version>3.4.0</mvn.source.plugin.version>
         <jacoco.mvn.plugin.version>0.8.14</jacoco.mvn.plugin.version>
-        <sonar.mvn.plugin.version>5.5.0.6356</sonar.mvn.plugin.version>
+        <sonar.mvn.plugin.version>5.7.0.6970</sonar.mvn.plugin.version>
         <mvn.assembly.plugin.version>3.8.0</mvn.assembly.plugin.version>
         <mvn.jar.plugin.version>3.5.0</mvn.jar.plugin.version>
         <mvn.clean.plugin.version>3.5.0</mvn.clean.plugin.version>
-        <bnd.mvn.plugin.version>7.2.1</bnd.mvn.plugin.version>
-        <mvn.resource.plugin.version>3.4.0</mvn.resource.plugin.version>
+        <bnd.mvn.plugin.version>7.2.3</bnd.mvn.plugin.version>
+        <mvn.resource.plugin.version>3.5.0</mvn.resource.plugin.version>
         <mvn.compiler.plugin.version>3.15.0</mvn.compiler.plugin.version>
         <mvn.install.plugin.version>3.1.4</mvn.install.plugin.version>
-        <mvn.surefire.plugin.version>3.5.4</mvn.surefire.plugin.version>
-        <mvn.failsafe.plugin.version>3.5.4</mvn.failsafe.plugin.version>
+        <mvn.surefire.plugin.version>3.5.6</mvn.surefire.plugin.version>
+        <mvn.failsafe.plugin.version>3.5.6</mvn.failsafe.plugin.version>
         <mvn.deploy.plugin.version>3.1.4</mvn.deploy.plugin.version>
         <sling.mvn.plugin.version>3.0.4</sling.mvn.plugin.version>
         <htl.mvn.plugin.version>2.0.4-1.4.0</htl.mvn.plugin.version>
         <filevault.package.mvn.plugin.version>1.4.0</filevault.package.mvn.plugin.version>
-        <aemanalyser.mvn.plugin.version>1.6.12</aemanalyser.mvn.plugin.version>
+        <aemanalyser.mvn.plugin.version>1.6.18</aemanalyser.mvn.plugin.version>
         <content.package.mvn.plugin.version>1.0.6</content.package.mvn.plugin.version>
-        <mvn.enforcer.plugin.version>3.6.2</mvn.enforcer.plugin.version>
-        <mvn.dependency.plugin.version>3.9.0</mvn.dependency.plugin.version>
+        <mvn.enforcer.plugin.version>3.6.3</mvn.enforcer.plugin.version>
+        <mvn.dependency.plugin.version>3.11.0</mvn.dependency.plugin.version>
         <build.helper.mvn.plugin.version>3.6.1</build.helper.mvn.plugin.version>
         <lifecycle.mapping.plugin.version>3.6.1</lifecycle.mapping.plugin.version>
         <mvn.gpg.plugin.version>3.2.8</mvn.gpg.plugin.version>
@@ -122,13 +122,13 @@
         <org.jspecify.version>1.0.0</org.jspecify.version>
         <org.apache.sling.scripting.sightly.runtime.version>1.2.6-1.4.0
         </org.apache.sling.scripting.sightly.runtime.version>
-        <junit.version>6.0.2</junit.version>
-        <mockito.version>5.21.0</mockito.version>
-        <io.wcm.testing.aem-mock.junit5.version>5.6.14</io.wcm.testing.aem-mock.junit5.version>
-        <slf4j-simple.version>2.0.17</slf4j-simple.version>
+        <junit.version>6.1.0</junit.version>
+        <mockito.version>5.23.0</mockito.version>
+        <io.wcm.testing.aem-mock.junit5.version>5.7.4</io.wcm.testing.aem-mock.junit5.version>
+        <slf4j-simple.version>2.0.18</slf4j-simple.version>
 
         <java.version>21</java.version>
-        <aem.sdk.api>2025.9.22758.20250928T092442Z-250900</aem.sdk.api>
+        <aem.sdk.api>2026.1.24222.20260130T132034Z-260100</aem.sdk.api>
     </properties>
 
     <!-- ====================================================================== -->
@@ -651,12 +651,6 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>com.adobe.aem</groupId>
-                <artifactId>aem-sdk-api</artifactId>
-                <version>${aem.sdk.api}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.jspecify</groupId>
                 <artifactId>jspecify</artifactId>
                 <version>${org.jspecify.version}</version>
@@ -718,6 +712,12 @@
                 <scope>test</scope>
             </dependency>
             <!-- Testing - End -->
+            <dependency>
+                <groupId>com.adobe.aem</groupId>
+                <artifactId>aem-sdk-api</artifactId>
+                <version>${aem.sdk.api}</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -36,7 +36,7 @@ structures.
 The project contains an example component implementation that demonstrates the usage of the Generic Multifield.
 
 - Resource
-  type: [examplecomponent](ui.apps/src/main/content/jcr_root/apps/merkle/generic-multifield/example/components/examplecomponent)
+  type: [examplecomponent](ui.apps/src/main/content/jcr_root/apps/merkle/generic-multifield/components/examplecomponent)
 - Model: [ExampleComponent](core/src/main/java/com/merkle/oss/aem/genericmultifield/example/components)
 
 <div align="center">
@@ -236,10 +236,10 @@ Build and deploy the full package to a local AEM Author:
 
 ### AEM Version
 
-This tool requires **AEM Version 2025.9.x** or higher.
+This tool requires **AEM Version 2026.1.24222.20260130T132034Z-260100** or higher.
 
 ### Platform Support
 
-- **AEM as a Cloud Service (AEMaaCS):** This tool is primarily designed and optimized for Cloud Service environments.
-- **AEM On-Premise / Adobe Managed Services:** While the codebase is compatible with standard AEM On-Premise
+- **AEM as a Cloud Service (AEMaaCS):** This tool is primarily designed and optimized for AEMaaCS environments.
+- **AEM On-Premise / Adobe Managed Services (AMS):** While the codebase is compatible with standard AEM On-Premise/AMS
   installations, please note that it has not been formally tested in these environments.

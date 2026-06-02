@@ -28,6 +28,10 @@ if [[ $CURRENT_VERSION == *-SNAPSHOT ]]; then
 	echo "commit new snapshot version"
 	git commit -a -m "Release $NEW_VERSION: set develop to next development version $NEXT_SNAPSHOT"
 
+	echo "Update snapshot version in README.md"
+	sed -i -e "s|<version>[0-9A-Za-z._-]\{1,\}</version>|<version>$NEXT_SNAPSHOT</version>|g" README.md && rm -f README.md-e
+  git commit -a -m "Release $NEXT_SNAPSHOT: Update README.md"
+
 	git push --all
 	git push --tags
 fi
