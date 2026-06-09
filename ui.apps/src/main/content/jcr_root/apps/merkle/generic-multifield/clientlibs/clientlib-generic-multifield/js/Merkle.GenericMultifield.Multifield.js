@@ -113,13 +113,15 @@
                 url: that.crxPath + "/" + that.itemStorageNode + ".-1.json"
             }).done(function (data) {
                 that.ol.empty();
+                const labelPromises = [];
+
                 $.each(data, function (key) {
                     if (typeof data[key] === 'object' && !Array.isArray(data[key]) && data[key] !== undefined && data[key]["jcr:primaryType"] !== undefined
                         && data[key]["sling:resourceType"] !== "wcm/msm/components/ghost") {
 
                         if (that.itemNameDisplayStrategy === "pageTitle") {
                             //use the jcr:title from a page
-                            that._labelFromPage(key, data[key][that.itemNameProperty]);
+                            labelPromises.push(that._labelFromPage(key, data[key][that.itemNameProperty]));
                         } else {
                             let propertyValue;
 
@@ -145,34 +147,48 @@
 
                     }
                 });
-                // trigger change event on update of items
-                if (triggerEvent === true) {
-                    that._triggerChangeEvent();
+
+                // Wait for all async label fetches to complete before triggering change event
+                if (labelPromises.length > 0) {
+                    $.when.apply($, labelPromises).done(function () {
+                        if (triggerEvent === true) {
+                            that._triggerChangeEvent();
+                        }
+                    });
+                } else {
+                    // trigger change event immediately if no async operations
+                    if (triggerEvent === true) {
+                        that._triggerChangeEvent();
+                    }
                 }
             });
         },
 
         /**
          * Resolves a display label by fetching the jcr:title of a referenced page.
+         * Returns a Promise that resolves when the list entry has been created.
          *
          * @param {string} key - The JCR node name.
          * @param {string} targetPath - The path to the referenced page.
+         * @returns {Promise} Promise that resolves when the operation is complete.
          * @private
          */
         _labelFromPage: function (key, targetPath) {
             const that = this;
 
-            $.ajax({
+            return $.ajax({
                 type: "GET",
                 dataType: "json",
-                async: false,
                 url: targetPath + ".-1.json"
             }).done(function (data) {
                 if (typeof data["jcr:content"] === 'object') {
-                    const li = that._createListEntry(key, data["jcr:content"]["jcr:title"]);
+                    const pageTitle = data["jcr:content"]["jcr:title"];
+                    const li = that._createListEntry(key, pageTitle);
                     li.appendTo(that.ol);
                 }
-
+            }).fail(function (xhr, status, error) {
+                // If page fetch fails, log error but don't break the UI
+                console.warn("Failed to fetch page title from " + targetPath + ": " + error);
             });
         },
 
@@ -185,7 +201,7 @@
          * @private
          */
         _createListEntry: function (key, label) {
-            const displayLabel = (label && label.trim()) || key;
+            const displayLabel = (label && String(label).trim()) || key;
             const isCopyAllowed = String(this.allowItemCopy).toLowerCase() === 'true';
 
             const getButton = (type, icon) => `
