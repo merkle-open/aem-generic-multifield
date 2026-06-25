@@ -26,10 +26,11 @@
 The **Generic Multifield** is a Coral UI extension for AEM that provides a robust solution for complex multifield dialog
 definitions. It serves as a superior alternative when the out-of-the-box
 `granite/ui/components/coral/foundation/form/multifield` lacks the necessary flexibility or fails to provide an adequate
-user experience for content authors. This component is particularly effective for dialogs requiring complex UI
-elements—such as Rich Text Editors or Image properties—and supports the implementation of custom validation rules.
-Furthermore, the Generic Multifield supports nesting, allowing for the management of hierarchical data
-structures.
+user experience for content authors.
+
+This component is particularly effective for dialogs requiring complex UI elements, such as Rich Text Editors or Image
+properties, and supports the implementation of custom validation rules. Furthermore, the Generic Multifield supports
+nesting, allowing for the management of hierarchical data structures.
 
 ## Generic Multifield Example Component
 
