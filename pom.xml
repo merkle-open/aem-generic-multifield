@@ -98,7 +98,7 @@
         <jacoco.mvn.plugin.version>0.8.15</jacoco.mvn.plugin.version>
         <sonar.mvn.plugin.version>5.7.0.6970</sonar.mvn.plugin.version>
         <mvn.assembly.plugin.version>3.8.0</mvn.assembly.plugin.version>
-        <mvn.jar.plugin.version>3.5.0</mvn.jar.plugin.version>
+        <mvn.jar.plugin.version>3.5.1</mvn.jar.plugin.version>
         <mvn.clean.plugin.version>3.5.0</mvn.clean.plugin.version>
         <bnd.mvn.plugin.version>7.3.0</bnd.mvn.plugin.version>
         <mvn.resource.plugin.version>3.5.0</mvn.resource.plugin.version>
