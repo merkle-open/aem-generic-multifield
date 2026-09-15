@@ -103,7 +103,7 @@
         <bnd.mvn.plugin.version>7.4.0</bnd.mvn.plugin.version>
         <mvn.resource.plugin.version>3.5.0</mvn.resource.plugin.version>
         <mvn.compiler.plugin.version>3.16.0</mvn.compiler.plugin.version>
-        <mvn.install.plugin.version>3.1.4</mvn.install.plugin.version>
+        <mvn.install.plugin.version>3.2.0</mvn.install.plugin.version>
         <mvn.surefire.plugin.version>3.6.0</mvn.surefire.plugin.version>
         <mvn.failsafe.plugin.version>3.6.0</mvn.failsafe.plugin.version>
         <mvn.deploy.plugin.version>3.1.4</mvn.deploy.plugin.version>
