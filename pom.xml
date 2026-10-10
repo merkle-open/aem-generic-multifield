@@ -128,7 +128,7 @@
         <slf4j-simple.version>2.0.19</slf4j-simple.version>
 
         <java.version>21</java.version>
-        <aem.sdk.api>2026.1.24222.20260130T132034Z-260100</aem.sdk.api>
+        <aem.sdk.api>2026.10.28871.20261009T211133Z-260900</aem.sdk.api>
     </properties>
 
     <!-- ====================================================================== -->
