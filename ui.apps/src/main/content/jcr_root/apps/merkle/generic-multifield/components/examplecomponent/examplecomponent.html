@@ -14,24 +14,24 @@
                is="coral-table-body" divider="cell" _observe="on" class="_coral-Table-divider--cell _coral-Table-body">
         <tr is="coral-table-row" class="_coral-Table-row">
             <td style="background-color: rgba(75,75,75,.02);" colspan="2" is="coral-table-cell" role="rowheader"
-                class="_coral-Table-cell" id="coral-id-2">
+                class="_coral-Table-cell">
                 ${item.itemTitle}
             </td>
         </tr>
         <tr data-sly-test="${item.itemText}"
             is="coral-table-row" class="_coral-Table-row">
-            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item text</td>
-            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">${item.itemText}</td>
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell">Item text</td>
+            <td is="coral-table-cell" class="_coral-Table-cell">${item.itemText}</td>
         </tr>
         <tr data-sly-test="${item.itemPath}"
             is="coral-table-row" class="_coral-Table-row">
-            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item path</td>
-            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">${item.itemPath}</td>
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell">Item path</td>
+            <td is="coral-table-cell" class="_coral-Table-cell">${item.itemPath}</td>
         </tr>
         <tr data-sly-test="${item.image.valid}"
             is="coral-table-row" class="_coral-Table-row">
-            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item image</td>
-            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell">Item image</td>
+            <td is="coral-table-cell" class="_coral-Table-cell">
                 <img data-sly-test="${item.image.valid}"
                      style="max-width: 100px; max-height: 100px;"
                      src="${item.image.src}"
@@ -40,8 +40,8 @@
         </tr>
         <tr data-sly-test="${item.text}"
             is="coral-table-row" class="_coral-Table-row">
-            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell" id="coral-id-2">Item richtext</td>
-            <td is="coral-table-cell" class="_coral-Table-cell" id="coral-id-3">${item.text @ context='html'}</td>
+            <td is="coral-table-cell" role="rowheader" class="_coral-Table-cell">Item richtext</td>
+            <td is="coral-table-cell" class="_coral-Table-cell">${item.text @ context='html'}</td>
         </tr>
         </tbody>
         <tfoot is="coral-table-foot"></tfoot>

@@ -12,11 +12,11 @@ jobs:
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # Setup Java environment
       - name: Set up JDK 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: 21
           distribution: zulu
@@ -40,13 +40,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Checkout source code
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       # Setup Java environment
       - name: Set up JDK 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: 21
           distribution: zulu
@@ -61,7 +61,7 @@ jobs:
 
       # Cache SonarQube packages
       - name: Cache SonarQube packages
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
@@ -69,7 +69,7 @@ jobs:
 
       # Cache Maven packages
       - name: Cache Maven packages
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -89,13 +89,13 @@ jobs:
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       # Setup Java environment
       - name: Set up JDK 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           java-version: 21
           distribution: zulu
@@ -125,20 +125,27 @@ jobs:
     steps:
       # Checkout source code
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           ref: master
 
+      # Force maven version due to plugin issue
+      # https://github.com/mavenplugins/central-publishing-maven-plugin/issues/79
+      - name: Set up Maven 3.9.16
+        uses: stCarolas/setup-maven@12eb41b233df95d49b0c11fc1b5bc8312e5d4ce0 # v5.1
+        with:
+          maven-version: 3.9.16
+
       # Setup Java environment
       - name: Set up JDK 21
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@v6
         with:
           distribution: zulu
           java-version: 21
           server-id: central
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
-          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+          server-username-env-var: MAVEN_USERNAME
+          server-password-env-var: MAVEN_PASSWORD
+          gpg-passphrase-env-var: MAVEN_GPG_PASSPHRASE
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
           cache: maven
 
