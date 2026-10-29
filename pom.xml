@@ -114,7 +114,7 @@
         <htl.mvn.plugin.version>2.0.4-1.4.0</htl.mvn.plugin.version>
         <filevault.package.mvn.plugin.version>1.4.0</filevault.package.mvn.plugin.version>
         <aem.nodetypes.version>2026.06.0</aem.nodetypes.version>
-        <aemanalyser.mvn.plugin.version>1.7.8</aemanalyser.mvn.plugin.version>
+        <aemanalyser.mvn.plugin.version>1.7.12</aemanalyser.mvn.plugin.version>
         <content.package.mvn.plugin.version>1.0.6</content.package.mvn.plugin.version>
         <mvn.enforcer.plugin.version>3.6.3</mvn.enforcer.plugin.version>
         <mvn.dependency.plugin.version>3.11.0</mvn.dependency.plugin.version>
