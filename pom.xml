@@ -100,7 +100,7 @@
         <mvn.assembly.plugin.version>3.8.0</mvn.assembly.plugin.version>
         <mvn.jar.plugin.version>3.5.1</mvn.jar.plugin.version>
         <mvn.clean.plugin.version>3.5.0</mvn.clean.plugin.version>
-        <bnd.mvn.plugin.version>7.4.0</bnd.mvn.plugin.version>
+        <bnd.mvn.plugin.version>7.5.0</bnd.mvn.plugin.version>
         <org.apache.sling.caconfig.bnd.plugin.version>1.0.2</org.apache.sling.caconfig.bnd.plugin.version>
         <org.apache.sling.bnd.models.version>1.0.0</org.apache.sling.bnd.models.version>
         <scriptingbundle.maven.plugin.version>0.5.4</scriptingbundle.maven.plugin.version>
